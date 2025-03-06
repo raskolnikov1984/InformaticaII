@@ -14,4 +14,6 @@ public:
   int calculate_a_divided_b(int a, int b);
 
   int calculate_a_power_b(int a, int b);
+
+  int sum_first_n_terms(int n_term);
 };

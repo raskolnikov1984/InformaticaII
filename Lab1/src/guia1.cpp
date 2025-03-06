@@ -31,3 +31,10 @@ int GuiaLab::calculate_a_power_b(int a, int b) {
   }
   return power;
 }
+
+int GuiaLab::sum_first_n_terms(int n_term) {
+
+  int sum = (n_term * (n_term + 1)) / 2;
+
+  return sum;
+}

@@ -47,3 +47,8 @@ TEST(GuiaLabTest, ApowerB) {
   GuiaLab guia;
   EXPECT_EQ(guia.calculate_a_power_b(5, 3), 125);
 }
+
+TEST(GuiaLabTest, SumFirstNTermsTest) {
+  GuiaLab guia;
+  EXPECT_EQ(guia.sum_first_n_terms(5), 15);
+}
