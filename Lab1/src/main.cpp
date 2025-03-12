@@ -42,6 +42,13 @@ int main() {
     cout << "The sum of the firts N-Term is: " << guia.sum_first_n_terms(5)
          << endl;
     break;
+  case 8:
+    cout << "The factorial is: " << guia.calculate_factorial(5);
+    break;
+  case 9:
+    cout << "The perimeter of circle is: " << guia.calculate_perimeter_circle(1)
+         << endl;
+    cout << "The area of circle is: " << guia.calculate_area_circle(1) << endl;
   default:
     cout << "Please choose a correct option";
   }

@@ -48,7 +48,22 @@ TEST(GuiaLabTest, ApowerB) {
   EXPECT_EQ(guia.calculate_a_power_b(5, 3), 125);
 }
 
+// Excercise 7:
 TEST(GuiaLabTest, SumFirstNTermsTest) {
   GuiaLab guia;
   EXPECT_EQ(guia.sum_first_n_terms(5), 15);
+}
+
+// Excercise 8:
+TEST(GuiaLabTest, CalculateFactorialTest) {
+  GuiaLab guia;
+  EXPECT_EQ(guia.calculate_factorial(5), 120);
+}
+
+// Excercise 9:
+TEST(GuiaLabTest, CalculatePerimeterAndAreaTest) {
+  GuiaLab guia;
+
+  EXPECT_EQ(guia.calculate_perimeter_circle(1), 6.2832);
+  EXPECT_EQ(guia.calculate_area_circle(1), 3.1416);
 }

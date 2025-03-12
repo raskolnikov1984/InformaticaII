@@ -38,3 +38,20 @@ int GuiaLab::sum_first_n_terms(int n_term) {
 
   return sum;
 }
+
+unsigned long long GuiaLab::calculate_factorial(int n_term) {
+  if (n_term == 0) {
+    return 1;
+  }
+  return n_term * calculate_factorial(n_term - 1);
+}
+
+float GuiaLab::calculate_perimeter_circle(double n) {
+  const float PI = 3.1416;
+  return 2 * PI * n;
+}
+
+float GuiaLab::calculate_area_circle(double n) {
+  const float PI = 3.1416;
+  return PI * (n * n);
+}

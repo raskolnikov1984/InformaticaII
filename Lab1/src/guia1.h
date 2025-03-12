@@ -16,4 +16,10 @@ public:
   int calculate_a_power_b(int a, int b);
 
   int sum_first_n_terms(int n_term);
+
+  unsigned long long calculate_factorial(int n_term);
+
+  float calculate_perimeter_circle(double n);
+
+  float calculate_area_circle(double n);
 };
