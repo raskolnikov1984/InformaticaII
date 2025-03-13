@@ -93,3 +93,15 @@ void GuiaLab::print_parallel_colunms(int number) {
     number--;
   };
 }
+
+void GuiaLab::print_multiples_less_than_hundred(int number) {
+  for (int i = 1; i * number < 100; i++) {
+    cout << i * number << endl;
+  }
+}
+
+void GuiaLab::print_multiplication_table_of_n(int number) {
+  for (int i = 1; i <= 10; i++) {
+    cout << number << " x " << i << " = " << number * i << endl;
+  }
+}

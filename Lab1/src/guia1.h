@@ -28,4 +28,8 @@ public:
   int calculate_dividers(int number);
 
   void print_parallel_colunms(int number);
+
+  void print_multiples_less_than_hundred(int number);
+
+  void print_multiplication_table_of_n(int number);
 };
