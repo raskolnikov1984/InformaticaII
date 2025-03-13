@@ -55,3 +55,40 @@ float GuiaLab::calculate_area_circle(double n) {
   const float PI = 3.1416;
   return PI * (n * n);
 }
+
+int GuiaLab::calculate_firts_five_powers(int number){
+  int last_power = 0;
+  int power;
+  for(int i = 1; i < 6; i++){
+    power = calculate_a_power_b(number, i);
+    cout << "The power #"<< i << " is: "<< calculate_a_power_b(number, i) << endl;
+
+    if(i == 5){
+      last_power = power;
+    };
+  };
+  return last_power;
+}
+
+int GuiaLab::calculate_dividers(int number){
+  int last_divider = 0;
+  for(int i=1; i < number+1; i++){
+    if (number % i == 0){
+      cout << "The number "<< i << "is divider of " << number << endl;
+    };
+
+    if(i == number){
+      last_divider = i;
+    };
+  };
+
+  return last_divider;
+}
+
+void GuiaLab::print_parallel_colunms(int number){
+  int iter = number;
+  for(int i=1; i < iter+1; i++){
+    cout << i << " " << number << endl;
+    number--;
+  };
+}

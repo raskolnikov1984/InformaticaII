@@ -49,6 +49,14 @@ int main() {
     cout << "The perimeter of circle is: " << guia.calculate_perimeter_circle(1)
          << endl;
     cout << "The area of circle is: " << guia.calculate_area_circle(1) << endl;
+  case 12:
+    cout << "Type the number to calculate firts five power" << endl;
+    cin >> number;
+    guia.calculate_firts_five_powers(number);
+
+  case 14:
+    guia.print_parallel_colunms(50);
+    break;
   default:
     cout << "Please choose a correct option";
   }

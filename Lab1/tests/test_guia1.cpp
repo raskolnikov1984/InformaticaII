@@ -43,7 +43,7 @@ TEST(GuiaLabTest, CalculateAdividedB) {
 }
 
 // Excercise 6: A power B
-TEST(GuiaLabTest, ApowerB) {
+TEST(GuiaLabTest, ApowerBTest) {
   GuiaLab guia;
   EXPECT_EQ(guia.calculate_a_power_b(5, 3), 125);
 }
@@ -66,4 +66,22 @@ TEST(GuiaLabTest, CalculatePerimeterAndAreaTest) {
 
   EXPECT_EQ(guia.calculate_perimeter_circle(1), 6.2832);
   EXPECT_EQ(guia.calculate_area_circle(1), 3.1416);
+}
+
+// Excercise 12:
+TEST(GuiaLabTest, Power5Test) {
+  GuiaLab guia;
+  EXPECT_EQ(guia.calculate_firts_five_powers(2), 32);
+}
+
+// Exercise 13:
+TEST(GuiaLabTest, N_DividersTest){
+  GuiaLab guia;
+  EXPECT_EQ(guia.calculate_dividers(4), 4);
+}
+
+// Excercise 14:
+TEST(GuiaLabTest, PrintParallelColums){
+  GuiaLab guia;
+  // EXPECT_STREQ(guia.print_parallel_colunms(50), "50   1");
 }

@@ -22,4 +22,10 @@ public:
   float calculate_perimeter_circle(double n);
 
   float calculate_area_circle(double n);
+
+  int calculate_firts_five_powers(int number);
+
+  int calculate_dividers(int number);
+
+  void print_parallel_colunms(int number);
 };
