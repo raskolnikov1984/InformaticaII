@@ -19,9 +19,9 @@ public:
 
   unsigned long long calculate_factorial(int n_term);
 
-  float calculate_perimeter_circle(double n);
+  double calculate_perimeter_circle(double n);
 
-  float calculate_area_circle(double n);
+  double calculate_area_circle(double n);
 
   int calculate_firts_five_powers(int number);
 

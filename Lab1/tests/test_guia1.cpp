@@ -64,8 +64,8 @@ TEST(GuiaLabTest, CalculateFactorialTest) {
 TEST(GuiaLabTest, CalculatePerimeterAndAreaTest) {
   GuiaLab guia;
 
-  EXPECT_EQ(guia.calculate_perimeter_circle(1), 6.2832);
-  EXPECT_EQ(guia.calculate_area_circle(1), 3.1416);
+  EXPECT_EQ(guia.calculate_perimeter_circle(1.0), 6.2831997871398926);
+  EXPECT_EQ(guia.calculate_area_circle(1.0), 3.1415998935699463);
 }
 
 // Excercise 12:
@@ -75,13 +75,13 @@ TEST(GuiaLabTest, Power5Test) {
 }
 
 // Exercise 13:
-TEST(GuiaLabTest, N_DividersTest){
+TEST(GuiaLabTest, N_DividersTest) {
   GuiaLab guia;
   EXPECT_EQ(guia.calculate_dividers(4), 4);
 }
 
 // Excercise 14:
-TEST(GuiaLabTest, PrintParallelColums){
+TEST(GuiaLabTest, PrintParallelColums) {
   GuiaLab guia;
   // EXPECT_STREQ(guia.print_parallel_colunms(50), "50   1");
 }
