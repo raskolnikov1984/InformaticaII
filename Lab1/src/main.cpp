@@ -19,7 +19,9 @@ char get_exercises_type() {
 int main() {
   GuiaLab guia;
   Guia1Problems guiaP;
+  ReturnCashStruc result;
   int number, exercise = 0;
+  int return_cash;
   char exercises_type = get_exercises_type();
   cout << "the exercise type choosed is: " << exercises_type << endl;
 
@@ -94,7 +96,7 @@ int main() {
       cout << "Please choose a correct option";
     }
   } else {
-    int problem;
+    int problem = 0;
     cout << "Please choose the problem (1 - 17)" << endl;
     cin >> problem;
 
@@ -106,9 +108,24 @@ int main() {
       cout << character << " " << guiaP.is_vowel_or_consonant(character)
            << endl;
       break;
+    case 2:
+      cout << "Please Type the amount to return: " << endl;
+      cin >> return_cash;
+      result = guiaP.calculate_return_cash(return_cash);
+      cout << "Billetes y monedas necesarios:" << endl;
+      cout << "Billetes de $50,000: " << result.fiftyThousandCOP << endl;
+      cout << "Billetes de $20,000: " << result.twentyThousandCOP << endl;
+      cout << "Billetes de $10,000: " << result.tenThousandCOP << endl;
+      cout << "Billetes de $5,000: " << result.fiveThousandCOP << endl;
+      cout << "Billetes de $2,000: " << result.twoThousandCOP << endl;
+      cout << "Billetes de $1,000: " << result.oneThousandCOP << endl;
+      cout << "Monedas de $500: " << result.fiveHoundredCOP << endl;
+      cout << "Monedas de $200: " << result.twoHoundredCOP << endl;
+      cout << "Monedas de $100: " << result.oneHoundredCOP << endl;
+      break;
     default:
       cout << "Please choose a correct option";
-    }
+    };
   };
   return 0;
 };
