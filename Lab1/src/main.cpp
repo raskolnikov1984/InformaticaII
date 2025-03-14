@@ -49,6 +49,7 @@ int main() {
     cout << "The perimeter of circle is: " << guia.calculate_perimeter_circle(1)
          << endl;
     cout << "The area of circle is: " << guia.calculate_area_circle(1) << endl;
+    break;
   case 10:
     cout << "Type a number, please: " << endl;
     cin >> number;
@@ -59,12 +60,16 @@ int main() {
     cin >> number;
     guia.print_multiplication_table_of_n(number);
     break;
-
   case 12:
     cout << "Type the number to calculate firts five power" << endl;
     cin >> number;
     guia.calculate_firts_five_powers(number);
-
+    break;
+  case 13:
+    cout << "Type a number N" << endl;
+    cin >> number;
+    guia.calculate_dividers(number);
+    break;
   case 14:
     guia.print_parallel_colunms(50);
     break;
