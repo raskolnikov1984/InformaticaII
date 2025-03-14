@@ -3,7 +3,7 @@
 
 class GuiaLab {
 public:
-  int get_remainder(int a, int b);
+  float get_remainder(int a, int b);
 
   const char *is_even_or_odd(int number);
 
