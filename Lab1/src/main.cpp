@@ -97,6 +97,18 @@ int main() {
     int problem;
     cout << "Please choose the problem (1 - 17)" << endl;
     cin >> problem;
+
+    switch (problem) {
+    case 1:
+      char character;
+      cout << "Please choose a character: " << endl;
+      cin >> character;
+      cout << character << " " << guiaP.is_vowel_or_consonant(character)
+           << endl;
+      break;
+    default:
+      cout << "Please choose a correct option";
+    }
   };
   return 0;
 };
