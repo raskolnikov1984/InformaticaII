@@ -20,4 +20,6 @@ public:
   const char *is_vowel_or_consonant(int c);
 
   ReturnCashStruc calculate_return_cash(int return_cash);
+
+  bool isValidDate(int day, int month);
 };

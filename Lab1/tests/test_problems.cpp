@@ -42,3 +42,9 @@ TEST_F(ProblemsTest, CalculateReturnCashTest) {
   EXPECT_EQ(return_cash_struc.fiftyCOP, 1);
   EXPECT_EQ(return_cash_struc.remainderCOP, 20);
 }
+
+TEST_F(ProblemsTest, IsValidDateTest) {
+  EXPECT_EQ(guia.isValidDate(31, 4), false);
+  EXPECT_EQ(guia.isValidDate(27, 4), true);
+  EXPECT_EQ(guia.isValidDate(29, 2), true);
+}
