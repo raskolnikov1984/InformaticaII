@@ -46,3 +46,26 @@ ReturnCashStruc Guia1Problems::calculate_return_cash(int return_cash) {
 
   return return_cash_struc;
 }
+
+bool Guia1Problems::isValidDate(int day, int month = 0) {
+  if (month < 1 || month > 12) {
+    cout << month << " is an invalid month." << endl;
+    return false;
+  }
+
+  int daysByMonth[] = {0, 31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
+
+  if (month < 1 || day > daysByMonth[month]) {
+    cout << day << "/" << month << " is an invalid date." << endl;
+    return false;
+  }
+
+  if (month == 2 && day == 29) {
+    cout << day << "/" << month << " possibly leap year." << endl;
+    return true;
+  } else {
+    cout << day << "/" << month << " is a valid date." << endl;
+  }
+
+  return true;
+}
