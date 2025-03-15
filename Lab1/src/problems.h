@@ -22,4 +22,6 @@ public:
   ReturnCashStruc calculate_return_cash(int return_cash);
 
   bool isValidDate(int day, int month);
+
+  void printDiamond();
 };

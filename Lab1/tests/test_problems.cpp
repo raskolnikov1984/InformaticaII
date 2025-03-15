@@ -7,12 +7,14 @@ public:
   ReturnCashStruc return_cash_struc;
 };
 
+// Problem #1:
 TEST_F(ProblemsTest, IsVowelOrConsonantTest) {
   EXPECT_STREQ(guia.is_vowel_or_consonant('a'), "is a vowel");
   EXPECT_STREQ(guia.is_vowel_or_consonant('}'), "undefined");
   EXPECT_STREQ(guia.is_vowel_or_consonant('c'), "is a consonant");
 }
 
+// Problem #2
 TEST_F(ProblemsTest, CalculateReturnCashTest) {
   int return_cash = 47810;
   return_cash_struc = guia.calculate_return_cash(return_cash);
@@ -43,8 +45,11 @@ TEST_F(ProblemsTest, CalculateReturnCashTest) {
   EXPECT_EQ(return_cash_struc.remainderCOP, 20);
 }
 
+// Problem #3
 TEST_F(ProblemsTest, IsValidDateTest) {
   EXPECT_EQ(guia.isValidDate(31, 4), false);
   EXPECT_EQ(guia.isValidDate(27, 4), true);
   EXPECT_EQ(guia.isValidDate(29, 2), true);
 }
+
+// Problem #4

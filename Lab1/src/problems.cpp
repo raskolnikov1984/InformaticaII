@@ -69,3 +69,24 @@ bool Guia1Problems::isValidDate(int day, int month = 0) {
 
   return true;
 }
+
+void Guia1Problems::printDiamond() {
+  char character = '*';
+  char espaces = ' ';
+  int rows, numesp, numcharacter;
+  cout << "Por favor ingrese un numero impar: ";
+  cin >> rows;
+
+  numesp = (rows + 1) / 2;
+  numcharacter = 1;
+  for (int i = 1; i < rows; i += 2) {
+    cout << string(numesp, espaces) + string(numcharacter, character) << endl;
+    numesp--;
+    numcharacter += 2;
+  }
+  for (int i = 1; i < rows + 1; i += 2) {
+    cout << string(numesp, espaces) + string(numcharacter, character) << endl;
+    numesp++;
+    numcharacter -= 2;
+  }
+}
