@@ -25,4 +25,6 @@ public:
   void printDiamond(int odd_number);
 
   float calculate_aproximate_euluer_value(int number);
+
+  int calculate_sum_time(int first_time, int second_time);
 };

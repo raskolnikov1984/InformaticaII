@@ -72,6 +72,58 @@ bool Guia1Problems::isValidDate(int day, int month = 0) {
   return true;
 }
 
+int Guia1Problems::calculate_sum_time(int first_time, int second_time) {
+  int a = first_time, b = second_time;
+  unsigned short int ha, hb, ma, mb, ht = 0, mt = 0;
+
+  if (a > 2359 || a < 0) {
+    cout << a << " is an invalid time" << endl;
+    return 0;
+  }
+
+  if (b > 2359 || b < 0) {
+    cout << b << " is an invalid time" << endl;
+    return 0;
+  }
+
+  ha = a / 100;
+  hb = b / 100;
+
+  ma = a % 100;
+  mb = b % 100;
+
+  if (ma >= 60) {
+    cout << ma << " is an invalid time" << endl;
+    return 0;
+  } else if (mb >= 60) {
+    cout << mb << " is an invalid time" << endl;
+    return 0;
+  } else {
+    mt = ma + mb;
+    while (mt >= 60) {
+      // Si la suma de los minutos es mayor a 60, esto significa que se suma una
+      // hora.
+      ht++;
+      mt -= 60;
+    }
+    ht += (ha + hb);
+    if (ht > 24) {
+      // Si se pasan las 24 horas el contador se reinicia a 00:00.
+      ht -= 24;
+    }
+  }
+
+  if (ht == 24 && mt > 0) {
+    ht *= 0;
+  };
+
+  cout << "The time is: " << ht << ":" << mt << endl;
+
+  ht = ht * 100 + mt;
+
+  return ht;
+}
+
 void Guia1Problems::printDiamond(int odd_number) {
   char character = '*';
   char espaces = ' ';
@@ -90,14 +142,6 @@ void Guia1Problems::printDiamond(int odd_number) {
     numesp++;
     numcharacter -= 2;
   }
-}
-
-int factorial(int numero) {
-  double facto = numero;
-  for (int i = 1; i < numero; i++) {
-    facto = facto * (numero - i);
-  }
-  return facto;
 }
 
 unsigned long long calculate_factorial(int n_term) {

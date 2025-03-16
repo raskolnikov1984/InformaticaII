@@ -52,8 +52,13 @@ TEST_F(ProblemsTest, IsValidDateTest) {
   EXPECT_EQ(guia.isValidDate(29, 2), true);
 }
 
+// Problem #4
+TEST_F(ProblemsTest, CalculateSumTime) {
+  EXPECT_EQ(guia.calculate_sum_time(1245, 345), 1630);
+  EXPECT_EQ(guia.calculate_sum_time(2300, 120), 20);
+  EXPECT_EQ(guia.calculate_sum_time(300, 150), 450);
+}
 // Problem #6
-
 TEST_F(ProblemsTest, CALCULATE_APPROXIMATE_EULUER_VALUE) {
   EXPECT_FLOAT_EQ(guia.calculate_aproximate_euluer_value(3), 2.5);
   EXPECT_FLOAT_EQ(guia.calculate_aproximate_euluer_value(10), 2.71828175);
