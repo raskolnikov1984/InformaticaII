@@ -65,3 +65,7 @@ TEST_F(ProblemsTest, CALCULATE_APPROXIMATE_EULUER_VALUE) {
   EXPECT_FLOAT_EQ(guia.calculate_aproximate_euluer_value(20), 2.71828198);
   EXPECT_FLOAT_EQ(guia.calculate_aproximate_euluer_value(30), 2.71828198);
 }
+
+TEST_F(ProblemsTest, CalculateSumEvenNumberInFibonacci) {
+  EXPECT_EQ(guia.calculate_sum_even_numbers_in_fibonacci(10), 10);
+}

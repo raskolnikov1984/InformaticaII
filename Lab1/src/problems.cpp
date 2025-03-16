@@ -158,3 +158,19 @@ float Guia1Problems::calculate_aproximate_euluer_value(int number) {
   }
   return euler;
 }
+
+int Guia1Problems::calculate_sum_even_numbers_in_fibonacci(int n_term) {
+  int firts_term = 1, second_term = 1, b = 1, sum = firts_term + second_term,
+      sumEven = 0;
+  do {
+    if (sum % 2 == 0) {
+      sumEven += sum;
+    }
+    firts_term = second_term;
+    second_term = sum;
+    sum = firts_term + second_term;
+
+  } while (sum < n_term);
+
+  return sumEven;
+}

@@ -27,4 +27,6 @@ public:
   float calculate_aproximate_euluer_value(int number);
 
   int calculate_sum_time(int first_time, int second_time);
+
+  int calculate_sum_even_numbers_in_fibonacci(int n_term);
 };

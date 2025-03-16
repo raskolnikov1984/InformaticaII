@@ -152,8 +152,14 @@ int main() {
       cout << "Please type a number to calculate euler" << endl;
       cin >> number;
       euler = guiaP.calculate_aproximate_euluer_value(number);
-
       cout << "The aproximate value of euler is: " << euler << endl;
+
+    case 7:
+      cout << "Please type a N-Term: " << endl;
+      cin >> number;
+      cout << "The sum of the even numbers in fibonacci is: "
+           << guiaP.calculate_sum_even_numbers_in_fibonacci(number) << endl;
+      break;
     default:
       cout << "Please choose a correct option";
     };
