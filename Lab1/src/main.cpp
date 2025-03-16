@@ -19,7 +19,7 @@ char get_exercises_type() {
 int main() {
   GuiaLab guia;
   Guia1Problems guiaP;
-  ReturnCashStruc result;
+  Guia1Problems::ReturnCashStruc result;
   int number, exercise = 0;
   int return_cash;
   char exercises_type = get_exercises_type();
@@ -123,6 +123,31 @@ int main() {
       cout << "Monedas de $200: " << result.twoHoundredCOP << endl;
       cout << "Monedas de $100: " << result.oneHoundredCOP << endl;
       break;
+    case 3:
+      int month, day;
+      cout << "Please type the month: ";
+      cin >> month;
+      cout << endl;
+      cout << "Please type the day: ";
+      cin >> day;
+      cout << endl;
+
+      guiaP.isValidDate(day, month);
+      break;
+    case 4:
+      break;
+    case 5:
+      int odd_number;
+      cout << "Please type a odd number: " << endl;
+      cin >> odd_number;
+      guiaP.printDiamond(odd_number);
+    case 6:
+      float euler;
+      cout << "Please type a number to calculate euler" << endl;
+      cin >> number;
+      euler = guiaP.calculate_aproximate_euluer_value(number);
+
+      cout << "The aproximate value of euler is: " << euler << endl;
     default:
       cout << "Please choose a correct option";
     };

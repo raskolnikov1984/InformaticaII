@@ -4,7 +4,7 @@
 class ProblemsTest : public ::testing::Test {
 public:
   Guia1Problems guia;
-  ReturnCashStruc return_cash_struc;
+  Guia1Problems::ReturnCashStruc return_cash_struc;
 };
 
 // Problem #1:
@@ -52,4 +52,11 @@ TEST_F(ProblemsTest, IsValidDateTest) {
   EXPECT_EQ(guia.isValidDate(29, 2), true);
 }
 
-// Problem #4
+// Problem #6
+
+TEST_F(ProblemsTest, CALCULATE_APPROXIMATE_EULUER_VALUE) {
+  EXPECT_FLOAT_EQ(guia.calculate_aproximate_euluer_value(3), 2.5);
+  EXPECT_FLOAT_EQ(guia.calculate_aproximate_euluer_value(10), 2.71828175);
+  EXPECT_FLOAT_EQ(guia.calculate_aproximate_euluer_value(20), 2.71828198);
+  EXPECT_FLOAT_EQ(guia.calculate_aproximate_euluer_value(30), 2.71828198);
+}

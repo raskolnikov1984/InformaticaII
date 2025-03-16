@@ -1,5 +1,5 @@
 #ifndef GUIA1_H
-#endif
+#define GUIA1_H
 
 class GuiaLab {
 public:
@@ -33,3 +33,5 @@ public:
 
   void print_multiplication_table_of_n(int number);
 };
+
+#endif

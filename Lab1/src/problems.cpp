@@ -1,4 +1,5 @@
 #include "problems.h"
+#include "guia1.h"
 #include <iostream>
 
 using namespace std;
@@ -19,7 +20,8 @@ const char *Guia1Problems::is_vowel_or_consonant(int c) {
   return "undefined";
 }
 
-ReturnCashStruc Guia1Problems::calculate_return_cash(int return_cash) {
+Guia1Problems::ReturnCashStruc
+Guia1Problems::calculate_return_cash(int return_cash) {
   ReturnCashStruc return_cash_struc;
   int denominations[10] = {50000, 20000, 10000, 5000, 2000,
                            1000,  500,   200,   100,  50};
@@ -70,12 +72,11 @@ bool Guia1Problems::isValidDate(int day, int month = 0) {
   return true;
 }
 
-void Guia1Problems::printDiamond() {
+void Guia1Problems::printDiamond(int odd_number) {
   char character = '*';
   char espaces = ' ';
   int rows, numesp, numcharacter;
-  cout << "Por favor ingrese un numero impar: ";
-  cin >> rows;
+  rows = odd_number;
 
   numesp = (rows + 1) / 2;
   numcharacter = 1;
@@ -89,4 +90,27 @@ void Guia1Problems::printDiamond() {
     numesp++;
     numcharacter -= 2;
   }
+}
+
+int factorial(int numero) {
+  double facto = numero;
+  for (int i = 1; i < numero; i++) {
+    facto = facto * (numero - i);
+  }
+  return facto;
+}
+
+unsigned long long calculate_factorial(int n_term) {
+  if (n_term == 0) {
+    return 1;
+  }
+  return n_term * calculate_factorial(n_term - 1);
+}
+float Guia1Problems::calculate_aproximate_euluer_value(int number) {
+  float euler = 1;
+  for (int i = 1; i < number; i++) {
+    euler = euler + static_cast<float>(
+                        (static_cast<float>(1) / calculate_factorial(i)));
+  }
+  return euler;
 }
