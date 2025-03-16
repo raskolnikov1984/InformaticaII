@@ -135,6 +135,12 @@ int main() {
       guiaP.isValidDate(day, month);
       break;
     case 4:
+      int firts_time, second_time;
+      cout << "Please type a firts_time" << endl;
+      cin >> firts_time;
+      cout << "Please type a second_time" << endl;
+      cin >> second_time;
+      guiaP.calculate_sum_time(firts_time, second_time);
       break;
     case 5:
       int odd_number;
