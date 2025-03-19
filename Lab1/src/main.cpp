@@ -186,6 +186,11 @@ int main() {
       cin >> number;
       guiaP.least_common_multiple_until_number(number);
       break;
+    case 12:
+      cout << "Type the number to calculate maxime prime factor: " << endl;
+      cin >> number;
+      guiaP.maxime_prime_factor(number);
+      break;
     default:
       cout << "Please choose a correct option";
     };
