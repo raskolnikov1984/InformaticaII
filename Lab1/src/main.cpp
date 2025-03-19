@@ -181,6 +181,11 @@ int main() {
       cout << "Type the prime position: " << endl;
       cin >> number;
       guiaP.calculate_n_term_prime(number);
+    case 11:
+      cout << "Type the number to calculate lcm: " << endl;
+      cin >> number;
+      guiaP.least_common_multiple_until_number(number);
+      break;
     default:
       cout << "Please choose a correct option";
     };

@@ -39,4 +39,10 @@ public:
   bool is_prime(int number);
 
   int calculate_n_term_prime(int number);
+
+  int least_common_multiple(int a, int b);
+
+  int greatest_common_factor(int a, int b);
+
+  int least_common_multiple_until_number(int number);
 };

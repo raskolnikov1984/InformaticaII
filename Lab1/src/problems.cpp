@@ -263,3 +263,28 @@ int Guia1Problems::calculate_n_term_prime(int position) {
 
   return value;
 }
+
+int Guia1Problems::greatest_common_factor(int a, int b) {
+  if (b == 0)
+    return a;
+  else
+    return greatest_common_factor(b, a % b);
+}
+
+int Guia1Problems::least_common_multiple(int a, int b) {
+  /*
+   * calcula el mínimo común múltiplo de dos números utilizando la fórmula
+   * lcm(a, b) = a * (b / gcd(a, b)).
+   */
+  return a * (b / greatest_common_factor(a, b));
+}
+
+int Guia1Problems::least_common_multiple_until_number(int number) {
+  int result = 1;
+  for (int i = 1; i <= number; i++) {
+    result = least_common_multiple(result, i);
+  }
+  cout << "El minimo comun multiplo es: " << result << endl;
+
+  return result;
+}

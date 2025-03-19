@@ -93,3 +93,13 @@ TEST_F(ProblemsTest, SumPowersOfDigitsTest) {
 TEST_F(ProblemsTest, CalculateNTermPrimeTest) {
   EXPECT_EQ(guia.calculate_n_term_prime(4), 7);
 }
+
+TEST_F(ProblemsTest, LeastCommonMultipleTest) {
+  EXPECT_EQ(guia.least_common_multiple(2, 3), 6);
+  EXPECT_EQ(guia.least_common_multiple(2, 4), 4);
+}
+
+TEST_F(ProblemsTest, LeastCommonMultipleUntilNumberTest) {
+  EXPECT_EQ(guia.least_common_multiple_until_number(4), 12);
+  EXPECT_EQ(guia.least_common_multiple_until_number(10), 2520);
+}
