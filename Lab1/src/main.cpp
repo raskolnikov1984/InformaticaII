@@ -191,6 +191,18 @@ int main() {
       cin >> number;
       guiaP.maxime_prime_factor(number);
       break;
+    case 13:
+      cout << "Please Type a number: " << endl;
+      guiaP.sum_primes_until_number(number);
+      break;
+    case 14:
+      break;
+    case 15:
+      break;
+    case 16:
+      break;
+    case 17:
+      break;
     default:
       cout << "Please choose a correct option";
     };

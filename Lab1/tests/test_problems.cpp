@@ -110,3 +110,8 @@ TEST_F(ProblemsTest, MaximePrimeFactorTest) {
   EXPECT_EQ(guia.maxime_prime_factor(20), 5);
   EXPECT_EQ(guia.maxime_prime_factor(100), 5);
 }
+
+TEST_F(ProblemsTest, SumPrimesUntilNumberTest) {
+  EXPECT_EQ(guia.sum_primes_until_number(10), 17);
+  EXPECT_EQ(guia.sum_primes_until_number(1000), 76127);
+}

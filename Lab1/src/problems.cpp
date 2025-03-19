@@ -302,3 +302,15 @@ int Guia1Problems::maxime_prime_factor(int number) {
 
   return maxime;
 }
+
+int Guia1Problems::sum_primes_until_number(int number) {
+  int sum = 0;
+  for (int i = 2; i < number; i++) {
+    if (is_prime(i)) {
+      sum += i;
+    }
+  }
+  cout << "The sum of primes until number " << number << " is: " << sum << endl;
+
+  return sum;
+}
