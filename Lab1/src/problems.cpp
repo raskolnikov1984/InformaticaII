@@ -288,3 +288,17 @@ int Guia1Problems::least_common_multiple_until_number(int number) {
 
   return result;
 }
+
+int Guia1Problems::maxime_prime_factor(int number) {
+  int maxime = 0;
+  for (int i = 2; i <= number; i++) {
+    if (number % i == 0) {
+      if (is_prime(i)) {
+        maxime = i;
+      }
+    }
+  }
+  cout << "The maxime prime factor is: " << maxime << endl;
+
+  return maxime;
+}

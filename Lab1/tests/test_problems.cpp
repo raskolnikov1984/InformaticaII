@@ -103,3 +103,10 @@ TEST_F(ProblemsTest, LeastCommonMultipleUntilNumberTest) {
   EXPECT_EQ(guia.least_common_multiple_until_number(4), 12);
   EXPECT_EQ(guia.least_common_multiple_until_number(10), 2520);
 }
+
+TEST_F(ProblemsTest, MaximePrimeFactorTest) {
+  EXPECT_EQ(guia.maxime_prime_factor(10), 5);
+  EXPECT_EQ(guia.maxime_prime_factor(33), 11);
+  EXPECT_EQ(guia.maxime_prime_factor(20), 5);
+  EXPECT_EQ(guia.maxime_prime_factor(100), 5);
+}

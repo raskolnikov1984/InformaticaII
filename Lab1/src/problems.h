@@ -45,4 +45,6 @@ public:
   int greatest_common_factor(int a, int b);
 
   int least_common_multiple_until_number(int number);
+
+  int maxime_prime_factor(int number);
 };
