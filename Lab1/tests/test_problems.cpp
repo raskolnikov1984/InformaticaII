@@ -58,6 +58,10 @@ TEST_F(ProblemsTest, CalculateSumTime) {
   EXPECT_EQ(guia.calculate_sum_time(2300, 120), 20);
   EXPECT_EQ(guia.calculate_sum_time(300, 150), 450);
 }
+
+// Problem #5
+TEST_F(ProblemsTest, PrintDiamond) { guia.printDiamond(7); }
+
 // Problem #6
 TEST_F(ProblemsTest, CALCULATE_APPROXIMATE_EULUER_VALUE) {
   EXPECT_FLOAT_EQ(guia.calculate_aproximate_euluer_value(3), 2.5);
@@ -66,6 +70,22 @@ TEST_F(ProblemsTest, CALCULATE_APPROXIMATE_EULUER_VALUE) {
   EXPECT_FLOAT_EQ(guia.calculate_aproximate_euluer_value(30), 2.71828198);
 }
 
+// Problem #7
 TEST_F(ProblemsTest, CalculateSumEvenNumberInFibonacci) {
   EXPECT_EQ(guia.calculate_sum_even_numbers_in_fibonacci(10), 10);
+}
+
+// Problem #8
+TEST_F(ProblemsTest, SumNCommonsMultiples) {
+  EXPECT_EQ(guia.sum_n_commons_multiples(3, 5, 10), 23);
+}
+
+// Power
+TEST_F(ProblemsTest, PowerTest) { EXPECT_EQ(guia.power(2, 3), 8); }
+
+// Problem #9
+TEST_F(ProblemsTest, SumPowersOfDigits) {
+  EXPECT_EQ(guia.sum_powers_of_digits(3), 27);
+  EXPECT_EQ(guia.sum_powers_of_digits(10), 2);
+  EXPECT_EQ(guia.sum_powers_of_digits(1223), 36);
 }

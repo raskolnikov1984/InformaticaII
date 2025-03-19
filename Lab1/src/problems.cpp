@@ -174,3 +174,60 @@ int Guia1Problems::calculate_sum_even_numbers_in_fibonacci(int n_term) {
 
   return sumEven;
 }
+
+int Guia1Problems::sum_n_commons_multiples(int a, int b, int c) {
+  int *multiples = new int;
+  int positions = 0;
+  int sum = 0;
+
+  for (int i = 1; i < c; i++) {
+    if (a * i < c) {
+      sum += a * i;
+      *(multiples + positions) = a * i;
+      positions++;
+    }
+  }
+  for (int x = 1; x < c; x++) {
+    if (b * x < c && (b * x) % a != 0) {
+      sum += b * x;
+      *(multiples + positions) = b * x;
+      positions++;
+    }
+  }
+
+  for (int i = 0; i < positions; i++) {
+    cout << *(multiples + i);
+    if (i != positions - 1) {
+      cout << '+';
+    } else {
+      cout << '=' << sum;
+    }
+  }
+  delete multiples;
+  multiples = nullptr;
+
+  return sum;
+}
+
+int Guia1Problems::power(int base, int exponent) {
+  int result = 1;
+  for (int i = 0; i < exponent; i++) {
+    result *= base;
+  }
+
+  return result;
+}
+
+int Guia1Problems::sum_powers_of_digits(int number) {
+  int sum = 0, remainder = 0;
+
+  if (number >= 10) {
+    do {
+      remainder = number % 10;
+      sum += power(remainder, remainder);
+      number = number / 10 - remainder / 10;
+    } while (number / 10 >= 1);
+    cout << "The result of sum is: ";
+  }
+  return sum + power(number, number);
+}

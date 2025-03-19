@@ -29,4 +29,10 @@ public:
   int calculate_sum_time(int first_time, int second_time);
 
   int calculate_sum_even_numbers_in_fibonacci(int n_term);
+
+  int sum_n_commons_multiples(int a, int b, int c);
+
+  int power(int base, int exponent);
+
+  int sum_powers_of_digits(int number);
 };

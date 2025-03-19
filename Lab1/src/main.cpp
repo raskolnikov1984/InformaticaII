@@ -160,6 +160,23 @@ int main() {
       cout << "The sum of the even numbers in fibonacci is: "
            << guiaP.calculate_sum_even_numbers_in_fibonacci(number) << endl;
       break;
+    case 8:
+      int a, b, c;
+      cout << "Please type the firts number: " << endl;
+      cin >> a;
+      cout << "Please type the second number: " << endl;
+      cin >> b;
+      cout << "Please type the third number: " << endl;
+      cin >> c;
+      guiaP.sum_n_commons_multiples(a, b, c);
+      break;
+    case 9:
+      cout << "Please type a number" << endl;
+      cin >> number;
+
+      cout << "The sum of " << number
+           << " is :" << guiaP.sum_powers_of_digits(number) << endl;
+      break;
     default:
       cout << "Please choose a correct option";
     };
