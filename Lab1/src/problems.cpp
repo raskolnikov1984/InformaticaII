@@ -231,3 +231,35 @@ int Guia1Problems::sum_powers_of_digits(int number) {
   }
   return sum + power(number, number);
 }
+
+bool Guia1Problems::is_prime(int number) {
+  /*
+   * Calculate until square root
+   */
+  if (number <= 1) {
+    return false;
+  }
+  for (int div = 2; div * div <= number; div++) {
+    if (number % div == 0) {
+      return false;
+    }
+  }
+  return true;
+}
+
+int Guia1Problems::calculate_n_term_prime(int position) {
+  int num = 2;   // Comenzamos desde el primer número primo
+  int count = 0; // Contador de números primos encontrados
+  int value = 0;
+
+  while (count < position) {
+    if (is_prime(num)) {
+      count++;
+      value = num;
+    }
+    num++;
+  }
+  cout << "The prime in position: " << position << " is " << value << endl;
+
+  return value;
+}

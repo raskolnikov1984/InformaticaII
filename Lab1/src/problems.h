@@ -35,4 +35,8 @@ public:
   int power(int base, int exponent);
 
   int sum_powers_of_digits(int number);
+
+  bool is_prime(int number);
+
+  int calculate_n_term_prime(int number);
 };

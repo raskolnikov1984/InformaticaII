@@ -177,6 +177,10 @@ int main() {
       cout << "The sum of " << number
            << " is :" << guiaP.sum_powers_of_digits(number) << endl;
       break;
+    case 10:
+      cout << "Type the prime position: " << endl;
+      cin >> number;
+      guiaP.calculate_n_term_prime(number);
     default:
       cout << "Please choose a correct option";
     };

@@ -71,12 +71,12 @@ TEST_F(ProblemsTest, CALCULATE_APPROXIMATE_EULUER_VALUE) {
 }
 
 // Problem #7
-TEST_F(ProblemsTest, CalculateSumEvenNumberInFibonacci) {
+TEST_F(ProblemsTest, CalculateSumEvenNumberInFibonacciTest) {
   EXPECT_EQ(guia.calculate_sum_even_numbers_in_fibonacci(10), 10);
 }
 
 // Problem #8
-TEST_F(ProblemsTest, SumNCommonsMultiples) {
+TEST_F(ProblemsTest, SumNCommonsMultiplesTest) {
   EXPECT_EQ(guia.sum_n_commons_multiples(3, 5, 10), 23);
 }
 
@@ -84,8 +84,12 @@ TEST_F(ProblemsTest, SumNCommonsMultiples) {
 TEST_F(ProblemsTest, PowerTest) { EXPECT_EQ(guia.power(2, 3), 8); }
 
 // Problem #9
-TEST_F(ProblemsTest, SumPowersOfDigits) {
+TEST_F(ProblemsTest, SumPowersOfDigitsTest) {
   EXPECT_EQ(guia.sum_powers_of_digits(3), 27);
   EXPECT_EQ(guia.sum_powers_of_digits(10), 2);
   EXPECT_EQ(guia.sum_powers_of_digits(1223), 36);
+}
+
+TEST_F(ProblemsTest, CalculateNTermPrimeTest) {
+  EXPECT_EQ(guia.calculate_n_term_prime(4), 7);
 }
