@@ -429,3 +429,87 @@ int Guia1Problems::fill_matrix_clockwise(int dimension) {
 
   return 0;
 }
+
+int Guia1Problems::collatz(long long n) {
+  /*la función collatz toma un número n y devuelve la longitud de su serie de
+   * Collatz. La variable length se inicializa en 1 porque el primer término de
+   * la serie es n. Luego, iteramos hasta que lleguemos a 1 y en cada iteración,
+   * verificamos si el número es par o impar y lo seguimos la regla
+   * correspondiente.*/
+
+  int length = 1;
+  while (n > 1) {
+    if (n % 2 == 0) {
+      n /= 2;
+    } else {
+      n = n * 3 + 1;
+    }
+    length++;
+  }
+  return length;
+}
+
+int Guia1Problems::largest_seed_collatz() {
+  /*leemos el número k del usuario y luego iteramos sobre todas las semillas
+   * menores que k. En cada iteración, calculamos la longitud de la serie de
+   * Collatz para esa semilla y si es mayor que la longitud máxima actual,
+   * actualizamos la longitud máxima y la semilla correspondiente.*/
+
+  long long k;
+  cout << "Ingrese un numero: ";
+  cin >> k;
+  int max_length = 0;
+  long long seed = 0;
+  for (long long i = 1; i < k; i++) {
+    int length = collatz(i);
+    if (length > max_length) {
+      max_length = length;
+      seed = i;
+    }
+  }
+
+  /*Imprimimos la semilla con la serie más larga y la longitud de esa serie.
+   * Luego, para imprimir la serie de Collatz, simplemente iteramos sobre la
+   * semilla, siguiendo la regla de la serie de Collatz, e imprimimos cada
+   * término de la serie.*/
+
+  cout << "La serie mas larga es con la semilla: " << seed << ", teniendo "
+       << max_length << " terminos." << endl;
+  cout << "La serie es: ";
+  while (seed > 1) {
+    cout << seed << ", ";
+    if (seed % 2 == 0) {
+      seed /= 2;
+    } else {
+      seed = seed * 3 + 1;
+    }
+  }
+  cout << "1" << endl;
+
+  return 0;
+}
+
+int Guia1Problems::count_divisors(int n) {
+  /*Función que cuenta los divisores de un número n*/
+
+  int contador = 0;
+  for (int i = 1; i * i <= n; i++) {
+    if (n % i == 0) {
+      // Si i es un divisor, también lo es n/i
+      contador += (i * i == n) ? 1 : 2;
+    }
+  }
+  return contador;
+}
+
+int Guia1Problems::triangular_number_sequence() {
+  int k, n = 1;
+  cout << "Ingrese el número de divisores que desea buscar: ";
+  cin >> k;
+  while (count_divisors(n * (n + 1) / 2) <= k) {
+    n++;
+  }
+  cout << "El número es: " << n * (n + 1) / 2 << " que tiene "
+       << count_divisors(n * (n + 1) / 2) << " divisores." << endl;
+  return 0;
+}

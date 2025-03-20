@@ -207,8 +207,10 @@ int main() {
       guiaP.fill_matrix_clockwise(number);
       break;
     case 16:
+      guiaP.largest_seed_collatz();
       break;
     case 17:
+      guiaP.triangular_number_sequence();
       break;
     default:
       cout << "Please choose a correct option";

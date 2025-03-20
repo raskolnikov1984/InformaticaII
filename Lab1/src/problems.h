@@ -53,4 +53,12 @@ public:
   int calculate_largest_palindrome(int quantity_digits);
 
   int fill_matrix_clockwise(int dimesion);
+
+  int collatz(long long n);
+
+  int largest_seed_collatz();
+
+  int count_divisors(int n);
+
+  int triangular_number_sequence();
 };

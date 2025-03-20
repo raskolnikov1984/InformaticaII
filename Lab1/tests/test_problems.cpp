@@ -127,3 +127,19 @@ TEST_F(ProblemsTest, FillMatrixClockWiseTest) {
   guia.fill_matrix_clockwise(5);
   guia.fill_matrix_clockwise(7);
 }
+
+TEST_F(ProblemsTest, CollatzTest) {
+  EXPECT_EQ(guia.collatz(1), 1); // La serie de Collatz para 1 es solo [1]
+  EXPECT_EQ(guia.collatz(2), 2); // La serie de Collatz para 2 es [2, 1]
+  EXPECT_EQ(guia.collatz(3),
+            8); // La serie de Collatz para 3 es [3, 10, 5, 16, 8, 4, 2, 1]
+  EXPECT_EQ(guia.collatz(4), 3); // La serie de Collatz para 4 es [4, 2, 1]
+  EXPECT_EQ(guia.collatz(5),
+            6); // La serie de Collatz para 5 es [5, 16, 8, 4, 2, 1]
+  EXPECT_EQ(guia.collatz(6),
+            9); // La serie de Collatz para 6 es [6, 3, 10, 5, 16, 8, 4, 2, 1]
+  EXPECT_EQ(guia.collatz(7),
+            17); // La serie de Collatz para 7 es [7, 22, 11, 34, 17, 52, 26,
+                 // 13, 40, 20, 10, 5, 16, 8, 4, 2, 1]
+  EXPECT_EQ(guia.collatz(8), 4); // La serie de Collatz para 8 es [8, 4, 2, 1]
+}
