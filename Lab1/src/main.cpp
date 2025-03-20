@@ -196,6 +196,10 @@ int main() {
       guiaP.sum_primes_until_number(number);
       break;
     case 14:
+      int quantity_digits;
+      cout << "Type a quantit of digits: " << endl;
+      cin >> quantity_digits;
+      guiaP.calculate_largest_palindrome(quantity_digits);
       break;
     case 15:
       break;

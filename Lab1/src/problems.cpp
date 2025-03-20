@@ -314,3 +314,35 @@ int Guia1Problems::sum_primes_until_number(int number) {
 
   return sum;
 }
+
+int Guia1Problems::calculate_largest_palindrome(int quantity_digits) {
+  int firts_number = 0, second_number = 0, max_product = 0, product;
+  int upper_limit = power(10, quantity_digits) - 1;
+
+  int lower_limit = 1 + upper_limit / 10;
+
+  for (int i = upper_limit; i >= lower_limit; i--) {
+    for (int j = i; j >= lower_limit; j--) {
+      product = i * j;
+      if (product < max_product) {
+        break;
+      }
+
+      int number = product;
+      int reverse = 0;
+
+      while (number != 0) {
+        reverse = reverse * 10 + number % 10;
+        number /= 10;
+      }
+
+      if (product == reverse && product > max_product) {
+        max_product = product;
+        firts_number = i;
+        second_number = j;
+      }
+    }
+  }
+  cout << firts_number << "*" << second_number << "=" << max_product << endl;
+  return max_product;
+}

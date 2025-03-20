@@ -115,3 +115,10 @@ TEST_F(ProblemsTest, SumPrimesUntilNumberTest) {
   EXPECT_EQ(guia.sum_primes_until_number(10), 17);
   EXPECT_EQ(guia.sum_primes_until_number(1000), 76127);
 }
+
+TEST_F(ProblemsTest, LargestPalindromeTest) {
+  EXPECT_EQ(guia.calculate_largest_palindrome(1), 9);
+  EXPECT_EQ(guia.calculate_largest_palindrome(2), 9009);
+  EXPECT_EQ(guia.calculate_largest_palindrome(3), 906609);
+  EXPECT_EQ(guia.calculate_largest_palindrome(5), 2128338212);
+}
