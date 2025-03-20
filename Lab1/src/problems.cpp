@@ -346,3 +346,86 @@ int Guia1Problems::calculate_largest_palindrome(int quantity_digits) {
   cout << firts_number << "*" << second_number << "=" << max_product << endl;
   return max_product;
 }
+
+int Guia1Problems::fill_matrix_clockwise(int dimension) {
+  /* dimesion (int): An odd number for square matrix nxn*/
+
+  // Matrix para guardar la espiral
+  int espiral[dimension][dimension];
+
+  // inicializar la matriz con ceros
+  for (int i = 0; i < dimension; i++) {
+    for (int j = 0; j < dimension; j++) {
+      espiral[i][j] = 0;
+    }
+  }
+
+  // generar la espiral
+  int num = power(dimension, 2);
+  int suma_diagonales = 0;
+  int fil = 0;
+  int col = dimension - 1;
+  int limite_superior = 0;
+  int limite_inferior = dimension - 1;
+  int limite_izquierdo = 0;
+  int limite_derecho = dimension - 1;
+  int numero_ceros = 0;
+
+  while (num >= 1) {
+    // llenar fila hacia la izquierda
+    for (int j = col; j >= limite_izquierdo; j--) {
+      espiral[fil][j] = num;
+      num--;
+    }
+
+    limite_superior++;
+    // llenar columna hacia arriba
+    for (int i = fil + 1; i <= limite_inferior; i++) {
+      espiral[i][limite_izquierdo] = num;
+      num--;
+    }
+
+    // llenar fila hacia la derecha
+    for (int j = limite_izquierdo + 1; j <= limite_derecho; j++) {
+      espiral[limite_inferior][j] = num;
+      num--;
+    }
+
+    limite_inferior--;
+    // llenar columna hacia abajo
+    for (int i = limite_inferior; i >= limite_superior; i--) {
+      espiral[i][limite_derecho] = num;
+      num--;
+    }
+    limite_izquierdo++;
+    limite_derecho--;
+
+    // siguiente fila
+    fil = limite_superior;
+    col = limite_derecho;
+  }
+
+  for (int Aij = 0; Aij < dimension; Aij++) {
+    suma_diagonales = suma_diagonales + espiral[Aij][Aij];
+  }
+
+  for (int Aij = 0, Bij = (dimension - 1); Bij >= 0; Aij++, Bij--) {
+    suma_diagonales = suma_diagonales + espiral[Aij][Bij];
+  }
+  cout << endl;
+  for (int i = 0; i < dimension; i++) {
+    cout << "\t\t";
+    for (int j = 0; j < dimension; j++) {
+      if (espiral[i][j] < 10) {
+        cout << 0 << espiral[i][j] << " ";
+      } else {
+        cout << espiral[i][j] << " ";
+      }
+    }
+    cout << endl;
+  }
+  cout << "En una espiral de: " << dimension << "x" << dimension
+       << ", la suma es: " << suma_diagonales - 1 << endl;
+
+  return 0;
+}

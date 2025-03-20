@@ -202,6 +202,9 @@ int main() {
       guiaP.calculate_largest_palindrome(quantity_digits);
       break;
     case 15:
+      cout << "Please type a odd number: " << endl;
+      cin >> number;
+      guiaP.fill_matrix_clockwise(number);
       break;
     case 16:
       break;

@@ -122,3 +122,8 @@ TEST_F(ProblemsTest, LargestPalindromeTest) {
   EXPECT_EQ(guia.calculate_largest_palindrome(3), 906609);
   EXPECT_EQ(guia.calculate_largest_palindrome(5), 2128338212);
 }
+
+TEST_F(ProblemsTest, FillMatrixClockWiseTest) {
+  guia.fill_matrix_clockwise(5);
+  guia.fill_matrix_clockwise(7);
+}

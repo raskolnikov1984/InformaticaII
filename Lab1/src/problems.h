@@ -51,4 +51,6 @@ public:
   int sum_primes_until_number(int number);
 
   int calculate_largest_palindrome(int quantity_digits);
+
+  int fill_matrix_clockwise(int dimesion);
 };
