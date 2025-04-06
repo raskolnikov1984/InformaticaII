@@ -1,0 +1,48 @@
+#include <iostream>
+using namespace std;
+
+#ifndef RETURN_CASH_CALCULATOR_H
+#define RETURN_CASH_CALCULATOR_H
+
+struct ReturnCashStruc {
+    int fiftyThousandCOP = 0;
+    int twentyThousandCOP = 0;
+    int tenThousandCOP = 0;
+    int fiveThousandCOP = 0;
+    int twoThousandCOP = 0;
+    int oneThousandCOP = 0;
+    int fiveHoundredCOP = 0;
+    int twoHoundredCOP = 0;
+    int oneHoundredCOP = 0;
+    int fiftyCOP = 0;
+    int remainderCOP = 0;
+};
+
+ReturnCashStruc calculate_return_cash(int return_cash) {
+    ReturnCashStruc return_cash_struc;
+    int denominations[10] = {50000, 20000, 10000, 5000, 2000,
+                             1000,  500,   200,   100,  50};
+    int *quantities[] = {
+                         &return_cash_struc.fiftyThousandCOP, &return_cash_struc.twentyThousandCOP,
+                         &return_cash_struc.tenThousandCOP,   &return_cash_struc.fiveThousandCOP,
+                         &return_cash_struc.twoThousandCOP,   &return_cash_struc.oneThousandCOP,
+                         &return_cash_struc.fiveHoundredCOP,  &return_cash_struc.twoHoundredCOP,
+                         &return_cash_struc.oneHoundredCOP,   &return_cash_struc.fiftyCOP};
+
+    for (int i = 0; i < 10; i++) {
+        if (return_cash >= denominations[i]) {
+            *quantities[i] = return_cash / denominations[i];
+            return_cash %= denominations[i];
+        }
+    }
+
+    return_cash_struc.remainderCOP = return_cash;
+
+    if (return_cash > 0) {
+        cout << "You can't complete this expected amount. : " << return_cash
+             << endl;
+    }
+
+    return return_cash_struc;
+}
+#endif // RETURN_CASH_CALCULATOR_H

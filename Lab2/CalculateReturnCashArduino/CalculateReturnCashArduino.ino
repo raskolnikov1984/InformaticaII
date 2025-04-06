@@ -12,7 +12,7 @@ struct ReturnCashStruc {
     int remainderCOP = 0;
 };
 
-ReturnCashStruc calculate_return_cash(int return_cash) {
+ReturnCashStruc calculate_return_cash(int return_cash) {y
     ReturnCashStruc return_cash_struc;
     int denominations[10] = {50000, 20000, 10000, 5000, 2000,
                               1000,  500,   200,   100,  50};
