@@ -6,8 +6,10 @@
 
 using namespace std;
 
-Room::Room(int rows, int numbers) : rows(rows), numbers(numbers), state('o'){
+Room::Room(int rows, int numbers) : rows(rows), numbers(numbers), state('o'), reservedSeats(0)
+{
     rowMap = new RowMapper[rows];
+    unreservedSeats = rows * numbers;
     seats = fill_seats();
     initRowMap(rowMap);
 }
@@ -52,18 +54,32 @@ bool Room::reserveSeat(char row, int number){
     bool reservedSeat;
     int rowSeat = getRowIndex(this->rowMap, row);
 
-    seats[rowSeat][number].state = '+';
+    seats[rowSeat][number-1].state = '+';
     reservedSeat = true;
 
     this->reservedSeats++;
+    this->unreservedSeats--;
 
     return reservedSeat;
+}
+
+bool Room::unReserveSeat(char row, int number){
+    bool unreservedSeat;
+    int rowSeat = getRowIndex(this->rowMap, row);
+
+    seats[rowSeat][number-1].state = '-';
+    unreservedSeat = true;
+
+    this->reservedSeats -= 1;
+    this->unreservedSeats += 1;
+
+    return unreservedSeat;
 }
 
 void Room::printRoom() const {
     for (int i = 0; i < rows; ++i) {
         for (int j = 0; j < numbers; ++j) {
-            cout << seats[i][j].getState() << " ";
+            cout << this->seats[i][j].getState() << " ";
         }
         cout << std::endl;
     }

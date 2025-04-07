@@ -78,6 +78,29 @@ TEST_F(CinemaReserve, ReserveSeatTeas){
     room->printRoom();
 };
 
+
+TEST_F(CinemaReserve, UnReserveSeatTest){
+    int rowA = 'A';
+
+    bool unReservedSeatA10 = room->unReserveSeat(rowA, 10);
+
+
+    EXPECT_EQ(unReservedSeatA10, true);
+
+
+    EXPECT_EQ(room->unreservedSeats, 291);
+
+    int rowB = 'B';
+    bool unReservedSeatB1 = room->unReserveSeat(rowB, 1);
+
+    EXPECT_EQ(unReservedSeatB1, true);
+
+
+    EXPECT_EQ(room->unreservedSeats, 292);
+
+    room->printRoom();
+};
+
 TEST(Seat, SeatTest){
     Seat seat(1, 10);
     EXPECT_EQ(seat.getRow(), 1);

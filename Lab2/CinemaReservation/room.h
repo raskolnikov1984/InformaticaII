@@ -17,9 +17,9 @@ public:
     Seat** seats;
     RowMapper* rowMap;
 
-    int reservedSeats = 0;
+    int reservedSeats;
 
-    int unreservedSeats = 0;
+    int unreservedSeats;
 
     Room(int rows, int numbers);
 
@@ -38,6 +38,8 @@ public:
     }
 
     bool reserveSeat(char row, int number);
+
+    bool unReserveSeat(char row, int number);
 
     void initRowMap(RowMapper rowMap[]);
 
