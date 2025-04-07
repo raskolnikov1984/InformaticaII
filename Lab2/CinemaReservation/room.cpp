@@ -27,6 +27,10 @@ Room::~Room(){
     delete[] seats;
 }
 
+bool Room::reserveSeat(int row, int number){
+    return true;
+}
+
 void Room::printRoom() const {
     for (int i = 0; i < rows; ++i) {
         for (int j = 0; j < numbers; ++j) {

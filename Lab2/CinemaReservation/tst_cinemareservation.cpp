@@ -28,6 +28,13 @@ TEST_F(CinemaReserve, CreateRoomTest){
 
 };
 
+TEST_F(CinemaReserve, ReserveSeatTeas){
+    int row = 'A';
+    int number = 10;
+
+    room->reserveSeat(row, number);
+};
+
 TEST(Seat, SeatTest){
     Seat seat(1, 10);
     EXPECT_EQ(seat.getRow(), 1);

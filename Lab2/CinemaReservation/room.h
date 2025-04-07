@@ -26,6 +26,8 @@ public:
         return this->state;
     }
 
+    bool reserveSeat(int row, int number);
+
     void printRoom() const;
 
 protected:
