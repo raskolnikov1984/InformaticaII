@@ -6,9 +6,9 @@ class Seat {
 private:
     int row;
     int number;
-    char state;
 
 public:
+    char state;
     Seat() : row(0), number(0), state('-') {}
 
     Seat(int row, int number) : row(row), number(number), state('-') {}

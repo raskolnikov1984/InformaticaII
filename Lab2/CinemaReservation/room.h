@@ -2,14 +2,25 @@
 #define ROOM_H
 #include "./seat.h"
 
+struct RowMapper {
+    char rowChar;
+    int rowIndex;
+};
+
 class Room {
 private:
     int rows;
     int numbers;
     char state;
-    Seat** seats;
 
 public:
+    Seat** seats;
+    RowMapper* rowMap;
+
+    int reservedSeats = 0;
+
+    int unreservedSeats = 0;
+
     Room(int rows, int numbers);
 
     ~Room();
@@ -26,7 +37,11 @@ public:
         return this->state;
     }
 
-    bool reserveSeat(int row, int number);
+    bool reserveSeat(char row, int number);
+
+    void initRowMap(RowMapper rowMap[]);
+
+    int getRowIndex(RowMapper rowMap[], char row);
 
     void printRoom() const;
 
@@ -35,4 +50,7 @@ protected:
     Seat** fill_seats();
 };
 
+
 #endif // ROOM_H
+
+
