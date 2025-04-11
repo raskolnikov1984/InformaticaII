@@ -10,13 +10,14 @@ set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS Core)
-find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Core)
-
+find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Core Gui Test)
+find_package(Qt5 REQUIRED COMPONENTS Core Gui Widgets)
 add_executable(DecryptImage
   main.cpp
   tools/provided_tools.h
 )
-target_link_libraries(DecryptImage Qt${QT_VERSION_MAJOR}::Core)
+
+target_link_libraries(DecryptImage Qt${QT_VERSION_MAJOR}::Core Qt${QT_VERSION_MAJOR}::Gui)
 
 include(GNUInstallDirs)
 install(TARGETS DecryptImage
@@ -48,7 +49,7 @@ if (NOT GTest_FOUND)
 endif()
 
 add_executable(tst_decryptimage tst_decryptimage.cpp)
-target_link_libraries(tst_decryptimage GTest::GTest GTest::Main)
+target_link_libraries(tst_decryptimage GTest::GTest GTest::Main Qt${QT_VERSION_MAJOR}::Core Qt${QT_VERSION_MAJOR}::Gui)
 add_test(NAME DecryptImageTest COMMAND tst_decryptimage)
 
 
