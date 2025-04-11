@@ -7,9 +7,9 @@ using namespace testing;
 
 TEST(LoweCaseToUpperCase, LoweCaseToUpperCase)
 {
-    char world[] = "Man-zana";
+    char world[] = "ana";
 
-    EXPECT_STREQ(convert_lowercase_to_uppercase(world), "MAN-ZANA");
+    EXPECT_STREQ(convert_lowercase_to_uppercase(world), "ANA");
 
 }
 

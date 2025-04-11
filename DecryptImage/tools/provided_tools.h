@@ -1,0 +1,4 @@
+#ifndef PROVIDED_TOOLS_H
+#define PROVIDED_TOOLS_H
+
+#endif // PROVIDED_TOOLS_H
