@@ -9,8 +9,8 @@ using namespace std;
 TEST(DrecryptImage, DecryptImageTest)
 {
     // Definición de rutas de archivo de entrada (imagen original) y salida (imagen modificada)
-    QString archivoEntrada = "/home/rodia/Escritorio/03-UdeA/InformaticaII/ChallengeI_Requirements/Caso 1/I_O.bmp";
-    QString archivoSalida = "/home/rodia/Escritorio/03-UdeA/InformaticaII/ChallengeI_Requirements/Caso 1/I_D2.bmp";
+    QString archivoEntrada = "./TestCases/Case1/I_O.bmp";
+    QString archivoSalida = "./TestCases/Case1/I_D.bmp";
 
     // Variables para almacenar las dimensiones de la imagen
     int height = 0;

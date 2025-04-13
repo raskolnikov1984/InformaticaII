@@ -16,6 +16,7 @@ add_executable(DecryptImage
   main.cpp
   tools/provided_tools.h
   README.md
+  TestCases/Case1/I_D.bmp TestCases/Case1/I_D2.bmp TestCases/Case1/I_M.bmp TestCases/Case1/I_O.bmp TestCases/Case1/M.bmp TestCases/Case1/M0.txt TestCases/Case1/M1.txt TestCases/Case1/M2.txt TestCases/Case1/P1.bmp TestCases/Case1/P2.bmp TestCases/Case2/I_D.bmp TestCases/Case2/I_M.bmp TestCases/Case2/I_O.bmp TestCases/Case2/M.bmp TestCases/Case2/M0.txt TestCases/Case2/M1.txt TestCases/Case2/M2.txt TestCases/Case2/M3.txt TestCases/Case2/M4.txt TestCases/Case2/M5.txt TestCases/Case2/M6.txt TestCases/Case2/P1.bmp TestCases/Case2/P2.bmp TestCases/Case2/P3.bmp TestCases/Case2/P4.bmp TestCases/Case2/P5.bmp TestCases/Case2/P6.bmp
 )
 
 target_link_libraries(DecryptImage Qt${QT_VERSION_MAJOR}::Core Qt${QT_VERSION_MAJOR}::Gui)
