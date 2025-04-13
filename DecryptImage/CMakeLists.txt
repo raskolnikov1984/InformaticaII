@@ -15,6 +15,7 @@ find_package(Qt5 REQUIRED COMPONENTS Core Gui Widgets)
 add_executable(DecryptImage
   main.cpp
   tools/provided_tools.h
+  README.md
 )
 
 target_link_libraries(DecryptImage Qt${QT_VERSION_MAJOR}::Core Qt${QT_VERSION_MAJOR}::Gui)

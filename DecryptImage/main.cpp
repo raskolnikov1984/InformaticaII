@@ -1,8 +1,10 @@
 #include <QCoreApplication>
 
-int main(int argc, char *argv[])
-{
-    QCoreApplication a(argc, argv);
+using namespace std;
 
-    return 0;
+
+int main()
+{
+
+    return 0; // Fin del programa
 }

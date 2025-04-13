@@ -6,18 +6,11 @@
 using namespace testing;
 using namespace std;
 
-TEST(DrecryptImage, DecryptImage)
-{
-    EXPECT_EQ(1, 1);
-    ASSERT_THAT(0, Eq(0));
-}
-
-
-int main()
+TEST(DrecryptImage, DecryptImageTest)
 {
     // Definición de rutas de archivo de entrada (imagen original) y salida (imagen modificada)
-    QString archivoEntrada = "I_O.bmp";
-    QString archivoSalida = "I_D.bmp";
+    QString archivoEntrada = "/home/rodia/Escritorio/03-UdeA/InformaticaII/ChallengeI_Requirements/Caso 1/I_O.bmp";
+    QString archivoSalida = "/home/rodia/Escritorio/03-UdeA/InformaticaII/ChallengeI_Requirements/Caso 1/I_D2.bmp";
 
     // Variables para almacenar las dimensiones de la imagen
     int height = 0;
@@ -49,7 +42,7 @@ int main()
     int n_pixels = 0;
 
     // Carga los datos de enmascaramiento desde un archivo .txt (semilla + valores RGB)
-    unsigned int *maskingData = loadSeedMasking("M1.txt", seed, n_pixels);
+    unsigned int *maskingData = loadSeedMasking("/home/rodia/Escritorio/03-UdeA/InformaticaII/ChallengeI_Requirements/Caso 1/M1.txt", seed, n_pixels);
 
     // Muestra en consola los primeros valores RGB leídos desde el archivo de enmascaramiento
     for (int i = 0; i < n_pixels * 3; i += 3) {
@@ -64,6 +57,4 @@ int main()
         delete[] maskingData;
         maskingData = nullptr;
     }
-
-    return 0; // Fin del programa
 }
