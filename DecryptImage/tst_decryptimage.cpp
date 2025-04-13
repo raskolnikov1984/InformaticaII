@@ -8,41 +8,37 @@ using namespace std;
 
 TEST(DrecryptImage, DecryptImageTest)
 {
-    // Definición de rutas de archivo de entrada (imagen original) y salida (imagen modificada)
-    QString archivoEntrada = "./TestCases/Case1/I_O.bmp";
-    QString archivoSalida = "./TestCases/Case1/I_D.bmp";
+    QString archivoEntrada = "/home/rodia/Escritorio/03-UdeA/InformaticaII/ChallengeI_Requirements/Caso 1/I_O.bmp";
+    QString archivoSalida = "/home/rodia/Escritorio/03-UdeA/InformaticaII/ChallengeI_Requirements/Caso 1/I_D.bmp";
 
-    // Variables para almacenar las dimensiones de la imagen
     int height = 0;
     int width = 0;
 
-    // Carga la imagen BMP en memoria dinámica y obtiene ancho y alto
+    // Paso 1: Cargar la imagen original
     unsigned char *pixelData = loadPixels(archivoEntrada, width, height);
 
-    // Simula una modificación de la imagen asignando valores RGB incrementales
-    // (Esto es solo un ejemplo de manipulación artificial)
+    // Paso 2: Modificar la imagen artificialmente
     for (int i = 0; i < width * height * 3; i += 3) {
-        pixelData[i] = i;     // Canal rojo
-        pixelData[i + 1] = i; // Canal verde
-        pixelData[i + 2] = i; // Canal azul
+        pixelData[i] = i % 256;     // Evitamos desbordamiento usando % 256
+        pixelData[i + 1] = i % 256;
+        pixelData[i + 2] = i % 256;
     }
 
-    // Exporta la imagen modificada a un nuevo archivo BMP
-    bool exportI = exportImage(pixelData, width, height, archivoSalida);
+    // Paso 3: Exportar la imagen modificada
+    bool exportSuccess = exportImage(pixelData, width, height, archivoSalida);
+    EXPECT_TRUE(exportSuccess) << "Falló la exportación de la imagen";
 
-    // Muestra si la exportación fue exitosa (true o false)
-    cout << exportI << endl;
-
-    // Libera la memoria usada para los píxeles
+    // Liberar memoria de la imagen original
     delete[] pixelData;
     pixelData = nullptr;
 
-    // Variables para almacenar la semilla y el número de píxeles leídos del archivo de enmascaramiento
+    // Paso 4: Cargar datos de enmascaramiento
     int seed = 0;
     int n_pixels = 0;
-
-    // Carga los datos de enmascaramiento desde un archivo .txt (semilla + valores RGB)
-    unsigned int *maskingData = loadSeedMasking("/home/rodia/Escritorio/03-UdeA/InformaticaII/ChallengeI_Requirements/Caso 1/M1.txt", seed, n_pixels);
+    unsigned int *maskingData = loadSeedMasking(
+        "/home/rodia/Escritorio/03-UdeA/InformaticaII/ChallengeI_Requirements/Caso 1/M1.txt",
+        seed,
+        n_pixels);
 
     // Muestra en consola los primeros valores RGB leídos desde el archivo de enmascaramiento
     for (int i = 0; i < n_pixels * 3; i += 3) {
