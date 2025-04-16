@@ -38,6 +38,7 @@
 #include <iostream>
 #include <QCoreApplication>
 #include <QImage>
+#include <QDebug>
 
 using namespace std;
 unsigned char* loadPixels(QString input, int &width, int &height);

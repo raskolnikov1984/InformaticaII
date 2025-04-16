@@ -1,6 +1,7 @@
 #include <gmock/gmock-matchers.h>
 #include <gtest/gtest.h>
 #include <QString>
+#include <QDebug>
 #include "../tools/provided_tools.h"
 
 using namespace testing;

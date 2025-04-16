@@ -15,6 +15,8 @@ find_package(Qt5 REQUIRED COMPONENTS Core Gui Widgets)
 add_executable(DecryptImage
   main.cpp
   tools/provided_tools.h
+  bitwiseoperators.cpp
+  bitwiseoperators.h
   README.md
 )
 
@@ -54,7 +56,10 @@ add_executable(tst_decryptimage
 add_executable(tst_bitwiseoperators
   tests/tst_bitwiseoperators.cpp)
 add_executable(tst_case1
-  tests/tst_case1.cpp)
+  bitwiseoperators.h
+  bitwiseoperators.cpp
+  tests/tst_case1.cpp
+)
 
 target_link_libraries(tst_decryptimage GTest::GTest GTest::Main Qt${QT_VERSION_MAJOR}::Core Qt${QT_VERSION_MAJOR}::Gui)
 target_link_libraries(tst_bitwiseoperators GTest::GTest GTest::Main Qt${QT_VERSION_MAJOR}::Core Qt${QT_VERSION_MAJOR}::Gui)
