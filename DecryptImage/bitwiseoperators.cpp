@@ -7,3 +7,18 @@ void BitWiseOperators::XOR(unsigned char* img1, unsigned char* img2, unsigned ch
         result[i] = img1[i] ^ img2[i];
     }
 }
+
+unsigned char BitWiseOperators::shiftRight(unsigned char byte, int bits) {
+    return byte >> bits;
+}
+
+unsigned char BitWiseOperators::shiftLeft(unsigned char byte, int bits) {
+    return byte << bits;
+}
+unsigned char BitWiseOperators::rotateLeft(unsigned char byte, int bits) {
+    return ((byte << bits ) | (byte >> (8 - bits)));
+}
+
+unsigned char BitWiseOperators::rotateRight(unsigned char byte, int bits) {
+    return ((byte >> bits) | (byte << (8 - bits)));
+}

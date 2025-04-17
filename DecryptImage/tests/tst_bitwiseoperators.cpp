@@ -45,3 +45,16 @@ TEST(BitWiseOperators, BitWiseOperatorsShiftRight)
     EXPECT_EQ(212 >> 2, 53);
     EXPECT_EQ(212 >> 3, 26);
 }
+
+
+TEST(BitWiseOperators, BitWiseOperatorsRotateLeft){
+    int n = 3;
+    unsigned char value = 212;
+    EXPECT_EQ(((value << 3 ) | (value >> (8 - n))) & 0xFF, 166);
+}
+
+TEST(BitWiseOperators, BitWiseOperatorsRotateRight){
+    int n = 3;
+    unsigned char value = 212;
+    EXPECT_EQ(((value >> 3 ) | (value << (8 - n))) & 0xFF, 154);
+}
