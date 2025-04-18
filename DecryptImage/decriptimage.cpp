@@ -1,5 +1,4 @@
 #include "decriptimage.h"
-#include "bitwiseoperators.h"
 
 DecriptImage::DecriptImage() {
 }

@@ -1,6 +1,15 @@
 #ifndef DECRIPTIMAGE_H
 #define DECRIPTIMAGE_H
 #include "bitwiseoperators.h"
+#include <string>
+
+using namespace std;
+
+struct Operation {
+    string type;
+    int bits;
+    Operation* next;
+};
 
 class DecriptImage : public BitWiseOperators
 {
@@ -19,6 +28,9 @@ public:
     bool isRotationLeft(unsigned char a, unsigned char b, int& n);
 
     bool isRotationRight(unsigned char a, unsigned char b, int& n);
+
+private:
+    Operation* head;
 };
 
 #endif // DECRIPTIMAGE_H
