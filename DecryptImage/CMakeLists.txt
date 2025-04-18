@@ -18,6 +18,7 @@ add_executable(DecryptImage
   bitwiseoperators.cpp
   bitwiseoperators.h
   README.md
+  decriptimage.h decriptimage.cpp
 )
 
 target_link_libraries(DecryptImage Qt${QT_VERSION_MAJOR}::Core Qt${QT_VERSION_MAJOR}::Gui)
@@ -52,7 +53,10 @@ if (NOT GTest_FOUND)
 endif()
 
 add_executable(tst_decryptimage
-  tests/tst_decryptimage.cpp)
+  tests/tst_decryptimage.cpp
+  decriptimage.cpp
+  decriptimage.h
+)
 add_executable(tst_bitwiseoperators
   tests/tst_bitwiseoperators.cpp)
 add_executable(tst_case1

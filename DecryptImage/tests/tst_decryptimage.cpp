@@ -3,55 +3,48 @@
 #include <QString>
 #include <QDebug>
 #include "../tools/provided_tools.h"
+#include "../decriptimage.h"
 
 using namespace testing;
 using namespace std;
 
-TEST(DrecryptImage, DecryptImageTest)
-{
-    QString archivoEntrada = "/home/rodia/Escritorio/03-UdeA/InformaticaII/ChallengeI_Requirements/Caso 1/I_O.bmp";
-    QString archivoSalida = "/home/rodia/Escritorio/03-UdeA/InformaticaII/ChallengeI_Requirements/Caso 1/I_D.bmp";
 
-    int height = 0;
-    int width = 0;
+class CaseOneDecryptImage : public ::testing::Test {
+public:
 
-    // Paso 1: Cargar la imagen original
-    unsigned char *pixelData = loadPixels(archivoEntrada, width, height);
+    DecriptImage decriptImage;
+    QString path_info_to_decrypt = "/home/rodia/Escritorio/03-UdeA/InformaticaII/ChallengeI_Requirements/";
+    QString case_name = "Caso 1/";
+    QString base_path = path_info_to_decrypt + case_name;
+    QString idImage = base_path + "I_D.bmp";
+    QString maskImage = base_path + "M.bmp";
+    QString p2Image = "/home/rodia/Escritorio/03-UdeA/InformaticaII/ChallengeI_Requirements/Caso 1/P2.bmp";
+    QString p1Image = "/home/rodia/Escritorio/03-UdeA/InformaticaII/ChallengeI_Requirements/Caso 1/P1.bmp";
 
-    // Paso 2: Modificar la imagen artificialmente
-    for (int i = 0; i < width * height * 3; i += 3) {
-        pixelData[i] = i % 256;     // Evitamos desbordamiento usando % 256
-        pixelData[i + 1] = i % 256;
-        pixelData[i + 2] = i % 256;
-    }
+    int steps = 2;
 
-    // Paso 3: Exportar la imagen modificada
-    bool exportSuccess = exportImage(pixelData, width, height, archivoSalida);
-    EXPECT_TRUE(exportSuccess) << "Falló la exportación de la imagen";
-
-    // Liberar memoria de la imagen original
-    delete[] pixelData;
-    pixelData = nullptr;
-
-    // Paso 4: Cargar datos de enmascaramiento
+    int heightMask = 0;
+    int widthMask = 0;
     int seed = 0;
-    int n_pixels = 0;
-    unsigned int *maskingData = loadSeedMasking(
-        "/home/rodia/Escritorio/03-UdeA/InformaticaII/ChallengeI_Requirements/Caso 1/M1.txt",
-        seed,
-        n_pixels);
+    int n_pixeles = 0;
 
-    // Muestra en consola los primeros valores RGB leídos desde el archivo de enmascaramiento
-    for (int i = 0; i < n_pixels * 3; i += 3) {
-        cout << "Pixel " << i / 3 << ": ("
-             << maskingData[i] << ", "
-             << maskingData[i + 1] << ", "
-             << maskingData[i + 2] << ")" << endl;
-    }
+    int widthP1 = 0, heightP1 = 0;
+    int widthP2 = 0, heightP2 = 0;
 
-    // Libera la memoria usada para los datos de enmascaramiento
-    if (maskingData != nullptr){
-        delete[] maskingData;
-        maskingData = nullptr;
+    unsigned int *maskingData = loadSeedMasking("/home/rodia/Escritorio/03-UdeA/InformaticaII/ChallengeI_Requirements/Caso 1/M2.txt", seed, n_pixeles);
+    unsigned char *pixelDataMask = loadPixels(maskImage, widthMask, heightMask);
+    unsigned char *pixelDataP2 = loadPixels(p2Image, widthP2, heightP2);
+    unsigned char *pixelDataP1 = loadPixels(p1Image, widthP1, heightP1);
+
+};
+
+TEST_F(CaseOneDecryptImage, CaseOneDecryptImageTest){
+    EXPECT_EQ(seed, 15);
+    EXPECT_EQ(n_pixeles, 100);
+
+    unsigned char *pixelDataBeforeStep = decriptImage.loadPixelsBeforeStep(
+        maskingData, pixelDataMask, n_pixeles * 3);
+    for(int i=0; i < n_pixeles * 3; i++){
+        EXPECT_EQ(pixelDataBeforeStep[i], pixelDataP2[i+seed]);
     }
 }
