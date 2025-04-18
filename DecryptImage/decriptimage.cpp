@@ -59,7 +59,7 @@ bool DecriptImage::isShiftLeft(unsigned char a, unsigned char b, int& n) {
     return false;
 }
 
-void DecriptImage::addOperation(const string& type, int bits) {
+void DecriptImage::addOperation(const QString& type, int bits) {
     Operation* newOperation = new Operation;
     newOperation->type = type;
     newOperation->bits = bits;

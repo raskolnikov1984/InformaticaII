@@ -2,11 +2,12 @@
 #define DECRIPTIMAGE_H
 #include "bitwiseoperators.h"
 #include <string>
+#include <QString>
 
 using namespace std;
 
 struct Operation {
-    string type;
+    QString type;
     int bits;
     Operation* next;
 };
@@ -32,7 +33,7 @@ public:
 
 private:
     Operation* head;
-    void addOperation(const string& type, int bits);
+    void addOperation(const QString& type, int bits);
 };
 
 #endif // DECRIPTIMAGE_H
