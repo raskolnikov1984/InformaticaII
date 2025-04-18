@@ -19,8 +19,11 @@ unsigned char* DecriptImage::loadPixelsBeforeStep(unsigned int* loadSeedMasking,
 
 bool DecriptImage::isXOR(unsigned char a, unsigned char b, unsigned char& x) {
     x = a ^ b;
-    this->addOperation("XOR", 0);
-    return true;
+    if((x & 0xFF) < 256){
+        this->addOperation("XOR", 0);
+        return true;
+    }
+    return false;
 }
 
 bool DecriptImage::isRotationLeft(unsigned char a, unsigned char b, int& n) {
