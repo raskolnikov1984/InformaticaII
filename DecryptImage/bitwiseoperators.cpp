@@ -16,9 +16,9 @@ unsigned char BitWiseOperators::shiftLeft(unsigned char byte, int bits) {
     return byte << bits;
 }
 unsigned char BitWiseOperators::rotateLeft(unsigned char byte, int bits) {
-    return ((byte << bits ) | (byte >> (8 - bits)));
+    return (shiftLeft(byte, bits) | shiftRight(byte, 8 - bits));
 }
 
 unsigned char BitWiseOperators::rotateRight(unsigned char byte, int bits) {
-    return ((byte >> bits) | (byte << (8 - bits)));
+    return (shiftRight(byte, bits) | shiftLeft(byte, 8 - bits));
 }
