@@ -15,6 +15,7 @@ class DecriptImage : public BitWiseOperators
 {
 public:
     DecriptImage();
+    ~DecriptImage();
 
     unsigned char* loadPixelsBeforeStep(
         unsigned int* loadSeedMasking, unsigned char* pixelDataMask, int dataSize);

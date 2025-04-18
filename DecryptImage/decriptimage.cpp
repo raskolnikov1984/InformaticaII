@@ -3,6 +3,9 @@
 DecriptImage::DecriptImage() {
 }
 
+DecriptImage::~DecriptImage() {
+}
+
 unsigned char* DecriptImage::loadPixelsBeforeStep(unsigned int* loadSeedMasking, unsigned char* pixelDataMask, int dataSize){
     unsigned char* pixelData = new unsigned char[dataSize];
 
