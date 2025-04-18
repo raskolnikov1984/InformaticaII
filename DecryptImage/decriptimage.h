@@ -32,6 +32,7 @@ public:
 
 private:
     Operation* head;
+    void addOperation(const string& type, int bits);
 };
 
 #endif // DECRIPTIMAGE_H
