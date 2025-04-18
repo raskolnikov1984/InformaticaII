@@ -48,3 +48,48 @@ TEST_F(CaseOneDecryptImage, CaseOneDecryptImageTest){
         EXPECT_EQ(pixelDataBeforeStep[i], pixelDataP2[i+seed]);
     }
 }
+
+TEST_F(CaseOneDecryptImage, TestIsXOR) {
+    unsigned char a = 0b10101010;
+    unsigned char b = 0b01010101;
+    unsigned char result;
+
+    EXPECT_TRUE(decriptImage.isXOR(a, b, result));
+    EXPECT_EQ(result, a ^ b);
+}
+
+TEST_F(CaseOneDecryptImage, TestIsRotationLeft) {
+    unsigned char a = 0b00000001; // 1
+    unsigned char b = 0b00000010; // 2
+    int n;
+
+    EXPECT_TRUE(decriptImage.isRotationLeft(a, b, n));
+    EXPECT_EQ(n, 1); // Debe ser 1 porque 1 rotado a la izquierda 1 bit es 2
+}
+
+TEST_F(CaseOneDecryptImage, TestIsRotationRight) {
+    unsigned char a = 0b00000010; // 2
+    unsigned char b = 0b00000001; // 1
+    int n;
+
+    EXPECT_TRUE(decriptImage.isRotationRight(a, b, n));
+    EXPECT_EQ(n, 1); // Debe ser 1 porque 2 rotado a la derecha 1 bit es 1
+}
+
+TEST_F(CaseOneDecryptImage, TestIsShiftRight) {
+    unsigned char a = 0b00000100; // 4
+    unsigned char b = 0b00000010; // 2
+    int n;
+
+    EXPECT_TRUE(decriptImage.isShiftRight(a, b, n));
+    EXPECT_EQ(n, 1); // Debe ser 1 porque 4 desplazado a la derecha 1 bit es 2
+}
+
+TEST_F(CaseOneDecryptImage, TestIsShiftLeft) {
+    unsigned char a = 0b00000010; // 2
+    unsigned char b = 0b00000100; // 4
+    int n;
+
+    EXPECT_TRUE(decriptImage.isShiftLeft(a, b, n));
+    EXPECT_EQ(n, 1); // Debe ser 1 porque 2 desplazado a la izquierda 1 bit es 4
+}
