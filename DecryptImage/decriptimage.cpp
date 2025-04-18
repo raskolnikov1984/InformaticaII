@@ -1,4 +1,7 @@
 #include "decriptimage.h"
+#include <iostream>
+
+using namespace std;
 
 DecriptImage::DecriptImage() {
 }
@@ -68,4 +71,13 @@ void DecriptImage::addOperation(const QString& type, int bits) {
     newOperation->bits = bits;
     newOperation->next = head;
     head = newOperation;
+}
+
+void DecriptImage::printOperations() const {
+    Operation* current = head;
+    while (current != nullptr) {
+        string operationType = current->type.toStdString();
+        cout << "Operation: " << operationType << ", Bits: " << current->bits << std::endl;
+        current = current->next;
+    }
 }

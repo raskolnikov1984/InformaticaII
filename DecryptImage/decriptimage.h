@@ -34,6 +34,7 @@ public:
 private:
     Operation* head;
     void addOperation(const QString& type, int bits);
+    void printOperations() const;
 };
 
 #endif // DECRIPTIMAGE_H
