@@ -1,8 +1,8 @@
 #ifndef DECRIPTIMAGE_H
 #define DECRIPTIMAGE_H
+#include "bitwiseoperators.h"
 
-
-class DecriptImage
+class DecriptImage : public BitWiseOperators
 {
 public:
     DecriptImage();

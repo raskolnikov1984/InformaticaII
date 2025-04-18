@@ -15,10 +15,9 @@ find_package(Qt5 REQUIRED COMPONENTS Core Gui Widgets)
 add_executable(DecryptImage
   main.cpp
   tools/provided_tools.h
-  bitwiseoperators.cpp
-  bitwiseoperators.h
   README.md
   decriptimage.h decriptimage.cpp
+  bitwiseoperators.cpp bitwiseoperators.h
 )
 
 target_link_libraries(DecryptImage Qt${QT_VERSION_MAJOR}::Core Qt${QT_VERSION_MAJOR}::Gui)
@@ -56,6 +55,8 @@ add_executable(tst_decryptimage
   tests/tst_decryptimage.cpp
   decriptimage.cpp
   decriptimage.h
+  bitwiseoperators.cpp
+  bitwiseoperators.h
 )
 add_executable(tst_bitwiseoperators
   tests/tst_bitwiseoperators.cpp)

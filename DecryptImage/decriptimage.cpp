@@ -2,7 +2,6 @@
 #include "bitwiseoperators.h"
 
 DecriptImage::DecriptImage() {
-    BitWiseOperators bitwiseOperators;
 }
 
 unsigned char* DecriptImage::loadPixelsBeforeStep(unsigned int* loadSeedMasking, unsigned char* pixelDataMask, int dataSize){
@@ -23,7 +22,7 @@ bool DecriptImage::isXOR(unsigned char a, unsigned char b, unsigned char& x) {
 
 bool DecriptImage::isRotationLeft(unsigned char a, unsigned char b, int& n) {
     for (n = 1; n < 8; ++n) {
-        if (((a >> n) | (a << (8 - n))) & 0xFF == b)
+        if (rotateLeft(a, n) == b)
             return true;
     }
     return false;
@@ -31,7 +30,7 @@ bool DecriptImage::isRotationLeft(unsigned char a, unsigned char b, int& n) {
 
 bool DecriptImage::isRotationRight(unsigned char a, unsigned char b, int& n) {
     for (n = 1; n < 8; ++n) {
-        if (((a >> n) | (a << (8 - n))) & 0xFF == b)
+        if (rotateRight(a, n) == b)
             return true;
     }
     return false;
@@ -39,7 +38,7 @@ bool DecriptImage::isRotationRight(unsigned char a, unsigned char b, int& n) {
 
 bool DecriptImage::isShiftRight(unsigned char a, unsigned char b, int& n) {
     for (n = 1; n < 8; ++n) {
-        if ((a >> n) == b)
+        if (shiftRight(a, n) == b)
             return true;
     }
     return false;
@@ -47,7 +46,7 @@ bool DecriptImage::isShiftRight(unsigned char a, unsigned char b, int& n) {
 
 bool DecriptImage::isShiftLeft(unsigned char a, unsigned char b, int& n) {
     for (n = 1; n < 8; ++n) {
-        if ((a >> n) == b)
+        if (shiftLeft(a, n) == b)
             return true;
     }
     return false;
