@@ -1,7 +1,6 @@
 #ifndef DECRIPTIMAGE_H
 #define DECRIPTIMAGE_H
 #include "bitwiseoperators.h"
-#include <string>
 #include <QString>
 
 using namespace std;
@@ -26,21 +25,25 @@ public:
     unsigned char* loadPixelsBeforeStep(
         unsigned int* loadSeedMasking, unsigned char* pixelDataMask, int dataSize);
 
-    bool isXOR(unsigned char a, unsigned char b, unsigned char& x);
+    bool isXOR(unsigned char* img, unsigned char* generalMask, unsigned char* imgId, int& seed, int &n_pixels);
 
-    bool isShiftLeft(unsigned char a, unsigned char b, int& n);
+    bool isShiftLeft(unsigned char* img, unsigned char* imgId, int& n_pixels, int& bits);
 
-    bool isShiftRight(unsigned char a, unsigned char b, int& n);
+    bool isShiftRight(unsigned char* img, unsigned char* imgId, int& n_pixels, int& bits);
 
-    bool isRotationLeft(unsigned char a, unsigned char b, int& n);
+    bool isRotationLeft(unsigned char* img, unsigned char* imgId, int& n_pixels, int& bits);
 
-    bool isRotationRight(unsigned char a, unsigned char b, int& n);
+    bool isRotationRight(unsigned char* img, unsigned char* imgId, int& n_pixels, int& bits);
+
+    bool detectTransform(
+        unsigned char* pixelBefore, unsigned char* pixelDataGeneralMask, unsigned char* pixelDataId, int& seed, int& n_pixels);
 
     bool Run();
 
 private:
     QString idImage;
     QString maskImage;
+    QString generalMask;
     int steps;
     void addOperation(const QString& type, int bits);
     void printOperations() const;

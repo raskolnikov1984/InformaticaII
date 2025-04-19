@@ -15,6 +15,8 @@ public:
     QString case_name = "Caso 1/";
     DecriptImage* decriptImage; // Puntero a la clase a probar
     int steps = 2;
+    int heightGenMask = 0;
+    int widthGenMask = 0;
     int heightMask = 0;
     int widthMask = 0;
     int seed = 0;
@@ -26,11 +28,13 @@ public:
     QString base_path = path_info_to_decrypt + case_name;
     QString idImage = base_path + "I_D.bmp";
     QString maskImage = base_path + "M.bmp";
+    QString generalMaskIMage = base_path + "I_M.bmp";
     QString p2Image = "/home/rodia/Escritorio/03-UdeA/InformaticaII/ChallengeI_Requirements/Caso 1/P2.bmp";
     QString p1Image = "/home/rodia/Escritorio/03-UdeA/InformaticaII/ChallengeI_Requirements/Caso 1/P1.bmp";
 
 
     unsigned int *maskingData = loadSeedMasking("/home/rodia/Escritorio/03-UdeA/InformaticaII/ChallengeI_Requirements/Caso 1/M2.txt", seed, n_pixeles);
+    unsigned char *pixelDataGeneralMask = loadPixels(generalMaskIMage, widthGenMask, heightGenMask);
     unsigned char *pixelDataMask = loadPixels(maskImage, widthMask, heightMask);
     unsigned char *pixelDataP2 = loadPixels(p2Image, widthP2, heightP2);
     unsigned char *pixelDataP1 = loadPixels(p1Image, widthP1, heightP1);
@@ -53,57 +57,48 @@ TEST_F(CaseOneDecryptImage, CaseOneDecryptImageTest){
     for(int i=0; i < n_pixeles * 3; i++){
         EXPECT_EQ(pixelDataBeforeStep[i], pixelDataP2[i+seed]);
     }
+
+    unsigned char* result = new unsigned char[300];
+    decriptImage->Img1XORImg2(pixelDataBeforeStep, pixelDataGeneralMask, result, 300);
+    qDebug() << "EJEMPLO " << decriptImage->isXOR(result, pixelDataGeneralMask, pixelDataP2, seed, n_pixeles);
+
 }
 
-TEST_F(CaseOneDecryptImage, TestIsXOR) {
-    unsigned char a = 0b10101010;
-    unsigned char b = 0b01010101;
-    unsigned char result;
+// TEST_F(CaseOneDecryptImage, TestIsRotationLeft) {
+//     unsigned char a = 0b00000001; // 1
+//     unsigned char b = 0b00000010; // 2
+//     int n;
 
-    EXPECT_TRUE(decriptImage->isXOR(a, b, result));
-    EXPECT_EQ(result, a ^ b);
-}
+//     EXPECT_TRUE(decriptImage->isRotationLeft(a, b, n));
+//     EXPECT_EQ(n, 1); // Debe ser 1 porque 1 rotado a la izquierda 1 bit es 2
+// }
 
-TEST_F(CaseOneDecryptImage, TestIsRotationLeft) {
-    unsigned char a = 0b00000001; // 1
-    unsigned char b = 0b00000010; // 2
-    int n;
+// TEST_F(CaseOneDecryptImage, TestIsRotationRight) {
+//     unsigned char a = 0b00000010; // 2
+//     unsigned char b = 0b00000001; // 1
+//     int n;
 
-    EXPECT_TRUE(decriptImage->isRotationLeft(a, b, n));
-    EXPECT_EQ(n, 1); // Debe ser 1 porque 1 rotado a la izquierda 1 bit es 2
-}
+//     EXPECT_TRUE(decriptImage->isRotationRight(a, b, n));
+//     EXPECT_EQ(n, 1); // Debe ser 1 porque 2 rotado a la derecha 1 bit es 1
+// }
 
-TEST_F(CaseOneDecryptImage, TestIsRotationRight) {
-    unsigned char a = 0b00000010; // 2
-    unsigned char b = 0b00000001; // 1
-    int n;
+// TEST_F(CaseOneDecryptImage, TestIsShiftRight) {
+//     unsigned char a = 0b00000100; // 4
+//     unsigned char b = 0b00000010; // 2
+//     int n;
 
-    EXPECT_TRUE(decriptImage->isRotationRight(a, b, n));
-    EXPECT_EQ(n, 1); // Debe ser 1 porque 2 rotado a la derecha 1 bit es 1
-}
+//     EXPECT_TRUE(decriptImage->isShiftRight(a, b, n));
+//     EXPECT_EQ(n, 1); // Debe ser 1 porque 4 desplazado a la derecha 1 bit es 2
+// }
 
-TEST_F(CaseOneDecryptImage, TestIsShiftRight) {
-    unsigned char a = 0b00000100; // 4
-    unsigned char b = 0b00000010; // 2
-    int n;
+// TEST_F(CaseOneDecryptImage, TestIsShiftLeft) {
+//     unsigned char a = 0b00000010; // 2
+//     unsigned char b = 0b00000100; // 4
+//     int n;
 
-    EXPECT_TRUE(decriptImage->isShiftRight(a, b, n));
-    EXPECT_EQ(n, 1); // Debe ser 1 porque 4 desplazado a la derecha 1 bit es 2
-}
-
-TEST_F(CaseOneDecryptImage, TestIsShiftLeft) {
-    unsigned char a = 0b00000010; // 2
-    unsigned char b = 0b00000100; // 4
-    int n;
-
-    EXPECT_TRUE(decriptImage->isShiftLeft(a, b, n));
-    EXPECT_EQ(n, 1); // Debe ser 1 porque 2 desplazado a la izquierda 1 bit es 4
-}
-
-TEST_F(CaseOneDecryptImage, TestDecriptImageRun){
-    decriptImage->Run();
-}
-
+//     EXPECT_TRUE(decriptImage->isShiftLeft(a, b, n));
+//     EXPECT_EQ(n, 1); // Debe ser 1 porque 2 desplazado a la izquierda 1 bit es 4
+// }
 
 TEST_F(CaseOneDecryptImage, TestDecriptImageCase1){
     QString path_info_to_decrypt = "/home/rodia/Escritorio/03-UdeA/InformaticaII/ChallengeI_Requirements/";
@@ -114,7 +109,9 @@ TEST_F(CaseOneDecryptImage, TestDecriptImageCase1){
 
     DecriptImage* decriptImage = new DecriptImage(path_info_to_decrypt, case_name, steps);
 
-    decriptImage->Run();
+    executed = decriptImage->Run();
+
+    EXPECT_EQ(executed, true);
 
     Operation* head = decriptImage->head;
     ASSERT_NE(head, nullptr);

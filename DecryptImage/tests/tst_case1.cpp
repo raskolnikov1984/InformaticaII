@@ -51,7 +51,7 @@ TEST_F(CaseOne, Case1Test){
 }
 
 TEST_F(CaseOne, CaseOneXOROperationTest){
-    bitwiseOperators.XOR(pixelDataI_O, pixelDataI_M, pixelDataResult, dataSize);
+    bitwiseOperators.Img1XORImg2(pixelDataI_O, pixelDataI_M, pixelDataResult, dataSize);
     for (int i = 0; i < dataSize; ++i) {
         EXPECT_EQ(pixelDataResult[i], pixelDataP1[i]);
     }
@@ -65,7 +65,7 @@ TEST_F(CaseOne, CaseOneRotateRightTest){
 }
 
 TEST_F(CaseOne, CaseOneXORP2andI_MTest){
-    bitwiseOperators.XOR(pixelDataP2, pixelDataI_M, pixelDataResult, dataSize);
+    bitwiseOperators.Img1XORImg2(pixelDataP2, pixelDataI_M, pixelDataResult, dataSize);
     for (int i = 0; i < dataSize; ++i) {
         EXPECT_EQ(pixelDataResult[i], pixelDataID[i]);
     }

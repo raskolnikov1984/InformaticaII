@@ -6,7 +6,7 @@ class BitWiseOperators
 public:
     BitWiseOperators();
 
-    void XOR(unsigned char* img1, unsigned char* img2, unsigned char* result, int dataSize);
+    void Img1XORImg2(unsigned char* img1, unsigned char* img2, unsigned char* result, int dataSize);
 
     unsigned char shiftLeft(unsigned char byte, int bits);
 
