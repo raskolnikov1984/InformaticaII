@@ -18,6 +18,8 @@ public:
     QString base_path;
     int seed;
     int n_pixeles;
+    Operation* head;
+
     DecriptImage(const QString& path, const QString& caseName, int steps);
     ~DecriptImage();
 
@@ -37,7 +39,6 @@ public:
     bool Run();
 
 private:
-    Operation* head;
     QString idImage;
     QString maskImage;
     int steps;

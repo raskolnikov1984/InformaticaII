@@ -103,3 +103,36 @@ TEST_F(CaseOneDecryptImage, TestIsShiftLeft) {
 TEST_F(CaseOneDecryptImage, TestDecriptImageRun){
     decriptImage->Run();
 }
+
+
+TEST_F(CaseOneDecryptImage, TestDecriptImageCase1){
+    QString path_info_to_decrypt = "/home/rodia/Escritorio/03-UdeA/InformaticaII/ChallengeI_Requirements/";
+    QString case_name = "Caso 1/";
+    int steps = 2;
+
+    bool executed;
+
+    DecriptImage* decriptImage = new DecriptImage(path_info_to_decrypt, case_name, steps);
+
+    decriptImage->Run();
+
+    Operation* head = decriptImage->head;
+    ASSERT_NE(head, nullptr);
+    EXPECT_EQ(head->type, "XOR");
+    EXPECT_EQ(head->bits, 0);
+
+    Operation* head1 = head->next;
+    ASSERT_NE(head1, nullptr);
+    EXPECT_EQ(head1->type, "Rotation Right");
+    EXPECT_EQ(head1->bits, 3);
+
+    Operation* head2 = head1->next;
+    ASSERT_NE(head2, nullptr);
+    EXPECT_EQ(head2->type, "XOR");
+    EXPECT_EQ(head2->bits, 0);
+
+    delete decriptImage;
+    delete head1;
+    delete head2;
+
+}
