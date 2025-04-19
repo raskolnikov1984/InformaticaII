@@ -45,7 +45,7 @@ unsigned char* loadPixels(QString input, int &width, int &height);
 bool exportImage(unsigned char* pixelData, int width,int height, QString archivoSalida);
 unsigned int* loadSeedMasking(const char* nombreArchivo, int &seed, int &n_pixels);
 
-unsigned char* loadPixels(QString input, int &width, int &height){
+inline unsigned char* loadPixels(QString input, int &width, int &height){
     /*
  * @brief Carga una imagen BMP desde un archivo y extrae los datos de píxeles en formato RGB.
  *
@@ -96,7 +96,7 @@ unsigned char* loadPixels(QString input, int &width, int &height){
     return pixelData;
 }
 
-bool exportImage(unsigned char* pixelData, int width,int height, QString archivoSalida){
+inline bool exportImage(unsigned char* pixelData, int width,int height, QString archivoSalida){
     /*
  * @brief Exporta una imagen en formato BMP a partir de un arreglo de píxeles en formato RGB.
  *
@@ -141,7 +141,7 @@ bool exportImage(unsigned char* pixelData, int width,int height, QString archivo
 
 }
 
-unsigned int* loadSeedMasking(const char* nombreArchivo, int &seed, int &n_pixels){
+inline unsigned int* loadSeedMasking(const char* nombreArchivo, int &seed, int &n_pixels){
     /*
  * @brief Carga la semilla y los resultados del enmascaramiento desde un archivo de texto.
  *

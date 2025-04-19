@@ -15,7 +15,10 @@ struct Operation {
 class DecriptImage : public BitWiseOperators
 {
 public:
-    DecriptImage();
+    QString base_path;
+    int seed;
+    int n_pixeles;
+    DecriptImage(const QString& path, const QString& caseName, int steps);
     ~DecriptImage();
 
     unsigned char* loadPixelsBeforeStep(
@@ -31,8 +34,13 @@ public:
 
     bool isRotationRight(unsigned char a, unsigned char b, int& n);
 
+    bool Run();
+
 private:
     Operation* head;
+    QString idImage;
+    QString maskImage;
+    int steps;
     void addOperation(const QString& type, int bits);
     void printOperations() const;
 };
