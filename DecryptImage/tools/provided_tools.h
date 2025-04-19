@@ -209,6 +209,7 @@ inline unsigned int* loadSeedMasking(const char* nombreArchivo, int &seed, int &
     archivo.close();
 
     // Mostrar información de control en consola
+    cout << "----------------------------------------------" << std::endl;
     cout << "Semilla: " << seed << endl;
     cout << "Cantidad de píxeles leídos: " << n_pixels << endl;
 

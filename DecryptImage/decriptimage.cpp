@@ -97,6 +97,9 @@ bool DecriptImage::Run() {
     int width = 0, height = 0;
     int maskWidth = 0, maskHeight = 0;
 
+    // Cargar máscara (imagen)
+    unsigned char* pixelDataMask = loadPixels(maskImage, maskWidth, maskHeight);
+
     // Cargar imagen transformada final
     unsigned char* pixelDataId = loadPixels(idImage, width, height);
 
@@ -104,8 +107,6 @@ bool DecriptImage::Run() {
         // Construir ruta del archivo de enmascaramiento
         QString maskFile = base_path + QString("M%1.txt").arg(i);
 
-        // Cargar máscara (imagen)
-        unsigned char* pixelDataMask = loadPixels(maskImage, maskWidth, maskHeight);
         if (!pixelDataMask) {
             cout << "No se pudo cargar la imagen de máscara." << std::endl;
             return false;
@@ -147,11 +148,13 @@ bool DecriptImage::Run() {
 
         // Actualizar la imagen a la anterior (para el siguiente paso)
         pixelDataId = pixelBefore;
+        n_pixeles = 0;
     }
 
     // Mostrar operaciones detectadas (en orden inverso)
-    printOperations();
+    // printOperations();
 
+    delete[] pixelDataMask;
     delete[] pixelDataId;
     return true;
 }
