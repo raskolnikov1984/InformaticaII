@@ -20,6 +20,14 @@ enum OperationTypes {
     ShiftLeft
 };
 
+struct OperationTypesStruct {
+    static const int XOR = 1;
+    static const int RotationRight = 2;
+    static const int RotationLeft = 3;
+    static const int ShiftRight = 4;
+    static const int ShiftLeft = 5;
+};
+
 class DecriptImage : public BitWiseOperators
 {
 public:

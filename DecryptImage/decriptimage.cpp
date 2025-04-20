@@ -255,6 +255,12 @@ bool DecriptImage::Run() {
         pixelDataIdRegion = copyRegion(pixelDataId, start, end, width, height);
 
 
+        // Operation* current = head;
+        // while (current != nullptr) {
+        //     //decriptRegion();
+        //     current = current->next;
+        // }
+
         // Revertir operación de enmascaramiento
         unsigned char* pixelBefore = loadPixelsBeforeStep(maskingData, pixelDataMask, n_pixeles);
 
@@ -273,7 +279,6 @@ bool DecriptImage::Run() {
         }
 
         delete[] pixelDataId;
-        pixelDataId = pixelBefore;
     }
 
     // Mostrar operaciones detectadas (en orden inverso)
