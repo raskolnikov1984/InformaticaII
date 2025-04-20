@@ -12,14 +12,26 @@ struct Operation {
     Operation* next;
 };
 
+enum OperationTypes {
+    XOR = 1,
+    RotationRight,
+    RotationLeft,
+    ShiftRight,
+    ShiftLeft
+};
+
 class DecriptImage : public BitWiseOperators
 {
 public:
     QString base_path;
     QString maskFile;
+    Operation* head;
+    unsigned char* pixelDataId;
+
+    int widthId;
+    int height;
     int seed;
     int n_pixeles;
-    Operation* head;
 
     DecriptImage(const QString& path, const QString& caseName, int steps);
     ~DecriptImage();
@@ -42,7 +54,14 @@ public:
 
     unsigned char* copyRegion(unsigned char* pixelData, int start, int end,int width, int height);
 
-    unsigned char* decriptRegion(unsigned char* pixelData, QString& operationType, int& dataSize);
+    unsigned char* decriptRegion(
+        unsigned char* pixelData,
+        OperationTypes operationType,
+        int& dataSize,
+        int width,
+        int height,
+        int& seed,
+        int& bits);
 
     bool Run();
 

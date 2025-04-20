@@ -15,6 +15,8 @@ DecriptImage::DecriptImage(const QString& path, const QString& caseName, int ste
     generalMask = base_path + "I_M.bmp";
     int seed = 0;
     int n_pixeles = 0;
+
+    pixelDataId = loadPixels(generalMask, widthId, height);
 }
 
 DecriptImage::~DecriptImage() {
@@ -171,8 +173,36 @@ unsigned char* DecriptImage::copyRegion(unsigned char* pixelData, int start, int
     return copiedRegion;
 }
 
-unsigned char* DecriptImage::decriptRegion(unsigned char* pixelData, QString& operationType, int& dataSize){
+unsigned char* DecriptImage::decriptRegion(unsigned char* pixelData, OperationTypes operationType, int& dataSize, int width, int height, int& seed, int& bits){
     unsigned char* region = new unsigned char[dataSize];
+    unsigned char* PixelDataIdRegion = copyRegion(
+        pixelDataId, seed, n_pixeles, width, height);
+
+    switch(operationType){
+    case 1:
+        Img1XORImg2(pixelData, PixelDataIdRegion, region, dataSize);
+        break;
+    case 2:
+        for(int i=0; i< dataSize;i++){
+            region[i] = rotateLeft(PixelDataIdRegion[i], bits);
+        }
+        break;
+    case 3:
+        for(int i=0; i< dataSize;i++){
+            region[i] = rotateRight(PixelDataIdRegion[i], bits);
+        }
+        break;
+    case 4:
+        for(int i=0; i< dataSize;i++){
+            region[i] = shiftLeft(PixelDataIdRegion[i], bits);
+        }
+        break;
+    case 5:
+        for(int i=0; i< dataSize;i++){
+            region[i] = shiftRight(PixelDataIdRegion[i], bits);
+        }
+        break;
+    }
 
     return region;
 }
