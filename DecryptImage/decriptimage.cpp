@@ -2,6 +2,7 @@
 #include <iostream>
 #include <QFile>
 #include <QTextStream>
+#include <cstring>
 #include "tools/provided_tools.h"
 
 
@@ -33,7 +34,7 @@ unsigned char* DecriptImage::loadPixelsBeforeStep(unsigned int* pixelSeedMasking
 bool DecriptImage::isXOR(unsigned char* imgXOR, unsigned char* generalMask, unsigned char* imgId, int &seed, int &n_pixels) {
     bool equal = true;
     for(int i=0; i < n_pixels; i++){
-        if(imgXOR[i] != imgId[i+seed]){
+        if(imgXOR[i] != imgId[i]){
             equal = false;
         }
     }
@@ -146,6 +147,26 @@ void DecriptImage::printOperations() const {
     }
 }
 
+unsigned char* DecriptImage::copyRegion(unsigned char* pixelData, int start, int end,int width, int height) {
+    // Verificar que los parámetros sean válidos
+    int pixels = width * height * 3;
+    if (!pixelData || start < 0 || end <= start || end > pixels) {
+        std::cerr << "Parámetros inválidos." << std::endl;
+        return nullptr;
+    }
+
+    // Calcular el tamaño de la región a copiar
+    int regionSize = end - start;
+
+    // Crear un nuevo puntero para almacenar la copia
+    unsigned char* copiedRegion = new unsigned char[regionSize];
+
+    // Copiar la región de píxeles
+    memcpy(copiedRegion, pixelData + start, regionSize);
+
+    return copiedRegion;
+}
+
 bool DecriptImage::Run() {
     bool operation_found;
     int width = 0, height = 0;
@@ -157,6 +178,8 @@ bool DecriptImage::Run() {
 
     // Cargar imagen transformada final
     unsigned char* pixelDataId = loadPixels(idImage, width, height);
+
+    unsigned char* pixelDataIdRegion;
 
     // Cargar imagen transformada final
     unsigned char* pixelDataGeneralMask = loadPixels(generalMask, generalMaskWidth, generalMaskHeight);
@@ -178,14 +201,19 @@ bool DecriptImage::Run() {
         unsigned int* maskingData = loadSeedMasking(
             maskFile.toUtf8().constData(), seed, n_pixeles);
 
-        // Mostrar información de control en consola
-        cout << "Semilla: " << seed << endl;
-        cout << "Cantidad de píxeles leídos: " << n_pixeles << endl;
-
         if (!maskingData) {
             cout << "No se pudo cargar el archivo de enmascaramiento: " << maskFile.toStdString() << endl;
             return false;
         }
+
+        // Mostrar información de control en consola
+        cout << "Semilla: " << seed << endl;
+        cout << "Cantidad de píxeles leídos: " << n_pixeles << endl;
+
+        int start = seed;
+        int end = seed+(n_pixeles*3);
+        pixelDataIdRegion = copyRegion(pixelDataId, start, end, width, height);
+
 
         // Revertir operación de enmascaramiento
         unsigned char* pixelBefore = loadPixelsBeforeStep(maskingData, pixelDataMask, n_pixeles);
@@ -196,7 +224,7 @@ bool DecriptImage::Run() {
         }
 
         // Detectar operación usada entre pixelBefore y pixelDataId
-        operation_found = this->detectTransform(pixelBefore, pixelDataGeneralMask, pixelDataId, seed, n_pixeles);
+        operation_found = this->detectTransform(pixelBefore, pixelDataGeneralMask, pixelDataIdRegion, seed, n_pixeles);
         qDebug() << "Operacion Encontrada" << operation_found;
 
         if(!operation_found){

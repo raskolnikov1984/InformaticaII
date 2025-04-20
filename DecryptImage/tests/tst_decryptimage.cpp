@@ -61,9 +61,14 @@ TEST_F(CaseOneDecryptImage, TestIsXOR){
     pixelDataBeforeStep = decriptImage->loadPixelsBeforeStep(maskingData, pixelDataMask, n_pixeles * 3);
     unsigned char* result = new unsigned char[n_pixeles];
 
+    int start = seed;
+    int end = seed+(n_pixeles*3);
+    unsigned char* pixelDataIdRegion = decriptImage->copyRegion(pixelDataId, start, end, widthId, heightId);
+
+
     // Se aplica operacion XOR a la Seccion Sin Desenmascarada
     decriptImage->Img1XORImg2(pixelDataBeforeStep, pixelDataGeneralMask, result, n_pixeles);
-    EXPECT_EQ(decriptImage->isXOR(result, pixelDataGeneralMask, pixelDataId, seed, n_pixeles), true);
+    EXPECT_EQ(decriptImage->isXOR(result, pixelDataGeneralMask, pixelDataIdRegion, seed, n_pixeles), true);
 }
 
 TEST_F(CaseOneDecryptImage, TestIsRotationRight) {

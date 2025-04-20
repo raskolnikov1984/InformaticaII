@@ -38,6 +38,8 @@ public:
     bool detectTransform(
         unsigned char* pixelBefore, unsigned char* pixelDataGeneralMask, unsigned char* pixelDataId, int& seed, int& n_pixels);
 
+    unsigned char* copyRegion(unsigned char* pixelData, int start, int end,int width, int height);
+
     bool Run();
 
 private:
