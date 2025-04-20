@@ -207,12 +207,6 @@ inline unsigned int* loadSeedMasking(const char* nombreArchivo, int &seed, int &
 
     // Cerrar el archivo después de terminar la lectura
     archivo.close();
-
-    // Mostrar información de control en consola
-    cout << "----------------------------------------------" << std::endl;
-    cout << "Semilla: " << seed << endl;
-    cout << "Cantidad de píxeles leídos: " << n_pixels << endl;
-
     // Retornar el puntero al arreglo con los datos RGB
     return RGB;
 }

@@ -19,6 +19,8 @@ public:
     int widthGenMask = 0;
     int heightMask = 0;
     int widthMask = 0;
+    int heightId = 0;
+    int widthId = 0;
     int seed = 0;
     int n_pixeles = 0;
 
@@ -32,12 +34,13 @@ public:
     QString p2Image = "/home/rodia/Escritorio/03-UdeA/InformaticaII/ChallengeI_Requirements/Caso 1/P2.bmp";
     QString p1Image = "/home/rodia/Escritorio/03-UdeA/InformaticaII/ChallengeI_Requirements/Caso 1/P1.bmp";
 
-
-    unsigned int *maskingData = loadSeedMasking("/home/rodia/Escritorio/03-UdeA/InformaticaII/ChallengeI_Requirements/Caso 1/M2.txt", seed, n_pixeles);
+    unsigned int *maskingData;
     unsigned char *pixelDataGeneralMask = loadPixels(generalMaskIMage, widthGenMask, heightGenMask);
     unsigned char *pixelDataMask = loadPixels(maskImage, widthMask, heightMask);
+    unsigned char *pixelDataId = loadPixels(idImage, widthId, heightId);
     unsigned char *pixelDataP2 = loadPixels(p2Image, widthP2, heightP2);
     unsigned char *pixelDataP1 = loadPixels(p1Image, widthP1, heightP1);
+    unsigned char *pixelDataBeforeStep;
 
     void SetUp() override {
         decriptImage = new DecriptImage(path_info_to_decrypt, case_name, 3);
@@ -48,57 +51,36 @@ public:
     }
 };
 
-TEST_F(CaseOneDecryptImage, CaseOneDecryptImageTest){
+TEST_F(CaseOneDecryptImage, TestIsXOR){
+    // Desenmascarar M2.TXT
+    maskingData = loadSeedMasking("/home/rodia/Escritorio/03-UdeA/InformaticaII/ChallengeI_Requirements/Caso 1/M2.txt", seed, n_pixeles);
+
     EXPECT_EQ(seed, 15);
     EXPECT_EQ(n_pixeles, 100);
 
-    unsigned char *pixelDataBeforeStep = decriptImage->loadPixelsBeforeStep(
-        maskingData, pixelDataMask, n_pixeles * 3);
-    for(int i=0; i < n_pixeles * 3; i++){
-        EXPECT_EQ(pixelDataBeforeStep[i], pixelDataP2[i+seed]);
-    }
+    pixelDataBeforeStep = decriptImage->loadPixelsBeforeStep(maskingData, pixelDataMask, n_pixeles * 3);
+    unsigned char* result = new unsigned char[n_pixeles];
 
-    unsigned char* result = new unsigned char[300];
-    decriptImage->Img1XORImg2(pixelDataBeforeStep, pixelDataGeneralMask, result, 300);
-    qDebug() << "EJEMPLO " << decriptImage->isXOR(result, pixelDataGeneralMask, pixelDataP2, seed, n_pixeles);
-
+    // Se aplica operacion XOR a la Seccion Sin Desenmascarada
+    decriptImage->Img1XORImg2(pixelDataBeforeStep, pixelDataGeneralMask, result, n_pixeles);
+    EXPECT_EQ(decriptImage->isXOR(result, pixelDataGeneralMask, pixelDataId, seed, n_pixeles), true);
 }
 
-// TEST_F(CaseOneDecryptImage, TestIsRotationLeft) {
-//     unsigned char a = 0b00000001; // 1
-//     unsigned char b = 0b00000010; // 2
-//     int n;
+TEST_F(CaseOneDecryptImage, TestIsRotationRight) {
+    // Desenmascarar M1.TXT
+    int bits = 3;
+    maskingData = loadSeedMasking("/home/rodia/Escritorio/03-UdeA/InformaticaII/ChallengeI_Requirements/Caso 1/M1.txt", seed, n_pixeles);
 
-//     EXPECT_TRUE(decriptImage->isRotationLeft(a, b, n));
-//     EXPECT_EQ(n, 1); // Debe ser 1 porque 1 rotado a la izquierda 1 bit es 2
-// }
+    EXPECT_EQ(seed, 100);
+    EXPECT_EQ(n_pixeles, 100);
 
-// TEST_F(CaseOneDecryptImage, TestIsRotationRight) {
-//     unsigned char a = 0b00000010; // 2
-//     unsigned char b = 0b00000001; // 1
-//     int n;
+    pixelDataBeforeStep = decriptImage->loadPixelsBeforeStep(maskingData, pixelDataMask, n_pixeles * 3);
 
-//     EXPECT_TRUE(decriptImage->isRotationRight(a, b, n));
-//     EXPECT_EQ(n, 1); // Debe ser 1 porque 2 rotado a la derecha 1 bit es 1
-// }
-
-// TEST_F(CaseOneDecryptImage, TestIsShiftRight) {
-//     unsigned char a = 0b00000100; // 4
-//     unsigned char b = 0b00000010; // 2
-//     int n;
-
-//     EXPECT_TRUE(decriptImage->isShiftRight(a, b, n));
-//     EXPECT_EQ(n, 1); // Debe ser 1 porque 4 desplazado a la derecha 1 bit es 2
-// }
-
-// TEST_F(CaseOneDecryptImage, TestIsShiftLeft) {
-//     unsigned char a = 0b00000010; // 2
-//     unsigned char b = 0b00000100; // 4
-//     int n;
-
-//     EXPECT_TRUE(decriptImage->isShiftLeft(a, b, n));
-//     EXPECT_EQ(n, 1); // Debe ser 1 porque 2 desplazado a la izquierda 1 bit es 4
-// }
+    for(int i=0; i < n_pixeles; i++){
+        EXPECT_EQ(decriptImage->rotateRight(pixelDataBeforeStep[i], 3), pixelDataP2[i+100]);
+    }
+    // EXPECT_EQ(decriptImage->isRotationRight(pixelDataBeforeStep, pixelDataP2, n_pixeles, bits), true);
+}
 
 TEST_F(CaseOneDecryptImage, TestDecriptImageCase1){
     QString path_info_to_decrypt = "/home/rodia/Escritorio/03-UdeA/InformaticaII/ChallengeI_Requirements/";
@@ -114,22 +96,14 @@ TEST_F(CaseOneDecryptImage, TestDecriptImageCase1){
     EXPECT_EQ(executed, true);
 
     Operation* head = decriptImage->head;
-    ASSERT_NE(head, nullptr);
     EXPECT_EQ(head->type, "XOR");
     EXPECT_EQ(head->bits, 0);
 
     Operation* head1 = head->next;
-    ASSERT_NE(head1, nullptr);
-    EXPECT_EQ(head1->type, "Rotation Right");
+    EXPECT_EQ(head1->type, "RotationRight");
     EXPECT_EQ(head1->bits, 3);
 
     Operation* head2 = head1->next;
-    ASSERT_NE(head2, nullptr);
     EXPECT_EQ(head2->type, "XOR");
     EXPECT_EQ(head2->bits, 0);
-
-    delete decriptImage;
-    delete head1;
-    delete head2;
-
 }

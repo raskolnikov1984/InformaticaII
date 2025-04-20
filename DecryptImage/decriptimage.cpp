@@ -31,27 +31,28 @@ unsigned char* DecriptImage::loadPixelsBeforeStep(unsigned int* pixelSeedMasking
 
 
 bool DecriptImage::isXOR(unsigned char* imgXOR, unsigned char* generalMask, unsigned char* imgId, int &seed, int &n_pixels) {
-    unsigned char* reverseXOR = new unsigned char[n_pixels * 3];
-    Img1XORImg2(imgXOR, generalMask, reverseXOR, n_pixels * 3);
+    bool equal = true;
     for(int i=0; i < n_pixels; i++){
-        if(reverseXOR[i] == imgId[i+seed]){
-            continue;
+        if(imgXOR[i] != imgId[i+seed]){
+            equal = false;
         }
-        return false;
     }
-    this->addOperation("XOR", 0);
-    return true;
+    if(equal)
+        this->addOperation("XOR", 0);
+    return equal;
 }
 
 bool DecriptImage::isRotationLeft(unsigned char* img, unsigned char* imgId, int& n_pixels, int& bits) {
+    bool equal = true;
     for(int i=0; i < n_pixels; i++){
         if (rotateLeft(img[i], bits) != imgId[i]){
-            return false;
+            equal = false;
         }
     }
 
-    this->addOperation("Rotation Left", bits);
-    return true;
+    if(equal)
+        this->addOperation("RotationLeft", bits);
+    return equal;
 }
 
 bool DecriptImage::isRotationRight(unsigned char* img, unsigned char* imgId, int& n_pixels, int& bits){
@@ -61,7 +62,7 @@ bool DecriptImage::isRotationRight(unsigned char* img, unsigned char* imgId, int
         }
     }
 
-    this->addOperation("Rotation Right", bits);
+    this->addOperation("RotationRight", bits);
     return true;
 }
 
@@ -72,7 +73,7 @@ bool DecriptImage::isShiftRight(unsigned char* img, unsigned char* imgId, int& n
             return false;
     }
 
-    this->addOperation("Shift Right", bits);
+    this->addOperation("ShiftRight", bits);
     return true;
 }
 
@@ -82,7 +83,7 @@ bool DecriptImage::isShiftLeft(unsigned char* img, unsigned char* imgId, int& n_
             return false;
     }
 
-    this->addOperation("Shift Left", bits);
+    this->addOperation("ShiftLeft", bits);
     return true;
 }
 
@@ -98,28 +99,38 @@ bool DecriptImage::detectTransform(
     unsigned char* pixelBefore, unsigned char* pixelDataGeneralMask,
     unsigned char* pixelDataId, int& seed, int& n_pixels){
 
-    unsigned char* result = new unsigned char[300];
+    bool operation_found = false;
+    unsigned char* result = new unsigned char[n_pixels * 3];
     Img1XORImg2(pixelBefore, pixelDataGeneralMask, result, 300);
+
     if(this->isXOR(result, pixelDataGeneralMask, pixelDataId , seed, n_pixels))
         return true;
 
-    // for(int bits=1; bits < 8; bits++){
-    //     if(this->isShiftLeft(pixelBefore, pixelDataId,n_pixels, bits)){
-    //         return true;
-    //     } else if(this->isShiftRight(pixelBefore, pixelDataId,n_pixels, bits)){
-    //         return true;
-    //     } else if(this->isRotationRight(pixelBefore, pixelDataId,n_pixels, bits)){
-    //         return true;
-    //     } else if(this->isRotationLeft(pixelBefore, pixelDataId,n_pixels, bits)){
-    //         return true;
-    //     } else {
-    //         continue;
-    //     }
-    //}
+    for(int bits=1; bits < 8; bits++){
+        operation_found = this->isShiftLeft(pixelBefore, pixelDataId, n_pixels, bits);
 
-    delete[] pixelDataGeneralMask;
-    delete[] pixelBefore;
-    delete[] pixelDataId;
+        if(operation_found){
+            return true;
+        }
+
+        operation_found = this->isShiftRight(pixelBefore, pixelDataId, n_pixels, bits);
+
+        if(operation_found){
+            return true;
+        }
+
+        operation_found = this->isRotationRight(pixelBefore, pixelDataId, n_pixels, bits);
+
+        if(operation_found){
+            return true;
+        }
+
+        operation_found = this->isRotationLeft(pixelBefore, pixelDataId, n_pixels, bits);
+
+        if(operation_found){
+            return true;
+        }
+    }
 
     return false;
 }
@@ -136,6 +147,7 @@ void DecriptImage::printOperations() const {
 }
 
 bool DecriptImage::Run() {
+    bool operation_found;
     int width = 0, height = 0;
     int generalMaskWidth = 0, generalMaskHeight = 0;
     int maskWidth = 0, maskHeight = 0;
@@ -152,10 +164,12 @@ bool DecriptImage::Run() {
     for (int i = steps; i > 0; --i) {
         // Construir ruta del archivo de enmascaramiento
         QString maskFile = base_path + QString("M%1.txt").arg(i);
+        cout << "----------------------------------------------" << std::endl;
+        qDebug() << "Aplicando operaciones para" << QString("M%1.txt").arg(i);
+        cout << "----------------------------------------------" << std::endl;
 
         if (!pixelDataMask) {
-            delete[] pixelDataId;
-            cout << "No se pudo cargar la imagen de máscara." << std::endl;
+            cout << "No se pudo cargar la imagen de máscara." << endl;
             return false;
         }
 
@@ -164,24 +178,34 @@ bool DecriptImage::Run() {
         unsigned int* maskingData = loadSeedMasking(
             maskFile.toUtf8().constData(), seed, n_pixeles);
 
+        // Mostrar información de control en consola
+        cout << "Semilla: " << seed << endl;
+        cout << "Cantidad de píxeles leídos: " << n_pixeles << endl;
+
         if (!maskingData) {
-            cout << "No se pudo cargar el archivo de enmascaramiento: " << maskFile.toStdString() << std::endl;
+            cout << "No se pudo cargar el archivo de enmascaramiento: " << maskFile.toStdString() << endl;
             return false;
         }
 
         // Revertir operación de enmascaramiento
-        unsigned char* pixelBefore = loadPixelsBeforeStep(maskingData, pixelDataMask, n_pixeles*3);
+        unsigned char* pixelBefore = loadPixelsBeforeStep(maskingData, pixelDataMask, n_pixeles);
 
-        // Detectar operación usada entre pixelBefore y pixelDataId
-        // Supongamos que se usa el primer byte como muestra
-
-
-        if(~this->detectTransform(pixelBefore, pixelDataGeneralMask, pixelDataId, seed, n_pixeles)){
+        if (!pixelBefore) {
+            cout << "Error al cargar los datos de píxeles antes del paso." << endl;
             return false;
         }
 
+        // Detectar operación usada entre pixelBefore y pixelDataId
+        operation_found = this->detectTransform(pixelBefore, pixelDataGeneralMask, pixelDataId, seed, n_pixeles);
+        qDebug() << "Operacion Encontrada" << operation_found;
+
+        if(!operation_found){
+            delete[] pixelBefore;
+            return false;
+        }
+
+        delete[] pixelDataId;
         pixelDataId = pixelBefore;
-        n_pixeles = 0;
     }
 
     // Mostrar operaciones detectadas (en orden inverso)
