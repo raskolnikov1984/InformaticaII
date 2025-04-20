@@ -93,8 +93,12 @@ void DecriptImage::addOperation(const QString& type, int bits) {
     newOperation->type = type;
     newOperation->bits = bits;
     newOperation->next = head;
+    newOperation->maskFile = this->maskFile.remove(
+        this->base_path);
     head = newOperation;
 }
+
+
 
 bool DecriptImage::detectTransform(
     unsigned char* pixelBefore, unsigned char* pixelDataGeneralMask,
@@ -167,6 +171,12 @@ unsigned char* DecriptImage::copyRegion(unsigned char* pixelData, int start, int
     return copiedRegion;
 }
 
+unsigned char* DecriptImage::decriptRegion(unsigned char* pixelData, QString& operationType, int& dataSize){
+    unsigned char* region = new unsigned char[dataSize];
+
+    return region;
+}
+
 bool DecriptImage::Run() {
     bool operation_found;
     int width = 0, height = 0;
@@ -186,7 +196,7 @@ bool DecriptImage::Run() {
 
     for (int i = steps; i > 0; --i) {
         // Construir ruta del archivo de enmascaramiento
-        QString maskFile = base_path + QString("M%1.txt").arg(i);
+        this->maskFile = base_path + QString("M%1.txt").arg(i);
         cout << "----------------------------------------------" << std::endl;
         qDebug() << "Aplicando operaciones para" << QString("M%1.txt").arg(i);
         cout << "----------------------------------------------" << std::endl;

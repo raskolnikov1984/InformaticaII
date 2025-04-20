@@ -8,6 +8,7 @@ using namespace std;
 struct Operation {
     QString type;
     int bits;
+    QString maskFile;
     Operation* next;
 };
 
@@ -15,6 +16,7 @@ class DecriptImage : public BitWiseOperators
 {
 public:
     QString base_path;
+    QString maskFile;
     int seed;
     int n_pixeles;
     Operation* head;
@@ -39,6 +41,8 @@ public:
         unsigned char* pixelBefore, unsigned char* pixelDataGeneralMask, unsigned char* pixelDataId, int& seed, int& n_pixels);
 
     unsigned char* copyRegion(unsigned char* pixelData, int start, int end,int width, int height);
+
+    unsigned char* decriptRegion(unsigned char* pixelData, QString& operationType, int& dataSize);
 
     bool Run();
 

@@ -103,6 +103,8 @@ TEST_F(CaseOneDecryptImage, TestDecriptImageCase1){
     Operation* head = decriptImage->head;
     EXPECT_EQ(head->type, "XOR");
     EXPECT_EQ(head->bits, 0);
+    EXPECT_EQ(head->maskFile.toStdString(), "M2.txt");
+
 
     Operation* head1 = head->next;
     EXPECT_EQ(head1->type, "RotationRight");
