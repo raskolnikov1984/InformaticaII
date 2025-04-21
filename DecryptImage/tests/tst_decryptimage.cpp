@@ -102,20 +102,18 @@ TEST_F(CaseOneDecryptImage, TestDecriptImageCase1){
 
     DecriptImage* decriptImage = new DecriptImage(path_info_to_decrypt, case_name, steps);
 
-    decriptImage->Run();
+    executed = decriptImage->Run();
 
     EXPECT_EQ(executed, true);
 
-    Operation* head = decriptImage->head;
-    EXPECT_EQ(head->type.toStdString(), "XOR");
-    EXPECT_EQ(head->bits, 0);
-    EXPECT_EQ(head->maskFile.toStdString(), "M2.txt");
-
-    Operation* head1 = head->next;
+    Operation* head1 = decriptImage->head;
     EXPECT_EQ(head1->type.toStdString(), "RotationRight");
     EXPECT_EQ(head1->bits, 3);
+    EXPECT_EQ(head1->maskFile.toStdString(), "M1.txt");
 
-    // Operation* head2 = head1->next;
-    // EXPECT_EQ(head2->type, "XOR");
-    // EXPECT_EQ(head2->bits, 0);
+    Operation* head2 = head1->next;
+    EXPECT_EQ(head2->type.toStdString(), "XOR");
+    EXPECT_EQ(head2->bits, 0);
+    EXPECT_EQ(head2->maskFile.toStdString(), "M2.txt");
+
 }

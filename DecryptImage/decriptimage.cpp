@@ -172,8 +172,12 @@ void DecriptImage::printOperations() const {
 unsigned char* DecriptImage::copyRegion(unsigned char* pixelData, int start, int end,int width, int height) {
     // Verificar que los parámetros sean válidos
     int pixels = width * height * 3;
+
     if (!pixelData || start < 0 || end <= start || end > pixels) {
         std::cerr << "Parámetros inválidos para que la region sea copiada." << std::endl;
+        qDebug() << "Start" << start;
+        qDebug() << "End" << end;
+        qDebug() << "Pixeles" << pixels;
         return nullptr;
     }
 
@@ -214,8 +218,9 @@ unsigned char* DecriptImage::decriptIdImage(unsigned char* pixelDataIdRegion, un
 
 unsigned char* DecriptImage::decriptRegion(unsigned char* pixelData, unsigned char* pixelDataGeneralMaskRegion, OperationTypes operationType, int& dataSize, int width, int height, int& seed, int& bits){
     unsigned char* region = new unsigned char[dataSize];
+    int end = seed+dataSize;
     unsigned char* PixelDataIdRegion = copyRegion(
-        pixelDataId, seed, n_pixeles, width, height);
+        pixelDataId, seed, end, widthId, heigthId);
 
     switch(operationType){
     case 1:
@@ -326,6 +331,8 @@ bool DecriptImage::Run() {
         // Detectar operación usada entre pixelBefore y pixelDataIdRegion
         qDebug() << "Operacion Encontrada" << operation_found;
 
+
+
         if(!operation_found){
             cerr<<"Ninguna operación detectada en paso "<<i<<endl;
             delete[] maskingData;
@@ -335,6 +342,7 @@ bool DecriptImage::Run() {
             delete[] pixelDataGeneralMask;
             delete[] pixelDataIdRegion;
             delete[] pixelDataGeneralMaskRegion;
+            printOperations();
             return false;
 
         n_pixeles = 0;
