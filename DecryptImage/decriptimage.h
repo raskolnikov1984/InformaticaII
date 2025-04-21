@@ -20,13 +20,6 @@ enum OperationTypes {
     ShiftLeft
 };
 
-struct OperationTypesStruct {
-    static const int XOR = 1;
-    static const int RotationRight = 2;
-    static const int RotationLeft = 3;
-    static const int ShiftRight = 4;
-    static const int ShiftLeft = 5;
-};
 
 class DecriptImage : public BitWiseOperators
 {
@@ -35,9 +28,15 @@ public:
     QString maskFile;
     Operation* head;
     unsigned char* pixelDataId;
+    unsigned char* pixelDataGeneralMask;
+    unsigned char* pixelDataMask;
 
     int widthId;
-    int height;
+    int heigthId;
+    int widthGm;
+    int heigthGm;
+    int widthM;
+    int heigthM;
     int seed;
     int n_pixeles;
 
@@ -60,17 +59,14 @@ public:
     bool detectTransform(
         unsigned char* pixelBefore, unsigned char* pixelDataGeneralMask, unsigned char* pixelDataId, int& seed, int& n_pixels);
 
-    unsigned char* copyRegion(unsigned char* pixelData, int start, int end,int width, int height);
+    unsigned char* copyRegion(
+        unsigned char* pixelData, int start, int end,int width, int height);
 
     unsigned char* decriptRegion(
-        unsigned char* pixelData,
-        OperationTypes operationType,
-        int& dataSize,
-        int width,
-        int height,
-        int& seed,
-        int& bits);
+        unsigned char* pixelData, unsigned char* pixelDataGeneralMaskRegion, OperationTypes operationType, int& dataSize, int width, int height, int& seed, int& bits);
 
+    unsigned char* decriptIdImage(
+        unsigned char* pixelDataIdRegion, unsigned char* pixelDataGeneralMaskRegion, int& width, int& heigth);
     bool Run();
 
 private:

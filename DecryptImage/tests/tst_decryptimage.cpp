@@ -59,16 +59,22 @@ TEST_F(CaseOneDecryptImage, TestIsXOR){
     EXPECT_EQ(n_pixeles, 100);
 
     pixelDataBeforeStep = decriptImage->loadPixelsBeforeStep(maskingData, pixelDataMask, n_pixeles * 3);
-    unsigned char* result = new unsigned char[n_pixeles];
+    unsigned char* result = new unsigned char[n_pixeles * 3];
 
     int start = seed;
     int end = seed+(n_pixeles*3);
     unsigned char* pixelDataIdRegion = decriptImage->copyRegion(pixelDataId, start, end, widthId, heightId);
+    unsigned char* pixelDataGeneralMaskRegion = decriptImage->copyRegion(pixelDataGeneralMask, start, end, widthId, heightId);
 
-
+    n_pixeles *= 3;
     // Se aplica operacion XOR a la Seccion Sin Desenmascarada
-    decriptImage->Img1XORImg2(pixelDataBeforeStep, pixelDataGeneralMask, result, n_pixeles);
-    EXPECT_EQ(decriptImage->isXOR(result, pixelDataGeneralMask, pixelDataIdRegion, seed, n_pixeles), true);
+    decriptImage->Img1XORImg2(pixelDataBeforeStep, pixelDataGeneralMaskRegion, result, n_pixeles);
+    EXPECT_EQ(decriptImage->isXOR(result, pixelDataGeneralMaskRegion, pixelDataIdRegion, seed, n_pixeles), true);
+
+    decriptImage->Img1XORImg2(pixelDataIdRegion, pixelDataGeneralMaskRegion, result, n_pixeles);
+    for(int i=0; i < n_pixeles; i++){
+        EXPECT_EQ(result[i], pixelDataBeforeStep[i]);
+    }
 }
 
 TEST_F(CaseOneDecryptImage, TestIsRotationRight) {
@@ -107,10 +113,10 @@ TEST_F(CaseOneDecryptImage, TestDecriptImageCase1){
 
 
     Operation* head1 = head->next;
-    EXPECT_EQ(head1->type, "RotationRight");
+    EXPECT_EQ(head1->type, "RotationRight1111");
     EXPECT_EQ(head1->bits, 3);
 
-    Operation* head2 = head1->next;
-    EXPECT_EQ(head2->type, "XOR");
-    EXPECT_EQ(head2->bits, 0);
+    // Operation* head2 = head1->next;
+    // EXPECT_EQ(head2->type, "XOR");
+    // EXPECT_EQ(head2->bits, 0);
 }

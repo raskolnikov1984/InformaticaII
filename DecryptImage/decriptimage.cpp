@@ -16,10 +16,21 @@ DecriptImage::DecriptImage(const QString& path, const QString& caseName, int ste
     int seed = 0;
     int n_pixeles = 0;
 
-    pixelDataId = loadPixels(generalMask, widthId, height);
+    pixelDataId = loadPixels(idImage, widthId, heigthId);
+    pixelDataGeneralMask = loadPixels(generalMask, widthGm, heigthGm);
+    pixelDataMask = loadPixels(maskImage, widthM, heigthM);
 }
 
 DecriptImage::~DecriptImage() {
+    while (head != nullptr) {
+        Operation* temp = head;
+        head = head->next;
+        delete temp;
+    }
+
+    delete[] pixelDataId;
+    delete[] pixelDataGeneralMask;
+    delete[] pixelDataMask;
 }
 
 unsigned char* DecriptImage::loadPixelsBeforeStep(unsigned int* pixelSeedMasking, unsigned char* pixelDataMask, int dataSize){
@@ -103,38 +114,43 @@ void DecriptImage::addOperation(const QString& type, int bits) {
 
 
 bool DecriptImage::detectTransform(
-    unsigned char* pixelBefore, unsigned char* pixelDataGeneralMask,
-    unsigned char* pixelDataId, int& seed, int& n_pixels){
+    unsigned char* pixelBefore, unsigned char* pixelDataGeneralMaskRegion,
+    unsigned char* pixelDataIdRegion, int& seed, int& n_pixels){
 
     bool operation_found = false;
-    unsigned char* result = new unsigned char[n_pixels * 3];
-    Img1XORImg2(pixelBefore, pixelDataGeneralMask, result, 300);
+    unsigned char* result = new unsigned char[n_pixels];
+    Img1XORImg2(pixelBefore, pixelDataGeneralMaskRegion, result, n_pixels);
 
-    if(this->isXOR(result, pixelDataGeneralMask, pixelDataId , seed, n_pixels))
+    if(this->isXOR(result, pixelDataGeneralMaskRegion, pixelDataIdRegion , seed, n_pixels)){
         return true;
+    }
 
     for(int bits=1; bits < 8; bits++){
-        operation_found = this->isShiftLeft(pixelBefore, pixelDataId, n_pixels, bits);
+        operation_found = this->isShiftLeft(pixelBefore, pixelDataIdRegion, n_pixels, bits);
 
         if(operation_found){
+            qDebug()  << "Shift Left";
             return true;
         }
 
-        operation_found = this->isShiftRight(pixelBefore, pixelDataId, n_pixels, bits);
+        operation_found = this->isShiftRight(pixelBefore, pixelDataIdRegion, n_pixels, bits);
 
         if(operation_found){
+            qDebug()  << "Shift Right";
             return true;
         }
 
-        operation_found = this->isRotationRight(pixelBefore, pixelDataId, n_pixels, bits);
+        operation_found = this->isRotationRight(pixelBefore, pixelDataIdRegion, n_pixels, bits);
 
         if(operation_found){
+            qDebug()  << "Rotation Right";
             return true;
         }
 
-        operation_found = this->isRotationLeft(pixelBefore, pixelDataId, n_pixels, bits);
+        operation_found = this->isRotationLeft(pixelBefore, pixelDataIdRegion, n_pixels, bits);
 
         if(operation_found){
+            qDebug()  << "Rotation Left";
             return true;
         }
     }
@@ -157,7 +173,7 @@ unsigned char* DecriptImage::copyRegion(unsigned char* pixelData, int start, int
     // Verificar que los parámetros sean válidos
     int pixels = width * height * 3;
     if (!pixelData || start < 0 || end <= start || end > pixels) {
-        std::cerr << "Parámetros inválidos." << std::endl;
+        std::cerr << "Parámetros inválidos para que la region sea copiada." << std::endl;
         return nullptr;
     }
 
@@ -173,14 +189,38 @@ unsigned char* DecriptImage::copyRegion(unsigned char* pixelData, int start, int
     return copiedRegion;
 }
 
-unsigned char* DecriptImage::decriptRegion(unsigned char* pixelData, OperationTypes operationType, int& dataSize, int width, int height, int& seed, int& bits){
+unsigned char* DecriptImage::decriptIdImage(unsigned char* pixelDataIdRegion, unsigned char* pixelDataGeneralMaskRegion, int& width, int& heigth){
+    Operation* current = head;
+    OperationTypes operation;
+    n_pixeles *= 3;
+
+    while (current != nullptr) {
+        if(current->type == "XOR"){
+            operation = OperationTypes::XOR;
+        } else if(current->type == "RotationRight"){
+            operation = OperationTypes::RotationRight;
+        } else if(current->type == "RotationLeft"){
+            operation = OperationTypes::RotationLeft;
+        } else if(current->type == "ShiftRight"){
+            operation = OperationTypes::ShiftRight;
+        } else {
+            operation = OperationTypes::ShiftLeft;
+        };
+        pixelDataIdRegion = decriptRegion(pixelDataIdRegion, pixelDataGeneralMaskRegion, operation, n_pixeles, widthM, heigthM, seed, current->bits);
+        current = current->next;
+    }
+
+    return pixelDataIdRegion;
+}
+
+unsigned char* DecriptImage::decriptRegion(unsigned char* pixelData, unsigned char* pixelDataGeneralMaskRegion, OperationTypes operationType, int& dataSize, int width, int height, int& seed, int& bits){
     unsigned char* region = new unsigned char[dataSize];
     unsigned char* PixelDataIdRegion = copyRegion(
         pixelDataId, seed, n_pixeles, width, height);
 
     switch(operationType){
     case 1:
-        Img1XORImg2(pixelData, PixelDataIdRegion, region, dataSize);
+        Img1XORImg2(pixelData, pixelDataGeneralMaskRegion, region, dataSize);
         break;
     case 2:
         for(int i=0; i< dataSize;i++){
@@ -208,21 +248,9 @@ unsigned char* DecriptImage::decriptRegion(unsigned char* pixelData, OperationTy
 }
 
 bool DecriptImage::Run() {
-    bool operation_found;
-    int width = 0, height = 0;
-    int generalMaskWidth = 0, generalMaskHeight = 0;
-    int maskWidth = 0, maskHeight = 0;
-
-    // Cargar máscara (imagen)
-    unsigned char* pixelDataMask = loadPixels(maskImage, maskWidth, maskHeight);
-
-    // Cargar imagen transformada final
-    unsigned char* pixelDataId = loadPixels(idImage, width, height);
-
-    unsigned char* pixelDataIdRegion;
-
-    // Cargar imagen transformada final
-    unsigned char* pixelDataGeneralMask = loadPixels(generalMask, generalMaskWidth, generalMaskHeight);
+    bool operation_found=false;
+    unsigned char* pixelDataIdRegion = nullptr;
+    unsigned char* pixelDataGeneralMaskRegion = nullptr;
 
     for (int i = steps; i > 0; --i) {
         // Construir ruta del archivo de enmascaramiento
@@ -236,10 +264,9 @@ bool DecriptImage::Run() {
             return false;
         }
 
-        n_pixeles = 0;
         // Cargar datos desde el archivo de enmascaramiento (resultado)
-        unsigned int* maskingData = loadSeedMasking(
-            maskFile.toUtf8().constData(), seed, n_pixeles);
+        n_pixeles = 0;
+        unsigned int* maskingData = loadSeedMasking(maskFile.toUtf8().constData(), seed, n_pixeles);
 
         if (!maskingData) {
             cout << "No se pudo cargar el archivo de enmascaramiento: " << maskFile.toStdString() << endl;
@@ -250,17 +277,8 @@ bool DecriptImage::Run() {
         cout << "Semilla: " << seed << endl;
         cout << "Cantidad de píxeles leídos: " << n_pixeles << endl;
 
-        int start = seed;
-        int end = seed+(n_pixeles*3);
-        pixelDataIdRegion = copyRegion(pixelDataId, start, end, width, height);
 
-
-        // Operation* current = head;
-        // while (current != nullptr) {
-        //     //decriptRegion();
-        //     current = current->next;
-        // }
-
+        n_pixeles *= 3;
         // Revertir operación de enmascaramiento
         unsigned char* pixelBefore = loadPixelsBeforeStep(maskingData, pixelDataMask, n_pixeles);
 
@@ -269,19 +287,64 @@ bool DecriptImage::Run() {
             return false;
         }
 
-        // Detectar operación usada entre pixelBefore y pixelDataId
-        operation_found = this->detectTransform(pixelBefore, pixelDataGeneralMask, pixelDataIdRegion, seed, n_pixeles);
-        qDebug() << "Operacion Encontrada" << operation_found;
+        int start = seed;
+        int end = seed+(n_pixeles);
 
-        if(!operation_found){
+        pixelDataGeneralMaskRegion = copyRegion(pixelDataGeneralMask, start, end, widthGm, heigthGm);
+        if (!pixelDataGeneralMaskRegion) {
+            cout << "Error al Copiar los pixels de I_M" << endl;
+            delete[] pixelDataIdRegion;
+            delete[] pixelDataGeneralMaskRegion;
+            delete[] maskingData;
             delete[] pixelBefore;
             return false;
         }
 
-        delete[] pixelDataId;
+        pixelDataIdRegion = copyRegion(pixelDataId, start, end, widthId, heigthId);
+        if (!pixelDataIdRegion) {
+            cout << "Error al Copiar los pixels de I_D" << endl;
+            delete[] pixelDataIdRegion;
+            delete[] pixelDataGeneralMaskRegion;
+            delete[] maskingData;
+            delete[] pixelBefore;
+            return false;
+        }
+
+        if(head){
+            pixelDataIdRegion = decriptIdImage(pixelDataIdRegion, pixelDataGeneralMaskRegion, widthM, heigthM);
+        }
+
+        operation_found = this->detectTransform(pixelBefore, pixelDataGeneralMaskRegion, pixelDataIdRegion, seed, n_pixeles);
+
+
+        // Detectar operación usada entre pixelBefore y pixelDataIdRegion
+        qDebug() << "Operacion Encontrada" << operation_found;
+
+        if(!operation_found){
+            cerr<<"Ninguna operación detectada en paso "<<i<<endl;
+            delete[] maskingData;
+            delete[] pixelBefore;
+            delete[] pixelDataMask;
+            delete[] pixelDataId;
+            delete[] pixelDataGeneralMask;
+            delete[] pixelDataIdRegion;
+            delete[] pixelDataGeneralMaskRegion;
+            return false;
+
+        n_pixeles = 0;
+        maskingData = nullptr;
+        pixelDataIdRegion = nullptr;
+        pixelDataGeneralMaskRegion = nullptr;
+        }
     }
 
     // Mostrar operaciones detectadas (en orden inverso)
     printOperations();
+
+    delete[] pixelDataMask;
+    delete[] pixelDataId;
+    delete[] pixelDataGeneralMask;
+    delete[] pixelDataIdRegion;
+    delete[] pixelDataGeneralMaskRegion;
     return true;
 }

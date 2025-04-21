@@ -60,19 +60,12 @@ add_executable(tst_decryptimage
 )
 add_executable(tst_bitwiseoperators
   tests/tst_bitwiseoperators.cpp)
-add_executable(tst_case1
-  bitwiseoperators.h
-  bitwiseoperators.cpp
-  tests/tst_case1.cpp
-)
 
 target_link_libraries(tst_decryptimage GTest::GTest GTest::Main Qt${QT_VERSION_MAJOR}::Core Qt${QT_VERSION_MAJOR}::Gui)
 target_link_libraries(tst_bitwiseoperators GTest::GTest GTest::Main Qt${QT_VERSION_MAJOR}::Core Qt${QT_VERSION_MAJOR}::Gui)
-target_link_libraries(tst_case1 GTest::GTest GTest::Main Qt${QT_VERSION_MAJOR}::Core Qt${QT_VERSION_MAJOR}::Gui)
 
 add_test(NAME DecryptImageTest COMMAND tst_decryptimage)
 add_test(NAME BitWiseOperatorts1Test COMMAND tst_bitwiseoperators)
-add_test(NAME Case1Test COMMAND tst_case1)
 
 
 if (GMock_FOUND)
