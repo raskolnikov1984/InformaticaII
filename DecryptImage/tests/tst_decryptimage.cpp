@@ -90,8 +90,11 @@ TEST_F(CaseOneDecryptImage, TestIsRotationRight) {
     for(int i=0; i < n_pixeles; i++){
         EXPECT_EQ(decriptImage->rotateRight(pixelDataBeforeStep[i], 3), pixelDataP2[i+100]);
     }
-    // EXPECT_EQ(decriptImage->isRotationRight(pixelDataBeforeStep, pixelDataP2, n_pixeles, bits), true);
 }
+
+// TEST_F(CaseOneDecryptImage, TestMaskWithZeroValues){
+//     for(int i=0; i<300; i++){}
+// }
 
 TEST_F(CaseOneDecryptImage, TestDecriptImageCase1){
     QString path_info_to_decrypt = "/home/rodia/Escritorio/03-UdeA/InformaticaII/ChallengeI_Requirements/";

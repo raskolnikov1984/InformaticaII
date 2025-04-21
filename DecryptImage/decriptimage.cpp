@@ -37,7 +37,7 @@ unsigned char* DecriptImage::loadPixelsBeforeStep(unsigned int* pixelSeedMasking
     unsigned char* pixelData = new unsigned char[dataSize];
 
     for(int i=0; i < dataSize; i++){
-        pixelData[i] = pixelSeedMasking[i] - pixelDataMask[i];
+        pixelData[i] = (pixelSeedMasking[i] - pixelDataMask[i] + 256) % 256;
     }
 
     return pixelData;
@@ -122,6 +122,7 @@ bool DecriptImage::detectTransform(
     Img1XORImg2(pixelBefore, pixelDataGeneralMaskRegion, result, n_pixels);
 
     if(this->isXOR(result, pixelDataGeneralMaskRegion, pixelDataIdRegion , seed, n_pixels)){
+        qDebug()  << "XOR";
         return true;
     }
 
@@ -331,8 +332,6 @@ bool DecriptImage::Run() {
         // Detectar operación usada entre pixelBefore y pixelDataIdRegion
         qDebug() << "Operacion Encontrada" << operation_found;
 
-
-
         if(!operation_found){
             cerr<<"Ninguna operación detectada en paso "<<i<<endl;
             delete[] maskingData;
@@ -348,8 +347,14 @@ bool DecriptImage::Run() {
         n_pixeles = 0;
         start = 0;
         end = 0;
+
+        delete[] maskingData;
         maskingData = nullptr;
+
+        delete[] pixelDataIdRegion;
         pixelDataIdRegion = nullptr;
+
+        delete[] pixelDataGeneralMaskRegion;
         pixelDataGeneralMaskRegion = nullptr;
         }
     }
