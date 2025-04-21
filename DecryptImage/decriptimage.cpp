@@ -192,7 +192,6 @@ unsigned char* DecriptImage::copyRegion(unsigned char* pixelData, int start, int
 unsigned char* DecriptImage::decriptIdImage(unsigned char* pixelDataIdRegion, unsigned char* pixelDataGeneralMaskRegion, int& width, int& heigth){
     Operation* current = head;
     OperationTypes operation;
-    n_pixeles *= 3;
 
     while (current != nullptr) {
         if(current->type == "XOR"){
@@ -252,7 +251,10 @@ bool DecriptImage::Run() {
     unsigned char* pixelDataIdRegion = nullptr;
     unsigned char* pixelDataGeneralMaskRegion = nullptr;
 
-    for (int i = steps; i > 0; --i) {
+    int start = 0;
+    int end = 0;
+
+    for (int i = steps; i >= 0; --i) {
         // Construir ruta del archivo de enmascaramiento
         this->maskFile = base_path + QString("M%1.txt").arg(i);
         cout << "----------------------------------------------" << std::endl;
@@ -284,11 +286,15 @@ bool DecriptImage::Run() {
 
         if (!pixelBefore) {
             cout << "Error al cargar los datos de píxeles antes del paso." << endl;
+            delete[] pixelDataIdRegion;
+            delete[] pixelDataGeneralMaskRegion;
+            delete[] maskingData;
+            delete[] pixelBefore;
             return false;
         }
 
-        int start = seed;
-        int end = seed+(n_pixeles);
+        start = seed;
+        end = seed+(n_pixeles);
 
         pixelDataGeneralMaskRegion = copyRegion(pixelDataGeneralMask, start, end, widthGm, heigthGm);
         if (!pixelDataGeneralMaskRegion) {
@@ -332,6 +338,8 @@ bool DecriptImage::Run() {
             return false;
 
         n_pixeles = 0;
+        start = 0;
+        end = 0;
         maskingData = nullptr;
         pixelDataIdRegion = nullptr;
         pixelDataGeneralMaskRegion = nullptr;
