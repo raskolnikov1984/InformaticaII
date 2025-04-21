@@ -83,7 +83,7 @@ bool DecriptImage::isRotationRight(unsigned char* img, unsigned char* imgId, int
 
 bool DecriptImage::isShiftRight(unsigned char* img, unsigned char* imgId, int& n_pixels, int& bits) {
     for (int i = 0; i < n_pixels; i++) {
-        if (shiftLeft(img[i], bits) != imgId[i])
+        if (shiftRight(img[i], bits) != imgId[i])
             return false;
     }
 
