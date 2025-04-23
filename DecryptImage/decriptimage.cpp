@@ -197,16 +197,17 @@ unsigned char* DecriptImage::decriptIdImage(unsigned char* pixelDataIdRegion, un
 
     for(int i=0; i < operations; i++) {
         current = head[i];
+        cout << "Aplicando" << current.type.toStdString() << "bits" << current.bits << endl;
         if(current.type == "XOR"){
             operation = OperationTypes::XOR;
         } else if(current.type == "RotationRight"){
-            operation = OperationTypes::RotationRight;
-        } else if(current.type == "RotationLeft"){
             operation = OperationTypes::RotationLeft;
+        } else if(current.type == "RotationLeft"){
+            operation = OperationTypes::RotationRight;
         } else if(current.type == "ShiftRight"){
-            operation = OperationTypes::ShiftRight;
-        } else {
             operation = OperationTypes::ShiftLeft;
+        } else {
+            operation = OperationTypes::ShiftRight;
         };
         pixelDataIdRegion = decriptRegion(pixelDataIdRegion, pixelDataGeneralMaskRegion, operation, n_pixeles, widthM, heigthM, seed, current.bits);
     }
@@ -222,24 +223,29 @@ unsigned char* DecriptImage::decriptRegion(unsigned char* pixelData, unsigned ch
 
     switch(operationType){
     case 1:
+        qDebug() << "Se esta aplicando un XOR";
         Img1XORImg2(pixelData, pixelDataGeneralMaskRegion, region, dataSize);
         break;
     case 2:
+        qDebug() << "Se esta aplicando una RotateLeft con "<< bits;
         for(int i=0; i< dataSize;i++){
             region[i] = rotateLeft(PixelDataIdRegion[i], bits);
         }
         break;
     case 3:
+        qDebug() << "Se esta aplicando una RotateRight con "<< bits;
         for(int i=0; i< dataSize;i++){
             region[i] = rotateRight(PixelDataIdRegion[i], bits);
         }
         break;
     case 4:
+        qDebug() << "Se esta aplicando una ShiftLeft con "<< bits;
         for(int i=0; i< dataSize;i++){
             region[i] = shiftLeft(PixelDataIdRegion[i], bits);
         }
         break;
     case 5:
+        qDebug() << "Se esta aplicando una ShiftRigth con "<< bits;
         for(int i=0; i< dataSize;i++){
             region[i] = shiftRight(PixelDataIdRegion[i], bits);
         }
@@ -257,7 +263,7 @@ bool DecriptImage::Run() {
     int start = 0;
     int end = 0;
 
-    for (int i = steps; i >= 0; --i) {
+    for (int i = steps; i > 0; --i) {
         // Construir ruta del archivo de enmascaramiento
         this->maskFile = base_path + QString("M%1.txt").arg(i);
         cout << "----------------------------------------------" << std::endl;
@@ -329,7 +335,15 @@ bool DecriptImage::Run() {
         qDebug() << "Operacion Encontrada" << operation_found;
 
 
-        if(!operation_found){
+        if(!operation_found && i==0){
+            //unsigned char* originalImage = new unsigned char[widthId*heigthId*3];
+            //originalImage = loadPixels(base_path+"I_O.bmp", widthId, heigthId);
+            //unsigned char* decriptOriginalImage = decriptIdImage(pixelDataId, pixelDataGeneralMask, widthId, heigthId);/*
+            //for(int i=0; i<n_pixeles; i++){
+            //    originalImage[i] = decriptOriginalImage[i] ^ 114;
+            //    qDebug() << originalImage[i];
+            //}*/
+            //exportImage(originalImage, widthId, heigthId, "/home/rodia/Escritorio/Original.bmp");
             cerr<<"Ninguna operación detectada en paso "<<i<<endl;
             delete[] maskingData;
             delete[] pixelBefore;
@@ -358,6 +372,16 @@ bool DecriptImage::Run() {
 
     // Mostrar operaciones detectadas (en orden inverso)
     printOperations();
+
+    int dataSize = widthId * heigthId * 3;
+    seed = 0;
+
+
+    unsigned char* decriptIdimg = decriptIdImage(pixelDataId, pixelDataGeneralMask, widthId, heigthId);
+    unsigned char* result = new unsigned char[dataSize];
+    Img1XORImg2(decriptIdimg, pixelDataGeneralMask, result, dataSize);
+
+    exportImage(result, widthId, heigthId, "/home/rodia/Escritorio/OriginalCasomerometo.bmp");
 
     delete[] pixelDataMask;
     delete[] pixelDataId;
