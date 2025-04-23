@@ -39,6 +39,7 @@ public:
     int heigthM;
     int seed;
     int n_pixeles;
+    int operations;
 
     DecriptImage(const QString& path, const QString& caseName, int steps);
     ~DecriptImage();

@@ -92,9 +92,6 @@ TEST_F(CaseOneDecryptImage, TestIsRotationRight) {
     }
 }
 
-// TEST_F(CaseOneDecryptImage, TestMaskWithZeroValues){
-//     for(int i=0; i<300; i++){}
-// }
 
 TEST_F(CaseOneDecryptImage, TestDecriptImageCase1){
     QString path_info_to_decrypt = "/home/rodia/Escritorio/03-UdeA/InformaticaII/ChallengeI_Requirements/";
@@ -109,14 +106,14 @@ TEST_F(CaseOneDecryptImage, TestDecriptImageCase1){
 
     EXPECT_EQ(executed, true);
 
-    Operation* head1 = decriptImage->head;
-    EXPECT_EQ(head1->type.toStdString(), "RotationRight");
-    EXPECT_EQ(head1->bits, 3);
-    EXPECT_EQ(head1->maskFile.toStdString(), "M1.txt");
 
-    Operation* head2 = head1->next;
-    EXPECT_EQ(head2->type.toStdString(), "XOR");
-    EXPECT_EQ(head2->bits, 0);
-    EXPECT_EQ(head2->maskFile.toStdString(), "M2.txt");
+    Operation operation = decriptImage->head[0];
+    EXPECT_EQ(operation.type.toStdString(), "XOR");
+    EXPECT_EQ(operation.bits, 0);
+    EXPECT_EQ(operation.maskFile.toStdString(), "M2.txt");
 
+    Operation operation1 = decriptImage->head[1];
+    EXPECT_EQ(operation1.type.toStdString(), "RotationRight");
+    EXPECT_EQ(operation1.bits, 3);
+    EXPECT_EQ(operation1.maskFile.toStdString(), "M1.txt");
 }

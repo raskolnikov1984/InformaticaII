@@ -15,19 +15,15 @@ DecriptImage::DecriptImage(const QString& path, const QString& caseName, int ste
     generalMask = base_path + "I_M.bmp";
     int seed = 0;
     int n_pixeles = 0;
+    operations=0;
 
     pixelDataId = loadPixels(idImage, widthId, heigthId);
     pixelDataGeneralMask = loadPixels(generalMask, widthGm, heigthGm);
     pixelDataMask = loadPixels(maskImage, widthM, heigthM);
+    head=new Operation[steps+1];
 }
 
 DecriptImage::~DecriptImage() {
-    while (head != nullptr) {
-        Operation* temp = head;
-        head = head->next;
-        delete temp;
-    }
-
     delete[] pixelDataId;
     delete[] pixelDataGeneralMask;
     delete[] pixelDataMask;
@@ -102,13 +98,14 @@ bool DecriptImage::isShiftLeft(unsigned char* img, unsigned char* imgId, int& n_
 }
 
 void DecriptImage::addOperation(const QString& type, int bits) {
-    Operation* newOperation = new Operation;
-    newOperation->type = type;
-    newOperation->bits = bits;
-    newOperation->next = head;
-    newOperation->maskFile = this->maskFile.remove(
+    Operation newOperation;
+    newOperation.type = type;
+    newOperation.bits = bits;
+    newOperation.next = head;
+    newOperation.maskFile = this->maskFile.remove(
         this->base_path);
-    head = newOperation;
+    head[operations] = newOperation;
+    operations++;
 }
 
 
@@ -160,13 +157,13 @@ bool DecriptImage::detectTransform(
 }
 
 void DecriptImage::printOperations() const {
-    Operation* current = head;
-    while (current != nullptr) {
-        string operationType = current->type.toStdString();
-        cout << "----------------------------------------------" << std::endl;
-        cout << "Operation: " << operationType << ", Bits: " << current->bits << std::endl;
-        cout << "----------------------------------------------" << std::endl;
-        current = current->next;
+    Operation current;
+    for(int i=0; i<operations; i++){
+        current = head[i];
+        string operationType = current.type.toStdString();
+        cout << "----------------------------------------------" << endl;
+        cout << "Operation: " << operationType << ", Bits: " << current.bits << endl;
+        cout << "----------------------------------------------" << endl;
     }
 }
 
@@ -195,23 +192,23 @@ unsigned char* DecriptImage::copyRegion(unsigned char* pixelData, int start, int
 }
 
 unsigned char* DecriptImage::decriptIdImage(unsigned char* pixelDataIdRegion, unsigned char* pixelDataGeneralMaskRegion, int& width, int& heigth){
-    Operation* current = head;
+    Operation current;
     OperationTypes operation;
 
-    while (current != nullptr) {
-        if(current->type == "XOR"){
+    for(int i=0; i < operations; i++) {
+        current = head[i];
+        if(current.type == "XOR"){
             operation = OperationTypes::XOR;
-        } else if(current->type == "RotationRight"){
+        } else if(current.type == "RotationRight"){
             operation = OperationTypes::RotationRight;
-        } else if(current->type == "RotationLeft"){
+        } else if(current.type == "RotationLeft"){
             operation = OperationTypes::RotationLeft;
-        } else if(current->type == "ShiftRight"){
+        } else if(current.type == "ShiftRight"){
             operation = OperationTypes::ShiftRight;
         } else {
             operation = OperationTypes::ShiftLeft;
         };
-        pixelDataIdRegion = decriptRegion(pixelDataIdRegion, pixelDataGeneralMaskRegion, operation, n_pixeles, widthM, heigthM, seed, current->bits);
-        current = current->next;
+        pixelDataIdRegion = decriptRegion(pixelDataIdRegion, pixelDataGeneralMaskRegion, operation, n_pixeles, widthM, heigthM, seed, current.bits);
     }
 
     return pixelDataIdRegion;
@@ -285,7 +282,6 @@ bool DecriptImage::Run() {
         cout << "Semilla: " << seed << endl;
         cout << "Cantidad de píxeles leídos: " << n_pixeles << endl;
 
-
         n_pixeles *= 3;
         // Revertir operación de enmascaramiento
         unsigned char* pixelBefore = loadPixelsBeforeStep(maskingData, pixelDataMask, n_pixeles);
@@ -331,6 +327,7 @@ bool DecriptImage::Run() {
 
         // Detectar operación usada entre pixelBefore y pixelDataIdRegion
         qDebug() << "Operacion Encontrada" << operation_found;
+
 
         if(!operation_found){
             cerr<<"Ninguna operación detectada en paso "<<i<<endl;
