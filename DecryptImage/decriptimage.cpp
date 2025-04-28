@@ -119,7 +119,7 @@ bool DecriptImage::detectTransform(
     Img1XORImg2(pixelBefore, pixelDataGeneralMaskRegion, result, n_pixels);
 
     if(this->isXOR(result, pixelDataGeneralMaskRegion, pixelDataIdRegion , seed, n_pixels)){
-        qDebug()  << "XOR";
+        qDebug()  << "Se ha encontrado XOR";
         return true;
     }
 
@@ -127,28 +127,28 @@ bool DecriptImage::detectTransform(
         operation_found = this->isShiftLeft(pixelBefore, pixelDataIdRegion, n_pixels, bits);
 
         if(operation_found){
-            qDebug()  << "Shift Left";
+            qDebug()  << "Se ha encontrado Shift Left";
             return true;
         }
 
         operation_found = this->isShiftRight(pixelBefore, pixelDataIdRegion, n_pixels, bits);
 
         if(operation_found){
-            qDebug()  << "Shift Right";
+            qDebug()  << "Se ha encontrado Shift Right";
             return true;
         }
 
         operation_found = this->isRotationRight(pixelBefore, pixelDataIdRegion, n_pixels, bits);
 
         if(operation_found){
-            qDebug()  << "Rotation Right";
+            qDebug()  << "Se ha encontrado Rotation Right";
             return true;
         }
 
         operation_found = this->isRotationLeft(pixelBefore, pixelDataIdRegion, n_pixels, bits);
 
         if(operation_found){
-            qDebug()  << "Rotation Left";
+            qDebug()  << "Se ha encontrado Rotation Left";
             return true;
         }
     }
@@ -162,7 +162,7 @@ void DecriptImage::printOperations() const {
         current = head[i];
         string operationType = current.type.toStdString();
         cout << "----------------------------------------------" << endl;
-        cout << "Operation: " << operationType << ", Bits: " << current.bits << endl;
+        cout << "Operation Numero:" << i+1 << " " << operationType << ", Bits: " << current.bits << endl;
         cout << "----------------------------------------------" << endl;
     }
 }
@@ -334,9 +334,6 @@ bool DecriptImage::Run() {
             cerr<<"Ninguna operación detectada en paso "<<i<<endl;
             delete[] maskingData;
             delete[] pixelBefore;
-            delete[] pixelDataMask;
-            delete[] pixelDataId;
-            delete[] pixelDataGeneralMask;
             delete[] pixelDataIdRegion;
             delete[] pixelDataGeneralMaskRegion;
             printOperations();
@@ -358,9 +355,6 @@ bool DecriptImage::Run() {
     // Mostrar operaciones detectadas (en orden inverso)
     printOperations();
 
-    delete[] pixelDataMask;
-    delete[] pixelDataId;
-    delete[] pixelDataGeneralMask;
     delete[] pixelDataIdRegion;
     delete[] pixelDataGeneralMaskRegion;
     return true;

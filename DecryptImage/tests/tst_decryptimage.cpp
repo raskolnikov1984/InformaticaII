@@ -131,5 +131,10 @@ TEST_F(CaseOneDecryptImage, TestDecriptImageCase1){
     EXPECT_EQ(operation1.bits, 3);
     EXPECT_EQ(operation1.maskFile.toStdString(), "M1.txt");
 
+    Operation operation2 = decriptImage->head[2];
+    EXPECT_EQ(operation2.type.toStdString(), "XOR");
+    EXPECT_EQ(operation2.bits, 0);
+    EXPECT_EQ(operation2.maskFile.toStdString(), "M0.txt");
+
     // EXPECT_EQ(executed, true);
 }
