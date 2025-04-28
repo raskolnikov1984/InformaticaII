@@ -217,7 +217,6 @@ unsigned char* DecriptImage::decriptIdImage(unsigned char* pixelDataIdRegion, un
 
 unsigned char* DecriptImage::decriptRegion(unsigned char* pixelData, unsigned char* pixelDataGeneralMaskRegion, OperationTypes operationType, int& dataSize, int width, int height, int& seed, int& bits){
     unsigned char* region = new unsigned char[dataSize];
-    int end = seed+dataSize;
 
     switch(operationType){
     case 1:
