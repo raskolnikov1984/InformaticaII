@@ -253,6 +253,26 @@ unsigned char* DecriptImage::decriptRegion(unsigned char* pixelData, unsigned ch
     return region;
 }
 
+bool DecriptImage::exportOriginalImage(){
+    char print = ' ';
+    QString exportFile = "/home/rodia/Escritorio/03-UdeA/InformaticaII/ImagenesDesencriptadas/ImagenOriginal.bmp";
+    unsigned char* originalImage = nullptr;
+
+    qDebug() << exportFile;
+    do{
+        cout << "Usted Desea exportar la imagen desencriptada? [Y/N]";
+        cin >> print;
+    }while(toupper(print) != 'Y' && toupper(print) != 'N');
+
+    if(toupper(print) == 'Y'){
+        originalImage = decriptIdImage(pixelDataId, pixelDataGeneralMask, widthId, heigthId);
+        exportImage(originalImage,  widthId, heigthId, exportFile);
+        return true;
+    }
+
+    return false;
+}
+
 bool DecriptImage::Run() {
     bool operation_found=false;
     unsigned char* pixelDataIdRegion = nullptr;
@@ -354,6 +374,8 @@ bool DecriptImage::Run() {
 
     // Mostrar operaciones detectadas (en orden inverso)
     printOperations();
+
+    exportOriginalImage();
 
     delete[] pixelDataIdRegion;
     delete[] pixelDataGeneralMaskRegion;

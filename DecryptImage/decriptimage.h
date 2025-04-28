@@ -68,6 +68,7 @@ public:
 
     unsigned char* decriptIdImage(
         unsigned char* pixelDataIdRegion, unsigned char* pixelDataGeneralMaskRegion, int& width, int& heigth);
+    bool exportOriginalImage();
     bool Run();
 
 private:
