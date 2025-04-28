@@ -197,7 +197,7 @@ unsigned char* DecriptImage::decriptIdImage(unsigned char* pixelDataIdRegion, un
 
     for(int i=0; i < operations; i++) {
         current = head[i];
-        cout << "Se esta aplicando la operacion #: " << i;
+        cout << "Se esta aplicando la operacion #: " << i << endl;
         if(current.type == "XOR"){
             operation = OperationTypes::XOR;
         } else if(current.type == "RotationRight"){
