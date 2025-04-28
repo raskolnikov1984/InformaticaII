@@ -197,6 +197,7 @@ unsigned char* DecriptImage::decriptIdImage(unsigned char* pixelDataIdRegion, un
 
     for(int i=0; i < operations; i++) {
         current = head[i];
+        cout << "Se esta aplicando la operacion #: " << i;
         if(current.type == "XOR"){
             operation = OperationTypes::XOR;
         } else if(current.type == "RotationRight"){
@@ -232,7 +233,6 @@ unsigned char* DecriptImage::decriptRegion(unsigned char* pixelData, unsigned ch
     case 3:
         qDebug() << "Se esta aplicando una RotateRight con "<< bits;
         for(int i=0; i< dataSize;i++){
-            //qDebug() << "Estoy rotando a la izquierda" << region[i];
             region[i] = rotateLeft(pixelData[i], bits);
         }
         break;
