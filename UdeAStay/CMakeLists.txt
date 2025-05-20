@@ -27,7 +27,10 @@ if (NOT GTest_FOUND)
     message (FATAL_ERROR "No GTest Found")
 endif()
 
-add_executable(udeastay main.cpp tests/tst_udeastay.cpp)
+add_executable(udeastay main.cpp tests/tst_udeastay.cpp
+    huesped.h huesped.cpp
+    usuario.h usuario.cpp
+    anfitrion.h anfitrion.cpp)
 add_test(NAME udeastay COMMAND udeastay)
 
 target_link_libraries(udeastay PRIVATE GTest::GTest)
