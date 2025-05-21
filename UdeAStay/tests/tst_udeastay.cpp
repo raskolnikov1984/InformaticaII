@@ -6,6 +6,7 @@
 #include "../alojamiento.h"
 #include "../reserva.h"
 #include "../usuario.h"
+#include "../pago.h"
 
 using namespace testing;
 using namespace std;
@@ -16,6 +17,7 @@ public:
     Anfitrion* anfitrion;
     Alojamiento* alojamiento;
     Reserva* reserva;
+    Pago* pago;
 
     void SetUp() override {
         huesped = new Huesped("huesped", "1123455", 5, 3.5);
@@ -32,12 +34,15 @@ public:
             "Solicito habitación silenciosa",
             450000.0
         );
+        pago = new Pago("PSE", "2025-05-20", 250000.0);
     }
 
     void TearDown() override {
         delete huesped;
         delete anfitrion;
         delete alojamiento;
+        delete reserva;
+        delete pago;
     }
 };
 
@@ -84,7 +89,6 @@ TEST_F(UdeAStay, CrearAlojamientoTipoInvalido){
                      "Caetanos", "90666", "1123456", "Sao Paulo", "Sao luiz", "contenedor", "Km10", 530.5);, std::invalid_argument);
 }
 
-
 TEST_F(UdeAStay, GettersFuncionanCorrectamente) {
     EXPECT_EQ(reserva->getDuracion(), 3);
     EXPECT_EQ(reserva->getCodigoReserva(), 1001);
@@ -95,7 +99,6 @@ TEST_F(UdeAStay, GettersFuncionanCorrectamente) {
     EXPECT_EQ(reserva->getDescripcion(), "Solicito habitación silenciosa");
     EXPECT_DOUBLE_EQ(reserva->getMonto(), 450000.0);
 }
-
 
 TEST_F(UdeAStay, SettersModificanValores) {
     reserva->setDuracion(5);
@@ -112,4 +115,20 @@ TEST_F(UdeAStay, DescripcionNoExcede1000Caracteres) {
     string larga(1200, 'x'); // Cadena de 1200 caracteres
     reserva->setDescripcion(larga);
     EXPECT_EQ(reserva->getDescripcion().length(), 1000);
+}
+
+TEST_F(UdeAStay, GettersPagoFuncionanCorrectamente) {
+    EXPECT_EQ(pago->getMetodoPago(), "PSE");
+    EXPECT_EQ(pago->getFechaPago(), "2025-05-20");
+    EXPECT_DOUBLE_EQ(pago->getMonto(), 250000.0);
+}
+
+TEST_F(UdeAStay, SettersPagoModificanValores) {
+    pago->setMetodoPago("TCredito");
+    pago->setFechaPago("2025-06-01");
+    pago->setMonto(310000.0);
+
+    EXPECT_EQ(pago->getMetodoPago(), "TCredito");
+    EXPECT_EQ(pago->getFechaPago(), "2025-06-01");
+    EXPECT_DOUBLE_EQ(pago->getMonto(), 310000.0);
 }
