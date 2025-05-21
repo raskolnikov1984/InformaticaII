@@ -4,6 +4,7 @@
 #include "../huesped.h"
 #include "../anfitrion.h"
 #include "../alojamiento.h"
+#include "../reserva.h"
 #include "../usuario.h"
 
 using namespace testing;
@@ -14,12 +15,23 @@ public:
     Huesped* huesped;
     Anfitrion* anfitrion;
     Alojamiento* alojamiento;
+    Reserva* reserva;
 
     void SetUp() override {
         huesped = new Huesped("huesped", "1123455", 5, 3.5);
         anfitrion = new Anfitrion("anfitrion", "1123456", 10, 4.0);
         alojamiento = new Alojamiento(
             "Caetanos", "90666", "1123456", "Sao Paulo", "Sao luiz", "casa", "Km10", 530.5);
+        reserva = new Reserva(
+            3,
+            1001,
+            "APT203",
+            "123456789",
+            "TCredito",
+            "lunes, 20 de mayo del 2025",
+            "Solicito habitación silenciosa",
+            450000.0
+        );
     }
 
     void TearDown() override {
@@ -70,4 +82,34 @@ TEST_F(UdeAStay, CrearAlojamiento){
 TEST_F(UdeAStay, CrearAlojamientoTipoInvalido){
     EXPECT_THROW(new Alojamiento(
                      "Caetanos", "90666", "1123456", "Sao Paulo", "Sao luiz", "contenedor", "Km10", 530.5);, std::invalid_argument);
+}
+
+
+TEST_F(UdeAStay, GettersFuncionanCorrectamente) {
+    EXPECT_EQ(reserva->getDuracion(), 3);
+    EXPECT_EQ(reserva->getCodigoReserva(), 1001);
+    EXPECT_EQ(reserva->getCodigoAlojamiento(), "APT203");
+    EXPECT_EQ(reserva->getDocumentoHuesped(), "123456789");
+    EXPECT_EQ(reserva->getMetodoPago(), "TCredito");
+    EXPECT_EQ(reserva->getFechaEntrada(), "lunes, 20 de mayo del 2025");
+    EXPECT_EQ(reserva->getDescripcion(), "Solicito habitación silenciosa");
+    EXPECT_DOUBLE_EQ(reserva->getMonto(), 450000.0);
+}
+
+
+TEST_F(UdeAStay, SettersModificanValores) {
+    reserva->setDuracion(5);
+    reserva->setMonto(600000.0);
+    reserva->setDescripcion("Prefiero cama doble");
+
+    EXPECT_EQ(reserva->getDuracion(), 5);
+    EXPECT_DOUBLE_EQ(reserva->getMonto(), 600000.0);
+    EXPECT_EQ(reserva->getDescripcion(), "Prefiero cama doble");
+}
+
+
+TEST_F(UdeAStay, DescripcionNoExcede1000Caracteres) {
+    string larga(1200, 'x'); // Cadena de 1200 caracteres
+    reserva->setDescripcion(larga);
+    EXPECT_EQ(reserva->getDescripcion().length(), 1000);
 }

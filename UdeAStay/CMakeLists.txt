@@ -31,7 +31,8 @@ add_executable(udeastay main.cpp tests/tst_udeastay.cpp
     huesped.h huesped.cpp
     usuario.h usuario.cpp
     anfitrion.h anfitrion.cpp
-    alojamiento.h alojamiento.cpp)
+    alojamiento.h alojamiento.cpp
+    reserva.h reserva.cpp)
 add_test(NAME udeastay COMMAND udeastay)
 
 target_link_libraries(udeastay PRIVATE GTest::GTest)
