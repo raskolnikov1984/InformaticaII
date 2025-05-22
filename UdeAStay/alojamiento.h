@@ -28,6 +28,7 @@ public:
         const string& tipo,
         const string& direccion,
         double precioPorNoche);
+        string tabla = "alojamientos.txt";
 
     // Getters
     string getNombre() const { return this->nombre; }

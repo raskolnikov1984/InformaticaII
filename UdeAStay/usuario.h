@@ -15,6 +15,7 @@ private:
 
 public:
     Usuario(const string& tipoUsuario, const string& numeroDocumento, int antiguedad, float puntuacion);
+    string tabla = "usuarios.txt";
     string getNumeroDocumento() const;
     int getAntiguedad() const;
     float getPuntuacion() const;

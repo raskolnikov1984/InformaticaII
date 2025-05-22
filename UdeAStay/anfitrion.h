@@ -6,6 +6,7 @@ class Anfitrion : public Usuario
 {
 public:
     Anfitrion(const string& tipoUsario, const string& numeroDocumento, int antiguedad, float puntuacion);
+    string tabla = "anfitrion.txt";
 };
 
 #endif // ANFITRION_H

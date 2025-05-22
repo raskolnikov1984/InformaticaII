@@ -27,6 +27,7 @@ public:
             const string& fechaEntrada,
             const string& descripcion,
             double monto);
+    string tabla = "reservas.txt";
 
     // Getters
     int getDuracion() const;

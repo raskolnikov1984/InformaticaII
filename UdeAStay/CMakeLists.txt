@@ -34,9 +34,15 @@ add_executable(udeastay main.cpp tests/tst_udeastay.cpp
     alojamiento.h alojamiento.cpp
     reserva.h reserva.cpp
     pago.h pago.cpp)
+
+
+add_executable(db db/main.cpp db/db.h db/db.cpp tests/tst_db.cpp)
+
 add_test(NAME udeastay COMMAND udeastay)
+add_test(NAME db COMMAND db)
 
 target_link_libraries(udeastay PRIVATE GTest::GTest)
+target_link_libraries(db PRIVATE GTest::GTest)
 if (GMock_FOUND)
     target_link_libraries(udeastay INTERFACE GTest::GMock)
 endif()

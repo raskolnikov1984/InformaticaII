@@ -14,8 +14,7 @@ private:
 
 public:
     Pago(const string& metodoPago, const string& fechaPago, double monto);
-
-
+    string tabla = "pagos.txt";
     string getMetodoPago() const;
     string getFechaPago() const;
     double getMonto() const;
