@@ -38,11 +38,16 @@ add_executable(udeastay main.cpp tests/tst_udeastay.cpp
 
 add_executable(db db/main.cpp db/db.h db/db.cpp tests/tst_db.cpp)
 
+add_executable(app app/main.cpp db/db.h db/db.cpp app/app.h app/app.cpp tests/tst_app.cpp)
+
 add_test(NAME udeastay COMMAND udeastay)
 add_test(NAME db COMMAND db)
+add_test(NAME app COMMAND app)
 
 target_link_libraries(udeastay PRIVATE GTest::GTest)
 target_link_libraries(db PRIVATE GTest::GTest)
+target_link_libraries(app PRIVATE GTest::GTest)
+
 if (GMock_FOUND)
     target_link_libraries(udeastay INTERFACE GTest::GMock)
 endif()

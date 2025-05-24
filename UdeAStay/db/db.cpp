@@ -1,5 +1,4 @@
 #include <iostream>
-#include <iostream>
 #include <fstream>
 #include "db.h"
 
@@ -9,38 +8,41 @@ using namespace std;
 DB::DB()
     : indexUsuarios(0), indexReservas(0), indexHuespedes(0), indexAnfitriones(0), indexAlojamientos(0), indexAmenidades(0){
     // Inicializar nombres de archivos
-    tablas.usuarios = "usuarios.txt";
-    tablas.reservas = "reservas.txt";
-    tablas.pagos = "pagos.txt";
-    tablas.huespedes = "huespedes.txt";
-    tablas.anfitriones = "anfitriones.txt";
-    tablas.alojamientos = "alojamientos.txt";
-    tablas.amenidades = "amenidades.txt";
+    tablas.usuarios = "usuarios.csv";
+    tablas.reservas = "reservas.csv";
+    tablas.pagos = "pagos.csv";
+    tablas.huespedes = "huespedes.csv";
+    tablas.anfitriones = "anfitriones.csv";
+    tablas.alojamientos = "alojamientos.csv";
+    tablas.amenidades = "amenidades.csv";
 }
 
 void DB::inicializarBaseDeDatos() {
-    // Crear un arreglo de punteros a los nombres de los archivos
-    string* archivos[] = {
-        &tablas.usuarios,
-        &tablas.reservas,
-        &tablas.pagos,
-        &tablas.huespedes,
-        &tablas.anfitriones,
-        &tablas.alojamientos,
-        &tablas.amenidades
+    struct {
+        string& archivo;
+        string columnas;
+    } archivos[] = {
+        {tablas.usuarios, "tipoUsuario,usuario,password"},
+        {tablas.reservas, "duracion,codigoReserva,codigoAlojamiento,documentoHuesped,fechaEntrada,descripcion"},
+        {tablas.pagos, "metodoPago,fechaPago,monto"},
+        {tablas.huespedes, "tipoUsuario,numeroDocumento,antiguedad,puntuacion"},
+        {tablas.anfitriones, "tipoUsuario,numeroDocumento,antiguedad,puntuacion"},
+        {tablas.alojamientos, "nombre,codigoIdentificador,anfitrion,departamento,municipio,tipo,direccion,precioPorNoche"},
+        {tablas.amenidades, "nombre,alojamiento"}
     };
 
-    for (int i = 0; i < 7; ++i) {
-        ifstream archivo(*archivos[i]);
-        if (!archivo) {
-            ofstream nuevoArchivo(*archivos[i]);
+    for (const auto& archivo : archivos) {
+        ifstream file(archivo.archivo);
+        if (!file) {
+            ofstream nuevoArchivo(archivo.archivo);
             if (nuevoArchivo) {
-                cout << "Archivo creado: " << *archivos[i] << endl;
+                nuevoArchivo << archivo.columnas << endl;
+                cout << "Archivo creado: " << archivo.archivo << " con columnas: " << archivo.columnas << endl;
             } else {
-                cerr << "Error al crear el archivo: " << *archivos[i] << endl;
+                cerr << "Error al crear el archivo: " << archivo.archivo << endl;
             }
         } else {
-            cout << "Archivo ya existe: " << *archivos[i] << endl;
+            cout << "Archivo ya existe: " << archivo.archivo << endl;
         }
     }
 }
