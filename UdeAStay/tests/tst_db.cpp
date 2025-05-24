@@ -10,20 +10,29 @@ using namespace std;
 class DataBase : public ::testing::Test {
 public:
     DB* db_app;
+    tablasStructure tablas;
 
     void SetUp() override {
-        db_app = new DB();
+        tablas.usuarios = "usuarios.txt";
+        tablas.reservas = "reservas.txt";
+        tablas.pagos = "pagos.txt";
+        tablas.huespedes = "huespedes.txt";
+        tablas.anfitriones = "anfitriones.txt";
+        tablas.alojamientos = "alojamientos.txt";
+        tablas.amenidades = "amenidades.txt";
+
+        db_app = new DB(tablas);
     }
 
     void TearDown() override {
         const string archivos[] = {
-            "usuarios.txt",
-            "reservas.txt",
-            "pagos.txt",
-            "huespedes.txt",
-            "anfitriones.txt",
-            "alojamientos.txt",
-            "amenidades.txt"
+            tablas.usuarios,
+            tablas.reservas,
+            tablas.pagos,
+            tablas.huespedes,
+            tablas.anfitriones,
+            tablas.alojamientos,
+            tablas.amenidades,
         };
 
         for (const auto& archivo : archivos) {
@@ -71,14 +80,14 @@ TEST_F(DataBase, InicializarBaseDeDatos_CreaArchivos) {
     db_app->inicializarBaseDeDatos();
 
     // Verificar que los archivos se hayan creado correctamente
-    const std::string archivos[] = {
-        "usuarios.txt",
-        "reservas.txt",
-        "pagos.txt",
-        "huespedes.txt",
-        "anfitriones.txt",
-        "alojamientos.txt",
-        "amenidades.txt"
+    const string archivos[] = {
+        tablas.usuarios,
+        tablas.reservas,
+        tablas.pagos,
+        tablas.huespedes,
+        tablas.anfitriones,
+        tablas.alojamientos,
+        tablas.amenidades,
     };
 
     for (const auto& archivo : archivos) {

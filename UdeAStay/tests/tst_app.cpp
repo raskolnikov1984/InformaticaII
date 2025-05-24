@@ -10,9 +10,19 @@ using namespace std;
 class AppTest : public ::testing::Test {
 public:
     App* app;
+    tablasStructure tablas;
+
 
     void SetUp() override {
-        app = new App();
+        tablas.usuarios = "../tests/usuariosTest.csv";
+        tablas.reservas = "../tests/reservasTest.csv";
+        tablas.pagos = "../tests/pagosTest.csv";
+        tablas.huespedes = "../tests/huespedesTest.csv";
+        tablas.anfitriones = "../tests/anfitrionesTest.csv";
+        tablas.alojamientos = "../tests/alojamientosTest.csv";
+        tablas.amenidades = "../tests/amenidadesTest.csv";
+
+        app = new App(tablas);
     }
 
     void TearDown()override {
@@ -20,6 +30,10 @@ public:
     }
 };
 
+TEST_F(AppTest, CargarUsuarios){
+    int numUsuarios = app->cargarUsuarios("../tests/usuariosTest.csv");
+    EXPECT_GE(numUsuarios, 7);
+}
 
 TEST_F(AppTest, ValidarLoginUsuario){
     EXPECT_TRUE(app->validate_user("test", "test"));

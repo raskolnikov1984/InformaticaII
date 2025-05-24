@@ -1,0 +1,7 @@
+tipoUsuario,numeroDocumento,password
+huesped,12345678,passHuesped1
+huesped,87654321,passHuesped2
+anfitrion,11223344,passAnfitrion1
+anfitrion,44332211,passAnfitrion2
+huesped,56781234,passHuesped3
+anfitrion,99887766,passAnfitrion3

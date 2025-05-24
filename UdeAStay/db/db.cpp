@@ -5,16 +5,16 @@
 using namespace std;
 
 
-DB::DB()
+DB::DB(const tablasStructure& tablasStruct)
     : indexUsuarios(0), indexReservas(0), indexHuespedes(0), indexAnfitriones(0), indexAlojamientos(0), indexAmenidades(0){
-    // Inicializar nombres de archivos
-    tablas.usuarios = "usuarios.csv";
-    tablas.reservas = "reservas.csv";
-    tablas.pagos = "pagos.csv";
-    tablas.huespedes = "huespedes.csv";
-    tablas.anfitriones = "anfitriones.csv";
-    tablas.alojamientos = "alojamientos.csv";
-    tablas.amenidades = "amenidades.csv";
+
+    tablas.usuarios = tablasStruct.usuarios;
+    tablas.reservas = tablasStruct.reservas;
+    tablas.pagos = tablasStruct.pagos;
+    tablas.huespedes = tablasStruct.huespedes;
+    tablas.anfitriones = tablasStruct.anfitriones;
+    tablas.alojamientos = tablasStruct.alojamientos;
+    tablas.amenidades = tablasStruct.amenidades;
 }
 
 void DB::inicializarBaseDeDatos() {
@@ -22,7 +22,7 @@ void DB::inicializarBaseDeDatos() {
         string& archivo;
         string columnas;
     } archivos[] = {
-        {tablas.usuarios, "tipoUsuario,usuario,password"},
+        {tablas.usuarios, "tipoUsuario,numeroDocumento,password"},
         {tablas.reservas, "duracion,codigoReserva,codigoAlojamiento,documentoHuesped,fechaEntrada,descripcion"},
         {tablas.pagos, "metodoPago,fechaPago,monto"},
         {tablas.huespedes, "tipoUsuario,numeroDocumento,antiguedad,puntuacion"},

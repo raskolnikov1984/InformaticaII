@@ -19,7 +19,7 @@ struct tablasStructure{
 class DB
 {
 public:
-    DB();
+    DB(const tablasStructure& tablasStruct);
     void inicializarBaseDeDatos();
     int getIndexUsuarios() const;
     void setIndexUsuarios(int newIndexUsuarios);
