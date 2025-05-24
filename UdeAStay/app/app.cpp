@@ -20,8 +20,21 @@ App::~App(){
     delete db_app;
 }
 
-bool App::validate_user(const string& usaurio, const string& password){
-    return true;
+bool App::validate_user(const string& usuario, const string& password){
+    int cantidadUsuarios = cargarUsuarios(db_app->getTablas().usuarios);
+    for(int i=0; i < cantidadUsuarios; i++){
+        if(usuarios[i].getNumeroDocumento() == usuario && usuarios[i].getPassword() == password){
+            LoginStruct login;
+            login.tipoUsuario = usuarios[i].getTipoUsuario();
+            login.numeroDocumento = usuarios[i].getNumeroDocumento();
+            contexStruct.login = login;
+
+            cout << "Login Success!!" << endl;
+
+            return true;
+        }
+    }
+    return false;
 }
 
 // Implementación de los métodos de carga

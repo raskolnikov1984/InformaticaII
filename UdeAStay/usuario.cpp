@@ -33,6 +33,10 @@ string Usuario::getTipoUsuario() const {
     return this->tipoUsuario;
 }
 
+string Usuario::getPassword() const {
+    return this->password;
+}
+
 void Usuario::setTipoUsuario(const string &newTipoUsuario)
 {
     tipoUsuario = newTipoUsuario;

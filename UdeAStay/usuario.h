@@ -25,6 +25,7 @@ public:
     int getAntiguedad() const;
     float getPuntuacion() const;
     string getTipoUsuario() const;
+    string getPassword() const;
 
     //setters
     void setTipoUsuario(const string &newTipoUsuario);

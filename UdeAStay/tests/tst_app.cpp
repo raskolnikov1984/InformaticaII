@@ -35,6 +35,14 @@ TEST_F(AppTest, CargarUsuarios){
     EXPECT_GE(numUsuarios, 7);
 }
 
-TEST_F(AppTest, ValidarLoginUsuario){
-    EXPECT_TRUE(app->validate_user("test", "test"));
+TEST_F(AppTest, LoginValidoUsuario){
+    LoginStruct expectedLogin;
+    expectedLogin.tipoUsuario = "huesped";
+    expectedLogin.numeroDocumento = "12345678";
+
+    EXPECT_TRUE(app->validate_user("12345678", "passHuesped1"));
+    EXPECT_EQ(app->contexStruct.login, expectedLogin);
+}
+TEST_F(AppTest, LoginInvalidoUsuario){
+    EXPECT_FALSE(app->validate_user("test", "test"));
 }

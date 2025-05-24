@@ -10,6 +10,20 @@
 #include <string>
 
 
+struct LoginStruct {
+    string tipoUsuario;
+    string numeroDocumento;
+
+    bool operator==(const LoginStruct& other) const {
+        return tipoUsuario == other.tipoUsuario &&
+               numeroDocumento == other.numeroDocumento;
+    }
+};
+
+struct ContextStructure {
+    LoginStruct login;
+};
+
 
 using namespace std;
 
@@ -22,6 +36,7 @@ public:
     Huesped* huespedes;
     Alojamiento* alojamientos;
     Reserva* reservas;
+    ContextStructure contexStruct;
 
     App(const tablasStructure& tablasStruct);
     ~App();
