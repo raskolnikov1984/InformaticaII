@@ -41,8 +41,6 @@ void DB::inicializarBaseDeDatos() {
             } else {
                 cerr << "Error al crear el archivo: " << archivo.archivo << endl;
             }
-        } else {
-            cout << "Archivo ya existe: " << archivo.archivo << endl;
         }
     }
 }

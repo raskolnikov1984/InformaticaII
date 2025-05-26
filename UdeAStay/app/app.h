@@ -29,13 +29,16 @@ using namespace std;
 
 class App
 {
-public:
+private:
     DB* db_app;
     Usuario* usuarios;
     Anfitrion* anfitriones;
     Huesped* huespedes;
     Alojamiento* alojamientos;
     Reserva* reservas;
+
+public:
+
     ContextStructure contexStruct;
 
     App(const tablasStructure& tablasStruct);
@@ -46,6 +49,15 @@ public:
     int cargarHuespedes(const string& tabla);
     int cargarAlojamientos(const string& tabla);
     int cargarReservas(const string& tabla);
+    void mostrarMenuHuesped();
+    void mostrarMenuAnfitrion();
+
+    bool reservarAlojamiento();
+    bool anularReservacion();
+    bool consultarReservas();
+    bool actualizarHistorico();
+
+    int run();
 };
 
 #endif // APP_H
