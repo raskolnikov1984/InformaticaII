@@ -21,7 +21,9 @@ int main(int argc, char *argv[])
 
     App* app = new App(tablas);
     app->run();
+
     delete app;
+
     ::testing::InitGoogleTest(&argc, argv);
     return RUN_ALL_TESTS();
 }

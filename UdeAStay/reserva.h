@@ -9,7 +9,7 @@ using namespace std;
 class Reserva {
 private:
     int duracion;                   // En noches
-    int codigoReserva;             // Código único de la reserva
+    string codigoReserva;             // Código único de la reserva
     string codigoAlojamiento;      // Código del alojamiento (no double, es una cadena)
     string documentoHuesped;       // Documento del huésped (también cadena por si contiene letras)
     string metodoPago;             // Método de pago: "PSE" o "TCredito"
@@ -20,7 +20,7 @@ private:
 public:
     // Constructor
     Reserva(int duracion,
-            int codigoReserva,
+            const string& codigoReserva,
             const string& codigoAlojamiento,
             const string& documentoHuesped,
             const string& metodoPago,
@@ -31,7 +31,7 @@ public:
 
     // Getters
     int getDuracion() const;
-    int getCodigoReserva() const;
+    string getCodigoReserva() const;
     string getCodigoAlojamiento() const;
     string getDocumentoHuesped() const;
     string getMetodoPago() const;
@@ -41,7 +41,7 @@ public:
 
     // Setters
     void setDuracion(int duracion);
-    void setCodigoReserva(int codigo);
+    void setCodigoReserva(const string& codigo);
     void setCodigoAlojamiento(const string& codigoAlojamiento);
     void setDocumentoHuesped(const string& documento);
     void setMetodoPago(const string& metodo);

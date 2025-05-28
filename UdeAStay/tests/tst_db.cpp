@@ -15,7 +15,6 @@ public:
     void SetUp() override {
         tablas.usuarios = "usuarios.txt";
         tablas.reservas = "reservas.txt";
-        tablas.pagos = "pagos.txt";
         tablas.huespedes = "huespedes.txt";
         tablas.anfitriones = "anfitriones.txt";
         tablas.alojamientos = "alojamientos.txt";
@@ -28,7 +27,6 @@ public:
         const string archivos[] = {
             tablas.usuarios,
             tablas.reservas,
-            tablas.pagos,
             tablas.huespedes,
             tablas.anfitriones,
             tablas.alojamientos,
@@ -46,7 +44,6 @@ public:
 TEST_F(DataBase, EstadoInicialIndixBaseDatos){
     EXPECT_EQ(db_app->getIndexUsuarios(), 0);
     EXPECT_EQ(db_app->getIndexReservas(), 0);
-    EXPECT_EQ(db_app->getIndexPagos(), 0);
     EXPECT_EQ(db_app->getIndexHuespedes(), 0);
     EXPECT_EQ(db_app->getIndexAnfitriones(), 0);
     EXPECT_EQ(db_app->getIndexAlojamientos(), 0);
@@ -57,7 +54,6 @@ TEST_F(DataBase, AsignarNombresATablas){
     tablasStructure tablas;
     tablas.usuarios = "usuarios.txt";
     tablas.reservas = "reservas.txt";
-    tablas.pagos = "pagos.txt";
     tablas.huespedes = "huespedes.txt";
     tablas.anfitriones = "anfitriones.txt";
     tablas.alojamientos = "alojamientos.txt";
@@ -68,7 +64,6 @@ TEST_F(DataBase, AsignarNombresATablas){
 
     EXPECT_EQ(db_app->getTablas().usuarios, "usuarios.txt");
     EXPECT_EQ(db_app->getTablas().reservas, "reservas.txt");
-    EXPECT_EQ(db_app->getTablas().pagos, "pagos.txt");
     EXPECT_EQ(db_app->getTablas().huespedes, "huespedes.txt");
     EXPECT_EQ(db_app->getTablas().anfitriones, "anfitriones.txt");
     EXPECT_EQ(db_app->getTablas().alojamientos, "alojamientos.txt");
@@ -83,7 +78,6 @@ TEST_F(DataBase, InicializarBaseDeDatos_CreaArchivos) {
     const string archivos[] = {
         tablas.usuarios,
         tablas.reservas,
-        tablas.pagos,
         tablas.huespedes,
         tablas.anfitriones,
         tablas.alojamientos,

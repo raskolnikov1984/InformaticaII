@@ -26,7 +26,7 @@ public:
             "Caetanos", "90666", "1123456", "Sao Paulo", "Sao luiz", "casa", "Km10", 530.5);
         reserva = new Reserva(
             3,
-            1001,
+            "1001",
             "APT203",
             "123456789",
             "TCredito",
@@ -91,7 +91,7 @@ TEST_F(UdeAStay, CrearAlojamientoTipoInvalido){
 
 TEST_F(UdeAStay, GettersFuncionanCorrectamente) {
     EXPECT_EQ(reserva->getDuracion(), 3);
-    EXPECT_EQ(reserva->getCodigoReserva(), 1001);
+    EXPECT_EQ(reserva->getCodigoReserva(), "1001");
     EXPECT_EQ(reserva->getCodigoAlojamiento(), "APT203");
     EXPECT_EQ(reserva->getDocumentoHuesped(), "123456789");
     EXPECT_EQ(reserva->getMetodoPago(), "TCredito");

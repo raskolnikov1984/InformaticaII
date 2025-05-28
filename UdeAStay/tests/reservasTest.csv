@@ -1,1 +1,10 @@
-duracion,codigoReserva,codigoAlojamiento,documentoHuesped,fechaEntrada,descripcion
+duracion,codigoReserva,codigoAlojamiento,documentoHuesped,fechaEntrada,metodoPago,fechaPago,monto,descripcion
+5,RS002,AC003,1012345678,2025-07-01,TCrédito,2025-06-28,900000,Vacaciones familiares en la montaña
+2,RS003,AC002,1023456789,2025-06-15,PSE,2025-06-15,440000,Viaje de negocios
+7,RS004,AC004,1034567890,2025-07-20,TCrédito,2025-07-15,1750000,Descanso en finca durante vacaciones
+1,RS005,AC005,1045678901,2025-06-18,PSE,2025-06-17,120000,Noche previa a boda
+4,RS006,AC007,1056789012,TCrédito,2025-07-03,1120000,Viaje de aniversario
+6,RS007,AC006,1067890123,PSE,2025-08-10,1800000,Vacaciones en la playa
+2,RS008,AC008,1078901234,TCrédito,2025-06-24,320000,Escapada natural de fin de semana
+3,RS009,AC009,1089012345,PSE,2025-07-13,600000,Recorrido cafetero
+2,RS010,AC010,1090123456,TCrédito,2025-06-29,220000,Turismo arqueológico

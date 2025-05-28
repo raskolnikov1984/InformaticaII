@@ -1,6 +1,8 @@
 #ifndef HUESPED_H
 #define HUESPED_H
 #include "usuario.h"
+#include "reserva.h"
+
 
 class Huesped : public Usuario
 {

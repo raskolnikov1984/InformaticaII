@@ -1,7 +1,7 @@
 #include "reserva.h"
 
 // Constructor
-Reserva::Reserva(int duracion, int codigoReserva, const string& codigoAlojamiento,
+Reserva::Reserva(int duracion, const string& codigoReserva, const string& codigoAlojamiento,
                  const string& documentoHuesped, const string& metodoPago,
                  const string& fechaEntrada, const string& descripcion, double monto)
     : duracion(duracion), codigoReserva(codigoReserva), codigoAlojamiento(codigoAlojamiento),
@@ -10,7 +10,7 @@ Reserva::Reserva(int duracion, int codigoReserva, const string& codigoAlojamient
 
 // Getters
 int Reserva::getDuracion() const { return duracion; }
-int Reserva::getCodigoReserva() const { return codigoReserva; }
+string Reserva::getCodigoReserva() const { return codigoReserva; }
 string Reserva::getCodigoAlojamiento() const { return codigoAlojamiento; }
 string Reserva::getDocumentoHuesped() const { return documentoHuesped; }
 string Reserva::getMetodoPago() const { return metodoPago; }
@@ -20,7 +20,7 @@ double Reserva::getMonto() const { return monto; }
 
 // Setters
 void Reserva::setDuracion(int duracion) { this->duracion = duracion; }
-void Reserva::setCodigoReserva(int codigo) { this->codigoReserva = codigo; }
+void Reserva::setCodigoReserva(const string& codigo) { this->codigoReserva = codigo; }
 void Reserva::setCodigoAlojamiento(const string& codigoAlojamiento) { this->codigoAlojamiento = codigoAlojamiento; }
 void Reserva::setDocumentoHuesped(const string& documento) { this->documentoHuesped = documento; }
 void Reserva::setMetodoPago(const string& metodo) { this->metodoPago = metodo; }

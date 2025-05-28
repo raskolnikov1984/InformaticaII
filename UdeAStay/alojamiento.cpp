@@ -3,6 +3,11 @@
 
 using namespace  std;
 
+
+Alojamiento::Alojamiento()
+    : nombre(""), codigoIdentificador(""), anfitrion(""), departamento(""), municipio(""),
+    tipo(""), direccion(""), precioPorNoche(0){}
+
 Alojamiento::Alojamiento(
     const string& nombre, const string& codigoIdentificador,
     const string& anfitrion, const string& departamento, const string& municipio,

@@ -19,6 +19,7 @@ private:
 
 
 public:
+    Alojamiento();
     Alojamiento(
         const string& nombre,
         const string& codigoIdentificador,

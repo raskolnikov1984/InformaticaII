@@ -10,7 +10,6 @@ DB::DB(const tablasStructure& tablasStruct)
 
     tablas.usuarios = tablasStruct.usuarios;
     tablas.reservas = tablasStruct.reservas;
-    tablas.pagos = tablasStruct.pagos;
     tablas.huespedes = tablasStruct.huespedes;
     tablas.anfitriones = tablasStruct.anfitriones;
     tablas.alojamientos = tablasStruct.alojamientos;
@@ -23,8 +22,7 @@ void DB::inicializarBaseDeDatos() {
         string columnas;
     } archivos[] = {
         {tablas.usuarios, "tipoUsuario,numeroDocumento,password"},
-        {tablas.reservas, "duracion,codigoReserva,codigoAlojamiento,documentoHuesped,fechaEntrada,descripcion"},
-        {tablas.pagos, "metodoPago,fechaPago,monto"},
+        {tablas.reservas, "duracion,codigoReserva,codigoAlojamiento,documentoHuesped,fechaEntrada,metodoPago,fechaPago,monto,descripcion"},
         {tablas.huespedes, "tipoUsuario,numeroDocumento,antiguedad,puntuacion"},
         {tablas.anfitriones, "tipoUsuario,numeroDocumento,antiguedad,puntuacion"},
         {tablas.alojamientos, "nombre,codigoIdentificador,anfitrion,departamento,municipio,tipo,direccion,precioPorNoche"},

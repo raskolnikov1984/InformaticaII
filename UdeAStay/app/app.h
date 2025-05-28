@@ -29,17 +29,16 @@ using namespace std;
 
 class App
 {
-private:
+
+public:
+    ContextStructure contexStruct;
+
     DB* db_app;
     Usuario* usuarios;
     Anfitrion* anfitriones;
     Huesped* huespedes;
     Alojamiento* alojamientos;
     Reserva* reservas;
-
-public:
-
-    ContextStructure contexStruct;
 
     App(const tablasStructure& tablasStruct);
     ~App();

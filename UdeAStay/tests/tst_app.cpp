@@ -16,7 +16,6 @@ public:
     void SetUp() override {
         tablas.usuarios = "../tests/usuariosTest.csv";
         tablas.reservas = "../tests/reservasTest.csv";
-        tablas.pagos = "../tests/pagosTest.csv";
         tablas.huespedes = "../tests/huespedesTest.csv";
         tablas.anfitriones = "../tests/anfitrionesTest.csv";
         tablas.alojamientos = "../tests/alojamientosTest.csv";

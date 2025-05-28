@@ -1,1 +1,11 @@
 nombre,codigoIdentificador,anfitrion,departamento,municipio,tipo,direccion,precioPorNoche
+Casa Colonial,AC001,Ana Gómez,Antioquia,Medellín,Casa,Calle 45 #32-10,150000
+Apartamento El Poblado,AC002,Carlos Ruiz,Antioquia,Medellín,Apartamento,Carrera 43A #1-50,220000
+Cabaña La Montaña,AC003,Lucía Torres,Cundinamarca,La Calera,Cabaña,Vereda El Salitre,180000
+Finca El Paraíso,AC004,Juan Ramírez,Quindío,Salento,Finca,Km 3 vía al Valle,250000
+Hostal Central,AC005,María López,Boyacá,Villa de Leyva,Hostal,Carrera 9 #11-30,120000
+Casa de Playa,AC006,Pedro Gómez,Bolívar,Cartagena,Casa,Carrera 1 #5-67,300000
+Apartamento Vista Mar,AC007,Laura Ríos,Magdalena,Santa Marta,Apartamento,Carrera 2 #14-23,280000
+Cabaña Refugio Natural,AC008,Andrés Méndez,Risaralda,Santa Rosa de Cabal,Cabaña,Vereda El Jazmín,160000
+Finca Cafetera,AC009,Patricia Díaz,Caldas,Manizales,Finca,Km 7 vía Neira,200000
+Hostal Las Flores,AC010,Esteban Vega,Huila,San Agustín,Hostal,Calle 6 #4-20,110000
