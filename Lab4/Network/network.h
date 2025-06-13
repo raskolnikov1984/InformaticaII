@@ -47,7 +47,7 @@ public:
 
         // Remover router
         routers.erase(routerId);
-        ::cout << "Router " << routerId << " removido de la red.\n";
+        cout << "Router " << routerId << " removido de la red.\n";
     }
 
     // Agregar enlace
@@ -249,17 +249,17 @@ public:
             }
         }
 
-        ::cout << "Red aleatoria generada con " << numRouters << " routers.\n";
+        cout << "Red aleatoria generada con " << numRouters << " routers.\n";
     }
 
     // Mostrar topología de la red
     void printTopology() {
-        ::cout << "\n=== Topología de la Red ===\n";
-        ::cout << "Routers: ";
+        cout << "\n=== Topología de la Red ===\n";
+        cout << "Routers: ";
         for (const auto& router : routers) {
-            ::cout << router.first << " ";
+            cout << router.first << " ";
         }
-        ::cout << "\n\nEnlaces:\n";
+        cout << "\n\nEnlaces:\n";
 
         set<pair<string, string>> printedLinks;
         for (const auto& link : links) {
@@ -267,7 +267,7 @@ public:
             string r2 = link.first.second;
 
             if (printedLinks.find({r2, r1}) == printedLinks.end()) {
-                ::cout << r1 << " <-> " << r2 << " (costo: " << link.second << ")\n";
+                cout << r1 << " <-> " << r2 << " (costo: " << link.second << ")\n";
                 printedLinks.insert({r1, r2});
             }
         }
