@@ -15,9 +15,9 @@ disponible.
 Sin embargo, se conoce un fragmento del mensaje original en texto plano. Este fragmento servirá como
 pista para determinar:
 
-● ¿Qué método de compresión se utilizó (RLE o LZ78)?
-● El valor de la rotación de bits n.
-● El valor de la clave K usada en la operación XOR.
+  - ¿Qué método de compresión se utilizó (RLE o LZ78)?
+  - El valor de la rotación de bits n.
+  - El valor de la clave K usada en la operación XOR.
 
 A partir del mensaje comprimido y encriptado, y del fragmento conocido del mensaje original, usted
 deberá diseñar e implementar un programa que sea capaz de:
@@ -31,13 +31,14 @@ descompresión RLE y LZ78. De igual forma, deberá implementar los métodos de e
 desencriptación con rotación de bits + XOR.
 
 ## Entradas
-● Cadena que contiene el mensaje comprimido y encriptado.
-● Fragmento conocido del mensaje original (texto plano).}
+
+  - Cadena que contiene el mensaje comprimido y encriptado.
+  - Fragmento conocido del mensaje original (texto plano).}
 
 **Nota:** El texto incluye únicamente los caracteres de la A a la Z (mayúsculas y minúsculas) sin: tildes,
 signos de puntuación, espacios en blancos, ni la Ñ. Puede incluir los dígitos del 0 al 9.
 
 ## Salidas
 
-● Mensaje original completo reconstruido.
-● Método y parámetros utilizados en los procesos de compresión y encriptación
+  - Mensaje original completo reconstruido.
+  - Método y parámetros utilizados en los procesos de compresión y encriptación
