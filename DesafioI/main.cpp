@@ -3,6 +3,7 @@
 
 using namespace std;
 
+
 int main()
 {
 
@@ -10,7 +11,7 @@ int main()
         "/home/rodia/Desktop/04-UdeA/InformaticaII/DesafioI/dataset/Encriptado1.txt");
     int tamano_cadena_encriptado = calcularTamanoArchivo(
         "/home/rodia/Desktop/04-UdeA/InformaticaII/DesafioI/dataset/Encriptado1.txt");
-    const char* archivo_pista = leerArchivo("/home/rodia/Desktop/04-UdeA/InformaticaII/DesafioI/dataset/pista1.txt");
+    const char* cadena_pista = leerArchivo("/home/rodia/Desktop/04-UdeA/InformaticaII/DesafioI/dataset/pista1.txt");
 
     cout << desencriptar(cadena_encriptada, tamano_cadena_encriptado, 3, 0x5A);
 
