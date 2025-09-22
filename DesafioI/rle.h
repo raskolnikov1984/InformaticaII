@@ -14,4 +14,8 @@ char* descomprimirCadenaRLE(cadenaComprimidaRLEstruct* segmentos);
 
 void imprimirCadenaComprimida(cadenaComprimidaRLEstruct* segmento);
 
+unsigned char* encriptarRLE(cadenaComprimidaRLEstruct* segmentos, int n, int K);
+
+void imprimirCadenaDesencriptada(unsigned char* cadenaDesencriptada);
+
 #endif // RLE_H

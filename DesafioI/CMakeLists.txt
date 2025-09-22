@@ -10,7 +10,9 @@ add_executable(DesafioI main.cpp
     tools.cpp
     tools.h
     rle.h
-    rle.cpp)
+    rle.cpp
+    file_manager.h
+    file_manager.cpp)
 
 include(GNUInstallDirs)
 install(TARGETS DesafioI

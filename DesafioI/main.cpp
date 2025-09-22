@@ -1,7 +1,7 @@
 #include <iostream>
-#include <bitset>
-//#include "tools.h"
 #include "rle.h"
+#include "tools.h"
+#include "file_manager.h"
 
 using namespace std;
 
@@ -61,15 +61,16 @@ bool es_subcadena(const char* cadena1, const char* cadena2) {
 
 int main()
 {
-
-    //const char* cadena_encriptada = leerArchivo(
-    //    "/home/rodia/Desktop/04-UdeA/InformaticaII/DesafioI/dataset/Encriptado1.txt");
-    //int tamano_cadena_encriptado = calcularTamanoArchivo(
-    //    "/home/rodia/Desktop/04-UdeA/InformaticaII/DesafioI/dataset/Encriptado1.txt");
-    //const char* cadena_pista = leerArchivo("/home/rodia/Desktop/04-UdeA/InformaticaII/DesafioI/dataset/pista2.txt");
+    const char* cadena_encriptada = leerArchivo(
+        "/home/rodia/Desktop/04-UdeA/InformaticaII/DesafioI/dataset/Encriptado1.txt");
+    int tamano_cadena_encriptado = calcularTamanoArchivo(
+        "/home/rodia/Desktop/04-UdeA/InformaticaII/DesafioI/dataset/Encriptado1.txt");
+    // const char* cadena_pista = leerArchivo("/home/rodia/Desktop/04-UdeA/InformaticaII/DesafioI/dataset/pista2.txt");
 
     /*Encriptado1*/
-    //unsigned char *cadena_desencriptada = desencriptar(cadena_encriptada, tamano_cadena_encriptado, 3, 0x5A);
+    unsigned char *cadena_desencriptada = desencriptar(cadena_encriptada, tamano_cadena_encriptado, 3, 0x5A);
+
+    imprimirCadenaDesencriptada(cadena_desencriptada);
 
     /*Encriptado2*/
     // Sunsigned char* cadena_desencriptada = desencriptar(cadena_encriptada, tamano_cadena_encriptado, 3, 0x5A);
@@ -81,15 +82,45 @@ int main()
 
     // cout << descomprimirCadenaRLE(segmentos);
 
-    cout << "Rotacion Derecha::" << endl;
-    cout << bitset<8>('A') << endl;
+    /*
+    const char* cadena_encriptada = leerArchivo(
+        "./EncriptadoExemplo1.txt");
+    int tamano_cadena_encriptado = calcularTamanoArchivo(
+        "./EncriptadoExemplo1.txt"); */
 
-    cout << ((bitset<8>('A') >> 2) | (bitset<8>('A') << (8 - 2))) << endl;
+    /*Encriptado1*/
+    /*
+    unsigned char *cadena_desencriptada = desencriptar(cadena_encriptada, tamano_cadena_encriptado, 3, 0x5A);
+    */
 
-    cout << "Rotacion Izquierda::" << endl;
-    cout << bitset<8>('A') << endl;
+    /*
+    cout << cadena_desencriptada;
+    */
 
-    cout << ((bitset<8>('A') << 2) | (bitset<8>('A') >> (8 - 2)));
+    /*
+    int opcion = 0;
+    char cadenaAEncriptar[] = "A";
+
+    cadenaComprimidaRLEstruct* cadenaComprimida;
+    unsigned char* cadenaEncriptada;
+    char archivoSalida[] = "./EncriptadoExemplo1.txt";
+
+    switch (opcion){
+    case 0:
+        cadenaComprimida = comprimirRLE(cadenaAEncriptar);
+        cadenaEncriptada = encriptarRLE(cadenaComprimida, 3, 0x5A);
+        escribirArchivo(archivoSalida, cadenaEncriptada);
+        break;
+    case 1:
+        cout << "Caso 1" << endl;
+        break;
+
+    default:
+        cout << "No hizo nada";
+    }
+
+    delete cadenaComprimida;
+    */
 
     return 0;
 }

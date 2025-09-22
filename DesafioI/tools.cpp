@@ -58,10 +58,7 @@ unsigned char* desencriptar(const char* cadena_encriptada, int tamano, int n, in
         b1 = byte ^ K;
         b2 = rotarAlaDerecha(b1, n);
         cadena_desencriptada[i] = b2;
-
-        cout << static_cast<int>(cadena_desencriptada[i]) << endl;
     }
-
 
     cadena_desencriptada[tamano] = '\0';
 
@@ -71,6 +68,7 @@ unsigned char* desencriptar(const char* cadena_encriptada, int tamano, int n, in
 unsigned char rotarAlaDerecha(unsigned char byte, int n) {
     return (byte >> n) | (byte << (8 - n));
 }
+
 
 unsigned char rotarAlaIzquierda(unsigned char byte, int n){
     return (byte << 2 | byte >> (8 - n));

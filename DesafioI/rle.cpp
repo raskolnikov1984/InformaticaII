@@ -1,5 +1,6 @@
 #include <iostream>
 #include "rle.h"
+#include "tools.h"
 
 using namespace std;
 
@@ -23,6 +24,27 @@ cadenaComprimidaRLEstruct* comprimirRLE(char* cadena){
     }
     return segmentos;
 }
+
+unsigned char* encriptarRLE(cadenaComprimidaRLEstruct* segmentos, int n, int K){
+    int posicion = 0;
+
+    unsigned char caracter_inicial = '\0';
+    unsigned char* cadenaEncriptada = &caracter_inicial;
+    unsigned char b1, b2;
+
+    while(segmentos[posicion].cantidad != 0 ){
+        b1 = rotarAlaIzquierda(segmentos[posicion].cantidad, n);
+        b2 = b1 ^ K;
+        *(cadenaEncriptada+posicion) = b2;
+        posicion++;
+        b1 = rotarAlaIzquierda(segmentos[posicion].simbolo, n);
+        b2 = b1 ^ K;
+        *(cadenaEncriptada+posicion) = b2;
+        posicion++;
+    }
+
+    return cadenaEncriptada;
+};
 
 int* convertirToCadenaComprimida(cadenaComprimidaRLEstruct* segmentos){
     int* cadenaComprimida = new int[100];
@@ -57,6 +79,18 @@ void imprimirCadenaComprimida(cadenaComprimidaRLEstruct* segmento){
     }
 
     delete[] cadenaComprimida;
+}
+
+void imprimirCadenaDesencriptada(unsigned char* cadenaDesencriptada){
+    int posicion = 0;
+
+    while(cadenaDesencriptada[posicion] != '0'){
+        int caracter = cadenaDesencriptada[posicion];
+        if(caracter >= static_cast<int>('A') && caracter <= static_cast<int>('Z') || caracter >= static_cast<int>('a') && caracter <= static_cast<int>('z')){
+            cout << static_cast<char>(caracter);
+        }
+        posicion++;
+    }
 }
 
 char* descomprimirCadenaRLE(cadenaComprimidaRLEstruct* segmentos){

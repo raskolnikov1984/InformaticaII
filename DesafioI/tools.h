@@ -9,4 +9,6 @@ unsigned char* desencriptar(const char* cadena_encriptada, int tamano_cadena_enc
 
 unsigned char rotarAlaDerecha(unsigned char byte, int n);
 
+unsigned char rotarAlaIzquierda(unsigned char byte, int n);
+
 #endif // TOOLS_H
