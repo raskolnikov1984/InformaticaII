@@ -42,8 +42,11 @@ int* convertirToCadenaComprimida(cadenaComprimidaRLEstruct* segmentos){
 
 void imprimirCadenaComprimida(cadenaComprimidaRLEstruct* segmento){
     int posicion = 0;
-    while(*(convertirToCadenaComprimida(segmento)+posicion) != '\0'){
-        int caracter = *(convertirToCadenaComprimida(segmento)+posicion);
+
+    int* cadenaComprimida = convertirToCadenaComprimida(segmento);
+
+    while(*(cadenaComprimida+posicion) != '\0'){
+        int caracter = *(cadenaComprimida+posicion);
 
         if(caracter >= static_cast<int>('A') && caracter <= static_cast<int>('Z') || caracter >= static_cast<int>('a') && caracter <= static_cast<int>('z')){
             cout << static_cast<char>(caracter);
@@ -53,4 +56,22 @@ void imprimirCadenaComprimida(cadenaComprimidaRLEstruct* segmento){
         posicion++;
     }
 
+    delete[] cadenaComprimida;
+}
+
+char* descomprimirCadenaRLE(cadenaComprimidaRLEstruct* segmentos){
+    char* cadenaDescomprimida = new char[100];
+
+    int posicion = 0;
+    int caracteres = 0;
+
+    while(segmentos[posicion].simbolo != '\0'){
+        for(int i=0; i < segmentos[posicion].cantidad; i++){
+            cadenaDescomprimida[caracteres] = segmentos[posicion].simbolo;
+            caracteres++;
+        }
+        posicion++;
+    }
+
+    return cadenaDescomprimida;
 }

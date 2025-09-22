@@ -74,7 +74,11 @@ int main()
     // Sunsigned char* cadena_desencriptada = desencriptar(cadena_encriptada, tamano_cadena_encriptado, 3, 0x5A);
 
     char cadenaAComprimir[] = "AAAABBBCCDAA";
-    cadenaComprimidaRLEstruct* segmento = comprimirRLE(cadenaAComprimir);
+    cadenaComprimidaRLEstruct* segmentos = comprimirRLE(cadenaAComprimir);
+
+    char cadenaADescomprimir[] = "4A3B2C1D2A";
+
+    cout << descomprimirCadenaRLE(segmentos);
 
     return 0;
 }

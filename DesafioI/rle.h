@@ -10,6 +10,8 @@ cadenaComprimidaRLEstruct* comprimirRLE(char* cadena);
 
 int* convertirToCadenaComprimida(cadenaComprimidaRLEstruct* segmentos);
 
+char* descomprimirCadenaRLE(cadenaComprimidaRLEstruct* segmentos);
+
 void imprimirCadenaComprimida(cadenaComprimidaRLEstruct* segmento);
 
 #endif // RLE_H
