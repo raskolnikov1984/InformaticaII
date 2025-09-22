@@ -1,4 +1,7 @@
+#include <iostream>
 #include "rle.h"
+
+using namespace std;
 
 cadenaComprimidaRLEstruct* comprimirRLE(char* cadena){
     char letra = '\0';
@@ -19,4 +22,35 @@ cadenaComprimidaRLEstruct* comprimirRLE(char* cadena){
         }
     }
     return segmentos;
+}
+
+int* convertirToCadenaComprimida(cadenaComprimidaRLEstruct* segmentos){
+    int* cadenaComprimida = new int[100];
+    int posicion = 0;
+    int caracteres = 0;
+
+    while(segmentos[posicion].cantidad != 0 ){
+        cadenaComprimida[caracteres] = segmentos[posicion].cantidad;
+        caracteres++;
+        cadenaComprimida[caracteres] = segmentos[posicion].simbolo;
+        caracteres++;
+        posicion++;
+    }
+
+    return cadenaComprimida;
+}
+
+void imprimirCadenaComprimida(cadenaComprimidaRLEstruct* segmento){
+    int posicion = 0;
+    while(*(convertirToCadenaComprimida(segmento)+posicion) != '\0'){
+        int caracter = *(convertirToCadenaComprimida(segmento)+posicion);
+
+        if(caracter >= static_cast<int>('A') && caracter <= static_cast<int>('Z') || caracter >= static_cast<int>('a') && caracter <= static_cast<int>('z')){
+            cout << static_cast<char>(caracter);
+        } else {
+            cout << caracter;
+        }
+        posicion++;
+    }
+
 }

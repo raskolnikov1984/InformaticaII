@@ -75,7 +75,6 @@ int main()
 
     char cadenaAComprimir[] = "AAAABBBCCDAA";
     cadenaComprimidaRLEstruct* segmento = comprimirRLE(cadenaAComprimir);
-    cout << segmento[0].simbolo << segmento[0].cantidad << endl;
 
     return 0;
 }
