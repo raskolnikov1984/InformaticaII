@@ -1,4 +1,5 @@
 #include <iostream>
+#include <bitset>
 //#include "tools.h"
 #include "rle.h"
 
@@ -73,12 +74,22 @@ int main()
     /*Encriptado2*/
     // Sunsigned char* cadena_desencriptada = desencriptar(cadena_encriptada, tamano_cadena_encriptado, 3, 0x5A);
 
-    char cadenaAComprimir[] = "AAAABBBCCDAA";
-    cadenaComprimidaRLEstruct* segmentos = comprimirRLE(cadenaAComprimir);
+    // char cadenaAComprimir[] = "AAAABBBCCDAA";
+    // cadenaComprimidaRLEstruct* segmentos = comprimirRLE(cadenaAComprimir);
 
-    char cadenaADescomprimir[] = "4A3B2C1D2A";
+    // char cadenaADescomprimir[] = "4A3B2C1D2A";
 
-    cout << descomprimirCadenaRLE(segmentos);
+    // cout << descomprimirCadenaRLE(segmentos);
+
+    cout << "Rotacion Derecha::" << endl;
+    cout << bitset<8>('A') << endl;
+
+    cout << ((bitset<8>('A') >> 2) | (bitset<8>('A') << (8 - 2))) << endl;
+
+    cout << "Rotacion Izquierda::" << endl;
+    cout << bitset<8>('A') << endl;
+
+    cout << ((bitset<8>('A') << 2) | (bitset<8>('A') >> (8 - 2)));
 
     return 0;
 }

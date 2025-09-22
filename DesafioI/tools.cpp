@@ -45,6 +45,9 @@ long calcularTamanoArchivo(const char* ruta_archivo){
     return tamano;
 }
 
+void encriptar(const char* cadena_comprimida, int n, int K){
+
+}
 
 unsigned char* desencriptar(const char* cadena_encriptada, int tamano, int n, int K){
     unsigned char* cadena_desencriptada = new unsigned char[tamano];
@@ -67,4 +70,8 @@ unsigned char* desencriptar(const char* cadena_encriptada, int tamano, int n, in
 
 unsigned char rotarAlaDerecha(unsigned char byte, int n) {
     return (byte >> n) | (byte << (8 - n));
+}
+
+unsigned char rotarAlaIzquierda(unsigned char byte, int n){
+    return (byte << 2 | byte >> (8 - n));
 }
