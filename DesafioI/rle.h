@@ -1,21 +1,7 @@
 #ifndef RLE_H
 #define RLE_H
 
-struct cadenaComprimidaRLEstruct {
-    char simbolo = '\0';
-    int cantidad = 0;
-};
-
-cadenaComprimidaRLEstruct* comprimirRLE(char* cadena);
-
-int* convertirToCadenaComprimida(cadenaComprimidaRLEstruct* segmentos);
-
-char* descomprimirCadenaRLE(cadenaComprimidaRLEstruct* segmentos);
-
-void imprimirCadenaComprimida(cadenaComprimidaRLEstruct* segmento);
-
-unsigned char* encriptarRLE(cadenaComprimidaRLEstruct* segmentos, int n, int K);
-
-void imprimirCadenaDesencriptada(unsigned char* cadenaDesencriptada);
+void descomprimirRLE(char*& cadena_limpia, int tamano_cadena_limpia, char*& cadena_descomprimida);
+bool esFormatoRLEEstricto(const char* cadena);
 
 #endif // RLE_H

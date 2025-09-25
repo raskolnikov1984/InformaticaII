@@ -1,111 +1,86 @@
 #include <iostream>
-#include "rle.h"
-#include "tools.h"
+#include <cctype>
+#include <iostream>
+#include <cctype>
 
 using namespace std;
 
-cadenaComprimidaRLEstruct* comprimirRLE(char* cadena){
-    char letra = '\0';
-    int cantidadSegmentos = 0;
-
-    cadenaComprimidaRLEstruct* segmentos = new cadenaComprimidaRLEstruct[100];
-    cadenaComprimidaRLEstruct* segmento;
-
-    for(int i=0; cadena[i] != '\0'; i++){
-        if(cadena[i] != letra){
-            segmento = &segmentos[cantidadSegmentos];
-            letra = cadena[i];
-            segmento->simbolo = cadena[i];
-            segmento->cantidad = 1;
-            cantidadSegmentos++;
-        } else{
-            segmento->cantidad += 1;
+bool esFormatoRLEValido(const char* cadena, int tamano_cadena_limpia){
+    for(int i=0; i < tamano_cadena_limpia; i++){
+        if(!isalpha(cadena[i]) && !isdigit(static_cast<int>(cadena[i])) && cadena[i] != '\0'){
+            return false;
         }
     }
-    return segmentos;
+
+    return true;
 }
 
-unsigned char* encriptarRLE(cadenaComprimidaRLEstruct* segmentos, int n, int K){
-    int posicion = 0;
+void descomprimirRLE(char*& cadena_limpia, int tamano_cadena_limpia, char*& cadena_descomprimida) {
 
-    unsigned char caracter_inicial = '\0';
-    unsigned char* cadenaEncriptada = &caracter_inicial;
-    unsigned char b1, b2;
-
-    while(segmentos[posicion].cantidad != 0 ){
-        b1 = rotarAlaIzquierda(segmentos[posicion].cantidad, n);
-        b2 = b1 ^ K;
-        *(cadenaEncriptada+posicion) = b2;
-        posicion++;
-        b1 = rotarAlaIzquierda(segmentos[posicion].simbolo, n);
-        b2 = b1 ^ K;
-        *(cadenaEncriptada+posicion) = b2;
-        posicion++;
-    }
-
-    return cadenaEncriptada;
-};
-
-int* convertirToCadenaComprimida(cadenaComprimidaRLEstruct* segmentos){
-    int* cadenaComprimida = new int[100];
-    int posicion = 0;
-    int caracteres = 0;
-
-    while(segmentos[posicion].cantidad != 0 ){
-        cadenaComprimida[caracteres] = segmentos[posicion].cantidad;
-        caracteres++;
-        cadenaComprimida[caracteres] = segmentos[posicion].simbolo;
-        caracteres++;
-        posicion++;
-    }
-
-    return cadenaComprimida;
-}
-
-void imprimirCadenaComprimida(cadenaComprimidaRLEstruct* segmento){
-    int posicion = 0;
-
-    int* cadenaComprimida = convertirToCadenaComprimida(segmento);
-
-    while(*(cadenaComprimida+posicion) != '\0'){
-        int caracter = *(cadenaComprimida+posicion);
-
-        if(caracter >= static_cast<int>('A') && caracter <= static_cast<int>('Z') || caracter >= static_cast<int>('a') && caracter <= static_cast<int>('z')){
-            cout << static_cast<char>(caracter);
-        } else {
-            cout << caracter;
+    if (!esFormatoRLEValido(cadena_limpia, tamano_cadena_limpia)) {
+        cerr << "Error: Formato RLE inválido" << endl;
+        if (cadena_descomprimida) {
+            cadena_descomprimida[0] = '\0';
         }
-        posicion++;
+
+        return;
     }
 
-    delete[] cadenaComprimida;
-}
+    // Validaciones iniciales críticas
+    if (!cadena_limpia) {
+        cerr << "Error: cadena_limpia es nula" << endl;
+        return;
+    }
 
-void imprimirCadenaDesencriptada(unsigned char* cadenaDesencriptada){
-    int posicion = 0;
+    if (!cadena_descomprimida) {
+        cerr << "Error: cadena_descomprimida es nula" << endl;
+        return;
+    }
 
-    while(cadenaDesencriptada[posicion] != '0'){
-        int caracter = cadenaDesencriptada[posicion];
-        if(caracter >= static_cast<int>('A') && caracter <= static_cast<int>('Z') || caracter >= static_cast<int>('a') && caracter <= static_cast<int>('z')){
-            cout << static_cast<char>(caracter);
+    if (cadena_limpia[0] == '\0') {
+        cadena_descomprimida[0] = '\0';
+        return;
+    }
+
+    int j = 0;
+    int pos = 0;
+
+    while (cadena_limpia[j] != '\0') {
+        // Validar que empiece con dígito
+        if (!isdigit(cadena_limpia[j])) {
+            cerr << "Error: Formato inválido en posición " << j << endl;
+            cadena_descomprimida[0] = '\0';
+            return;
         }
-        posicion++;
-    }
-}
 
-char* descomprimirCadenaRLE(cadenaComprimidaRLEstruct* segmentos){
-    char* cadenaDescomprimida = new char[100];
+        int cantidad = 0;
 
-    int posicion = 0;
-    int caracteres = 0;
+        // Leer número
+        while (isdigit(cadena_limpia[j])) {
+            cantidad = cantidad * 10 + (cadena_limpia[j] - '0');
+            j++;
 
-    while(segmentos[posicion].simbolo != '\0'){
-        for(int i=0; i < segmentos[posicion].cantidad; i++){
-            cadenaDescomprimida[caracteres] = segmentos[posicion].simbolo;
-            caracteres++;
+            if (cantidad > 1000000) {
+                cerr << "Error: Número demasiado grande" << endl;
+                cadena_descomprimida[0] = '\0';
+                return;
+            }
         }
-        posicion++;
+
+        if (cadena_limpia[j] == '\0') {
+            cerr << "Error: Formato incompleto" << endl;
+            cadena_descomprimida[0] = '\0';
+            return;
+        }
+
+        char caracter = cadena_limpia[j];
+        j++;
+
+        for (int k = 0; k < cantidad; k++) {
+            cadena_descomprimida[pos] = caracter;
+            pos++;
+        }
     }
 
-    return cadenaDescomprimida;
+    cadena_descomprimida[pos] = '\0';
 }

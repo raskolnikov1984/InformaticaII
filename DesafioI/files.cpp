@@ -1,9 +1,9 @@
 #include <iostream>
 #include <fstream>
-#include "tools.h"
-#include <bitset>
+#include "files.h"
 
 using namespace std;
+
 
 char* leerArchivo(const char* ruta_archivo){
 
@@ -45,31 +45,20 @@ long calcularTamanoArchivo(const char* ruta_archivo){
     return tamano;
 }
 
-void encriptar(const char* cadena_comprimida, int n, int K){
+void limpiarCadena(char*& cadena_limpia, unsigned char* archivo_desencriptado, int& tamano_cadena_descomprimida, int tamano){
+    int posicion = 0;
+    for(int i=0; i < tamano; i++){
+        if((static_cast<int>(archivo_desencriptado[i]) >= 1) || isalnum(archivo_desencriptado[i])){
+            if(archivo_desencriptado[i] >= 1 && !isprint(archivo_desencriptado[i])){
+                tamano_cadena_descomprimida += archivo_desencriptado[i];
+                cadena_limpia[posicion] = archivo_desencriptado[i] + 48;
+                posicion++;
 
-}
+                continue;
+            }
 
-unsigned char* desencriptar(const char* cadena_encriptada, int tamano, int n, int K){
-    unsigned char* cadena_desencriptada = new unsigned char[tamano];
-    unsigned char b1, b2;
-
-    for(int i=0; i != tamano; i++){
-        char byte = cadena_encriptada[i];
-        b1 = byte ^ K;
-        b2 = rotarAlaDerecha(b1, n);
-        cadena_desencriptada[i] = b2;
+            cadena_limpia[posicion] = archivo_desencriptado[i];
+            posicion++;
+        }
     }
-
-    cadena_desencriptada[tamano] = '\0';
-
-    return cadena_desencriptada;
-}
-
-unsigned char rotarAlaDerecha(unsigned char byte, int n) {
-    return (byte >> n) | (byte << (8 - n));
-}
-
-
-unsigned char rotarAlaIzquierda(unsigned char byte, int n){
-    return (byte << 2 | byte >> (8 - n));
 }
