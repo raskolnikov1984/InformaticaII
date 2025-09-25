@@ -2,6 +2,9 @@
 #include <string.h>
 #include "rle.h"
 #include "files.h"
+#include <iostream>
+
+using namespace std;
 
 unsigned char* desencriptar(const char* cadena_encriptada, int tamano, int n, int K) {
     unsigned char* cadena_desencriptada = new unsigned char[tamano + 1];
@@ -33,6 +36,8 @@ int detectarMetodoYParametros(const char* encriptado, int& tamano, const char* p
     for (int n = 1; n < 8; n++) {
         for (int K = 0; K < 256; K++) {
             int tamano_cadena_descomprimida = 0;
+            int tamano_cadena_limpia = 0;
+
             // Desencriptar
             unsigned char* desencriptado = desencriptar(
                 encriptado, tamano, n, K);
@@ -42,9 +47,9 @@ int detectarMetodoYParametros(const char* encriptado, int& tamano, const char* p
             char* cadena_limpia = new char[tamano];
             char* cadena_descomprimida;
 
-            limpiarCadena(cadena_limpia, desencriptado, tamano_cadena_descomprimida, tamano);
+            limpiarCadena(cadena_limpia, desencriptado, tamano_cadena_descomprimida, tamano_cadena_limpia, tamano);
             cadena_descomprimida = new char[tamano_cadena_descomprimida];
-            descomprimirRLE(cadena_limpia, tamano_cadena_descomprimida, cadena_descomprimida);
+            descomprimirRLE(cadena_limpia, tamano, cadena_descomprimida);
 
             // Intentar RLE primero (más simple)
 
@@ -70,6 +75,7 @@ int detectarMetodoYParametros(const char* encriptado, int& tamano, const char* p
             //     delete[] texto_lz;
             // }
 
+            delete[] desencriptado;
         }
     }
 

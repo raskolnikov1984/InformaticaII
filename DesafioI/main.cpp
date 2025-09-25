@@ -1,16 +1,17 @@
 #include <iostream>
 #include "encriptacion.h"
 #include "files.h"
+// #include "rle.h"
 
 using namespace std;
 
 int main()
 {
-    const char archivo_encriptado[] = "/home/rodia/Desktop/DesafioI/dataset/Encriptado1.txt";
-    const char archivo_pista[] = "/home/rodia/Desktop/DesafioI/dataset/pista1.txt";
-
+    const char archivo_encriptado[] = "/home/rodia/Desktop/04-UdeA/InformaticaII/DesafioI/dataset/Encriptado3.txt";
+    const char archivo_pista[] = "/home/rodia/Desktop/04-UdeA/InformaticaII/DesafioI/dataset/pista3.txt";
     const char* encriptado = leerArchivo(archivo_encriptado);
     const char* pista = leerArchivo(archivo_pista);
+
     int tamano = calcularTamanoArchivo(archivo_encriptado);
 
     int metodo, n_out, K_out;
@@ -20,6 +21,7 @@ int main()
     metodo = detectarMetodoYParametros(
         encriptado, tamano, pista, n_out, K_out, texto_desencriptado);
 
+    cout << "=======================================" << endl;
     cout << "TEXTO DESENCRIPTADO" << endl;
     cout << "=======================================" << endl;
     cout << texto_desencriptado << endl;

@@ -7,7 +7,7 @@ using namespace std;
 
 bool esFormatoRLEValido(const char* cadena, int tamano_cadena_limpia){
     for(int i=0; i < tamano_cadena_limpia; i++){
-        if(!isalpha(cadena[i]) && !isdigit(static_cast<int>(cadena[i])) && cadena[i] != '\0'){
+        if(!isalpha(cadena[i]) && !isdigit(static_cast<int>(cadena[i])) && cadena[i] != '\0'){;
             return false;
         }
     }
