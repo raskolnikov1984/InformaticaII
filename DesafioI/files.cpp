@@ -45,7 +45,7 @@ long calcularTamanoArchivo(const char* ruta_archivo){
     return tamano;
 }
 
-void limpiarCadena(char*& cadena_limpia, unsigned char* archivo_desencriptado, int& tamano_cadena_descomprimida, int& tamano_cadena_limpia, int tamano){
+void limpiarCadena(char*& cadena_limpia, char* archivo_desencriptado, int& tamano_cadena_descomprimida, int& tamano_cadena_limpia, int tamano){
     int posicion = 0;
     for(int i=0; i < tamano; i++){
         if((static_cast<int>(archivo_desencriptado[i]) >= 1) || isalnum(archivo_desencriptado[i])){

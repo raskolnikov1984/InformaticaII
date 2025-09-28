@@ -6,8 +6,8 @@
 
 using namespace std;
 
-unsigned char* desencriptar(const char* cadena_encriptada, int tamano, int n, int K) {
-    unsigned char* cadena_desencriptada = new unsigned char[tamano + 1];
+char* desencriptar(const char* cadena_encriptada, int tamano, int n, int K) {
+    char* cadena_desencriptada = new  char[tamano + 1];
 
     for(int i = 0; i < tamano; i++) {
         unsigned char byte = cadena_encriptada[i];
@@ -17,6 +17,7 @@ unsigned char* desencriptar(const char* cadena_encriptada, int tamano, int n, in
     }
 
     cadena_desencriptada[tamano] = '\0';
+
     return cadena_desencriptada;
 }
 
@@ -39,7 +40,7 @@ int detectarMetodoYParametros(const char* encriptado, int& tamano, const char* p
             int tamano_cadena_limpia = 0;
 
             // Desencriptar
-            unsigned char* desencriptado = desencriptar(
+            char* desencriptado = desencriptar(
                 encriptado, tamano, n, K);
 
             if (!desencriptado) continue;

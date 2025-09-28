@@ -11,7 +11,7 @@ lamontanaselevacasascuidadasmontesbosquesrioslagosanimalessilvestrespajarosvolan
 ** Encriptado1.txt **
 Compresión: RLE
 Rotación: 3
-Key= 0x5A
+Key=0x5A
 
 ** Encriptado2.txt **
 Compresión: LZ78

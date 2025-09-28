@@ -12,7 +12,9 @@ add_executable(DesafioI main.cpp
     encriptacion.h
     encriptacion.cpp
     rle.h
-    rle.cpp)
+    rle.cpp
+    lz78.cpp
+    lz78.h)
 
 include(GNUInstallDirs)
 install(TARGETS DesafioI
