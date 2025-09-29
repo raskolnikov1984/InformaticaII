@@ -2,56 +2,43 @@
 #include "files.h"
 #include "encriptacion.h"
 #include "lz78.h"
-
+#include <iomanip> // Para std::setw y std::setfill
 
 using namespace std;
 
 
 int main(){
-    const char archivo_encriptado[] = "/home/rodia/Desktop/04-UdeA/InformaticaII/DesafioI/dataset/Encriptado4.txt";
-    const char archivo_pista[] = "/home/rodia/Desktop/04-UdeA/InformaticaII/DesafioI/dataset/pista4.txt";
+    const char archivo_encriptado[] = "/home/rodia/Documents/DesafioI/dataset/Encriptado2.txt";
+    const char archivo_pista[] = "/home/rodia/Documents/DesafioI/dataset/pista2.txt";
     const char* encriptado = leerArchivo(archivo_encriptado);
     const char* pista = leerArchivo(archivo_pista);
     char* texto_desencriptado;
 
     int tamano = calcularTamanoArchivo(archivo_encriptado);
-    char* desencriptado = desencriptar(encriptado, tamano, 3, 0x5A);
 
-    int numTernas = tamano / 3;
-    int longitudTotal = calcularLongitudTotal(desencriptado, tamano);
+    int metodo, n_out, K_out;
 
-    char* textoComprimido = new char[longitudTotal + 1]; // +1 para '\0'
+    metodo = detectarMetodoYParametros(
+        encriptado, tamano, pista, n_out, K_out, texto_desencriptado);
 
-    int posicionActual = 0;
-
-    for (int i = 0; i < numTernas; i++) {
-        int pos = i * 3;
-        int numero = abs(int(desencriptado[pos]) << 8 | int(desencriptado[pos + 1]));
-        unsigned char caracter = desencriptado[pos + 2];
-
-        char numberBuffer[10];
-        int numberLength;
-        numeroAString(numero, numberBuffer, numberLength);
-
-        for (int j = 0; j < numberLength; j++) {
-            textoComprimido[posicionActual++] = numberBuffer[j];
-        }
-
-        textoComprimido[posicionActual++] = caracter;
-    }
-
-    textoComprimido[posicionActual] = '\0';
+    cout << "=======================================" << endl;
+    cout << "          TEXTO DESENCRIPTADO          " << endl;
+    cout << "=======================================" << endl;
+    cout << endl;
+    cout << texto_desencriptado << endl;
+    cout << endl;
+    cout << "=======================================" << endl;
+    cout << endl;
+    cout << left << setw(15) << "Metodo:" << metodo << endl;
+    cout << left << setw(15) << "n OUT:" << n_out << endl;
+    cout << left << setw(15) << "K out:" << K_out << endl;
+    cout << endl;
+    cout << "=======================================" << endl;
 
 
-    int textLength = longitudString(textoComprimido);
-
-    descomprimirLZ78(textoComprimido, textLength);
-
-    imprimirResultado();
-
-    limpiar();
-
-    delete[] textoComprimido;
+    delete[] encriptado;
+    delete[] pista;
+    delete[] texto_desencriptado;
 
     return 0;
 }

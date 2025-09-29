@@ -1,5 +1,6 @@
 #include "lz78.h"
 #include <iostream>
+#include <cstring>
 
 using namespace std;
 
@@ -137,13 +138,14 @@ void formatearTokens(const char* compressedText, int textLength, int*& indices, 
     }
 }
 
-void descomprimirLZ78(const char* compressedText, int textLength) {
+char* descomprimirLZ78(const char* compressedText, int textLength) {
     iniciarDiccionario();
     iniciarSalida();
 
     int* indices;
     char* characters;
     int tokenCount;
+    int longitudSalida = 0;
 
     formatearTokens(compressedText, textLength, indices, characters, tokenCount);
 
@@ -163,24 +165,78 @@ void descomprimirLZ78(const char* compressedText, int textLength) {
 
         for (int j = 0; j < seqLength; j++) {
             agregarASalida(sequence[j]);
+            longitudSalida+=1;
         }
 
         agregarASalida(nextChar);
+        longitudSalida+=1;
         agregarADiccionario(dictIndex, nextChar);
     }
 
     delete[] indices;
     delete[] characters;
+
+    // Crear y retornar el resultado
+    int longitud = longitudSalida;
+    char* resultado = new char[longitud + 1];
+
+    // Copiar la salida al resultado
+    for (int i = 0; i < longitud; i++) {
+        resultado[i] = salida[i]; /* acceder a tu buffer de salida */
+    }
+    resultado[longitud] = '\0';
+
+    return resultado;
+}
+// void descomprimirLZ78(const char* compressedText, int textLength) {
+//     iniciarDiccionario();
+//     iniciarSalida();
+
+//     int posiciones = 0;
+//     int* indices;
+//     char* characters;
+//     int tokenCount;
+
+//     formatearTokens(compressedText, textLength, indices, characters, tokenCount);
+
+//     for (int i = 0; i < tokenCount; i++) {
+//         int dictIndex = indices[i];
+//         char nextChar = characters[i];
+
+//         if (dictIndex >= tamanoDiccionario) {
+//             cout << "Error en token " << i << ": Índice " << dictIndex
+//                  << " inválido (dict size: " << tamanoDiccionario << ")" << endl;
+//             break;
+//         }
+
+//         char sequence[1000];
+//         int seqLength;
+//         getSequencia(dictIndex, sequence, seqLength);
+
+//         for (int j = 0; j < seqLength; j++) {
+//             agregarASalida(sequence[j]);
+//         }
+
+//         agregarASalida(nextChar);
+//         agregarADiccionario(dictIndex, nextChar);
+//     }
+
+//     delete[] indices;
+//     delete[] characters;
+// }
+
+bool encontrarPista(char* texto, const char* pista){
+    if (texto && strstr(texto, pista) != nullptr) {
+        return true; // LZ78
+    }
+    return false;
 }
 
-void imprimirResultado() {
-    cout << "\nTexto descomprimido:" << endl;
-    cout << "================================================" << endl;
+
+void imprimirResultado(char*& texto_lz) {
     for (int i = 0; i < tamanoSalida; i++) {
-        cout << salida[i];
+        texto_lz[i] = salida[i];
     }
-    cout << endl;
-    cout << "================================================" << endl;
 }
 
 void limpiar() {
