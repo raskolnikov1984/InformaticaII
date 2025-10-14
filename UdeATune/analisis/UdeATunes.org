@@ -1,0 +1,74 @@
+#+title: UdeA Tunes
+
+* Requerimientos:
+1. Permitir la gestion eficiente de las
+   - Canciones.
+   - Albumes.
+   - Artistas.
+   - Usuarios.
+   - Listas de Reproduccion.
+2. Carga / actualización de datos.
+3. Ingreso a la plataforma.
+4. Reproducción aleatoria.
+5. Mi lista de favoritos.
+6. Menu.
+   1. Editar mi lista de favoritos
+   2. Seguir otra lista de favoritos
+   3. Ejecutar mi lista de favoritos
+
+* Entidades:
+** App:
+1. Ningún usuario debe visualizar el mismo mensaje de forma consecutiva o con algún patrón de reproducción fijo.
+2. En la base de datos de la plataforma pueden existir hasta 50 mensajes publicitarios, sin embargo, no todos tienen la misma prioridad.
+** Usuario:
+1. nickName: nombre de usuario unico.
+2. tipoMembresia: estandar/premium.
+3. ciuidad.
+4. pais.
+5. fechaInscripcion.
+
+*** Roles:
+**** Premium:
+1. Pueden poseer una lista personalizada de canciones favoritas, con todas las
+   canciones que el usuario ha agregado previamente (hasta 10000 canciones).
+2. Pueden elegir seguir, de manera continua, la lista de canciones favoritas de
+   otro usuario premium.
+3. Escucharán todas las canciones en formato de alta calidad 320 kbps.
+4. Pueden reproducir todas las canciones de la plataforma sin que les aparezca
+   publicidad.
+**** Estandar:
+1. Cada dos canciones reproducidas visualizarán en pantalla un mensaje publicitario (de hasta 500 caracteres).
+*** Acciones:
+- cambiarMembresia()
+
+** Anuncio:
+1. categoria: C, B, AAA.
+
+** Artista:
+1. identificador.
+2. edad.
+3. pais.
+4. seguidores.
+5. posicion.
+6. albumes
+
+** Album:
+1. genero: pop, rock, jazz, clasica, electronica, hip-hop, reggae, blues, latina.
+2. fechaLanzamiento:
+3. duracion
+4. nombre
+5. identificador
+6. sello.
+7. portada
+8. puntuacion
+
+** Cancion:
+1. nombre.
+2. identificador: El identificador de las canciones es un entero de nueve dígitos y se subdivide en: el identificador del
+   artista (5 primeros dígitos), el identificador del álbum (siguientes 2 dígitos) y el
+   identificador de la canción (últimos 2 dígitos). .
+3. duracion.
+4. ubicacion.
+5. creditos: Productores, Músicos y Compositores; cada uno de ellos se representa con sus nombres, apellidos y el
+código de afiliación a la sociedad de autores y compositores de Colombia (10 caracteres alfanuméricos)..
+6. reproducciones.
