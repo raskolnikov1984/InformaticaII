@@ -10,7 +10,9 @@ add_executable(UdeATune main.cpp
     storage.h storage.cpp
     estructuras.h
     data/login.csv
-    data/test.csv)
+    data/test.csv
+    album.cpp album.h
+    usuario.cpp usuario.h)
 
 include(GNUInstallDirs)
 install(TARGETS UdeATune

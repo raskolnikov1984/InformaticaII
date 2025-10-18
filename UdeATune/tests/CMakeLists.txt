@@ -30,12 +30,14 @@ endif()
 # Create the main library
 add_library(UdeATune_lib
     ../login.cpp
+    ../album.cpp
     ../storage.cpp
     ../usuario.cpp
 )
 
 add_executable(UdeATuneTests main.cpp
     tst_login.cpp
+    tst_album.cpp
     tst_storage.cpp
     tst_usuario.cpp
 )
