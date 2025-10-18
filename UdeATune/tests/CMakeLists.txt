@@ -27,10 +27,20 @@ if (NOT GTest_FOUND)
     message (FATAL_ERROR "No GTest Found")
 endif()
 
-add_executable(UdeATuneTests main.cpp tst_udeatunetests.cpp)
+# Create the main library
+add_library(UdeATune_lib
+    ../login.cpp
+    ../storage.cpp
+)
+
+add_executable(UdeATuneTests main.cpp
+    tst_login.cpp
+    tst_storage.cpp
+    ../data/test.csv
+)
 add_test(NAME UdeATuneTests COMMAND UdeATuneTests)
 
-target_link_libraries(UdeATuneTests PRIVATE GTest::GTest)
+target_link_libraries(UdeATuneTests PRIVATE GTest::GTest UdeATune_lib)
 if (GMock_FOUND)
     target_link_libraries(UdeATuneTests INTERFACE GTest::GMock)
 endif()
