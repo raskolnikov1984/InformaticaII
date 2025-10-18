@@ -31,12 +31,13 @@ endif()
 add_library(UdeATune_lib
     ../login.cpp
     ../storage.cpp
+    ../usuario.cpp
 )
 
 add_executable(UdeATuneTests main.cpp
     tst_login.cpp
     tst_storage.cpp
-    ../data/test.csv
+    tst_usuario.cpp
 )
 add_test(NAME UdeATuneTests COMMAND UdeATuneTests)
 

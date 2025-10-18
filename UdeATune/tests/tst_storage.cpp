@@ -10,5 +10,6 @@ using namespace testing;
 TEST(Archivos, LeerArchivo)
 {
   Storage storage;
-  string archivo = "/home/aserrador/Desktop/04-UdeA/InformaticaII/UdeATune/data/test.csv";
+  string archivo =
+      "/home/aserrador/Desktop/04-UdeA/InformaticaII/UdeATune/data/test.csv";
 }
