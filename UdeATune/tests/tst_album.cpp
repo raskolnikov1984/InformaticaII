@@ -1,10 +1,12 @@
 #include <gmock/gmock-matchers.h>
 #include <gtest/gtest.h>
 #include "../album.h"
+#include "../cancion.h"
 
 class UdeATuneAlbum : public ::testing::Test {
 public:
   Album azucarPaTi;
+  Cancion miSonsito;
 
   void SetUp() override {
     azucarPaTi.setIdentificador("1");
@@ -15,6 +17,13 @@ public:
     azucarPaTi.setNombre("Azúcar pa' ti");
     azucarPaTi.setSello("2020-03-02");
     azucarPaTi.setPuntuacion("Portada");
+
+    miSonsito.setIdentificador("1");
+    miSonsito.setNombre("Mi Sonsito");
+    miSonsito.setDuracion("5:20");
+    miSonsito.setUbicacion("ubicacion");
+    miSonsito.setCreditos("Creditos");
+    miSonsito.setReproducciones(10000);
   }
 };
 
@@ -25,4 +34,13 @@ TEST_F(UdeATuneAlbum, Album) {
   EXPECT_EQ(azucarPaTi.getFechaLanzamiento(), "1965");
   EXPECT_EQ(azucarPaTi.getDuracion(), "34:06");
   EXPECT_EQ(azucarPaTi.getNombre(), "Azúcar pa' ti");
+}
+
+TEST_F(UdeATuneAlbum, Cancion) {
+  EXPECT_EQ(miSonsito.getIdentificador(), "1");
+  EXPECT_EQ(miSonsito.getNombre(), "Mi Sonsito");
+  EXPECT_EQ(miSonsito.getDuracion(), "5:20");
+  EXPECT_EQ(miSonsito.getUbicacion(), "ubicacion");
+  EXPECT_EQ(miSonsito.getCreditos(), "Creditos");
+  EXPECT_EQ(miSonsito.getReproducciones(), 10000);
 }

@@ -33,6 +33,8 @@ add_library(UdeATune_lib
     ../album.cpp
     ../storage.cpp
     ../usuario.cpp
+    ../cancion.cpp
+    ../estructuras_datos/lista_dinamica.cpp
 )
 
 add_executable(UdeATuneTests main.cpp
@@ -40,6 +42,7 @@ add_executable(UdeATuneTests main.cpp
     tst_album.cpp
     tst_storage.cpp
     tst_usuario.cpp
+    tst_dinamiclist.cpp
 )
 add_test(NAME UdeATuneTests COMMAND UdeATuneTests)
 

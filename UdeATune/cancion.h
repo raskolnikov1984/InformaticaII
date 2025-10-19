@@ -1,0 +1,32 @@
+#ifndef CANCION_H_
+#define CANCION_H_
+
+#include <string>
+
+using namespace std;
+
+class Cancion {
+public:
+    string getIdentificador() const;
+    void setIdentificador(const string &newIdentificador);
+    string getNombre() const;
+    void setNombre(const string &newNombre);
+    string getDuracion() const;
+    void setDuracion(const string &newDuracion);
+    string getUbicacion() const;
+    void setUbicacion(const string &newUbicacion);
+    string getCreditos() const;
+    void setCreditos(const string &newCreditos);
+    int getReproducciones() const;
+    void setReproducciones(int newReproducciones);
+
+private:
+  string identificador;
+  string nombre;
+  string duracion;
+  string ubicacion;
+  string creditos;
+  int reproducciones;
+};
+
+#endif // CANCION_H_
