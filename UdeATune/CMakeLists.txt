@@ -16,6 +16,7 @@ add_executable(
     data/login.csv
     data/test.csv
     estructuras_datos/lista_dinamica.h
+    artista.cpp artista.h
 )
 
 include(GNUInstallDirs)
