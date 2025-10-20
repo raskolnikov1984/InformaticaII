@@ -34,7 +34,6 @@ add_library(UdeATune_lib
     ../storage.cpp
     ../usuario.cpp
     ../cancion.cpp
-    ../estructuras_datos/lista_dinamica.cpp
 )
 
 add_executable(UdeATuneTests main.cpp
