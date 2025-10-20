@@ -34,6 +34,7 @@ TEST_F(UdeATuneAlbum, Album) {
   EXPECT_EQ(azucarPaTi.getFechaLanzamiento(), "1965");
   EXPECT_EQ(azucarPaTi.getDuracion(), "34:06");
   EXPECT_EQ(azucarPaTi.getNombre(), "Azúcar pa' ti");
+  EXPECT_EQ(azucarPaTi.canciones.getCapacidad(), 0);
 }
 
 TEST_F(UdeATuneAlbum, Cancion) {
@@ -43,4 +44,9 @@ TEST_F(UdeATuneAlbum, Cancion) {
   EXPECT_EQ(miSonsito.getUbicacion(), "ubicacion");
   EXPECT_EQ(miSonsito.getCreditos(), "Creditos");
   EXPECT_EQ(miSonsito.getReproducciones(), 10000);
+}
+
+TEST_F(UdeATuneAlbum, AgregarCancion) {
+  azucarPaTi.canciones.agregar(miSonsito);
+  EXPECT_EQ(azucarPaTi.canciones.getCapacidad(), 1);
 }

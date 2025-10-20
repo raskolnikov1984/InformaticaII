@@ -2,6 +2,8 @@
 #define ALBUM_H
 
 #include <string>
+#include "./estructuras_datos/lista_dinamica.h"
+#include "cancion.h"
 
 using namespace std;
 
@@ -23,6 +25,8 @@ public:
     void setSello(const string &newSello);
     string getPuntuacion() const;
     void setPuntuacion(const string &newPuntuacion);
+
+  ListaDinamica<Cancion> canciones;
 
 private:
   string identificador;
