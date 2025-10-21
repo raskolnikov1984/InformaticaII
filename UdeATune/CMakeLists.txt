@@ -5,6 +5,7 @@ project(UdeATune LANGUAGES CXX)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
+
 add_executable(
   UdeATune main.cpp
     login.h login.cpp
@@ -17,6 +18,7 @@ add_executable(
     data/test.csv
     estructuras_datos/lista_dinamica.h
     artista.cpp artista.h
+    app.cpp app.h
 )
 
 include(GNUInstallDirs)

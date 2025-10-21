@@ -9,13 +9,12 @@ using namespace std;
 class Login
 {
 private:
-    string archvio = "login.csv";
+  string archvio = "login.csv";
 
 public:
-    Login();
-    bool esAutorizado(string usuario, string password, string& usuarioActual);
-
-    string getArchvio() const;
+  Login();
+  bool esAutorizado(string usuario, string password, string &usuarioActual);
+  string getArchvio() const;
 };
 
 #endif // LOGIN_H
