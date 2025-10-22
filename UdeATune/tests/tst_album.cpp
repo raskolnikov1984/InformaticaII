@@ -20,6 +20,7 @@ public:
 
     miSonsito.setIdentificador("1");
     miSonsito.setNombre("Mi Sonsito");
+    miSonsito.setAlbum("Album Magico");
     miSonsito.setDuracion("5:20");
     miSonsito.setUbicacion("ubicacion");
     miSonsito.setCreditos("Creditos");
@@ -40,6 +41,7 @@ TEST_F(UdeATuneAlbum, Album) {
 TEST_F(UdeATuneAlbum, Cancion) {
   EXPECT_EQ(miSonsito.getIdentificador(), "1");
   EXPECT_EQ(miSonsito.getNombre(), "Mi Sonsito");
+  EXPECT_EQ(miSonsito.getAlbum(), "Album Magico");
   EXPECT_EQ(miSonsito.getDuracion(), "5:20");
   EXPECT_EQ(miSonsito.getUbicacion(), "ubicacion");
   EXPECT_EQ(miSonsito.getCreditos(), "Creditos");

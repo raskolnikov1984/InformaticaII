@@ -7,6 +7,7 @@ using namespace std;
 
 class Cancion {
 public:
+  Cancion();
     string getIdentificador() const;
     void setIdentificador(const string &newIdentificador);
     string getNombre() const;

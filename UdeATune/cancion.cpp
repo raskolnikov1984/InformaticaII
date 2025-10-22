@@ -1,5 +1,7 @@
 #include "cancion.h"
 
+Cancion::Cancion() {}
+
 string Cancion::getIdentificador() const
 {
     return identificador;
@@ -27,7 +29,7 @@ string Cancion::getAlbum () const
 
 void Cancion::setAlbum(const string &newAlbum )
 {
-    nombre = newAlbum ;
+    album = newAlbum ;
 }
 string Cancion::getDuracion() const
 {

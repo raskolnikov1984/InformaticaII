@@ -31,7 +31,6 @@ void Storage::cargarCanciones(string &ruta_archivo, ListaDinamica<Cancion>& canc
         return;
     }
 
-  cout << "CARGANDO CANCIONES....." << endl;
     // Leer y descartar la cabecera
     getline(canciones_file, linea);
     while (getline(canciones_file, linea)) {
@@ -42,10 +41,8 @@ void Storage::cargarCanciones(string &ruta_archivo, ListaDinamica<Cancion>& canc
         getline(ss, campo, ',');
         nuevaCancion.setIdentificador(campo);
 
-        cout << ss.str() << endl;
         // Leer nombre
         getline(ss, campo, ',');
-        cout << campo << endl;
         nuevaCancion.setNombre(campo);
 
         // Leer album

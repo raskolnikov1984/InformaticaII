@@ -110,10 +110,6 @@ void App::run() {
       imprimirBarra();
       cout << endl;
 
-      for (int i = 0; i < canciones.obtenerTamaño(); i++) {
-        cout << canciones[i].getDuracion();
-      }
-
       if (this->tipoMembresia == "estandar") {
         opcion = imprimirMenu(menu_standard, 1, 2);
         setReproduccionAleatoria(true);

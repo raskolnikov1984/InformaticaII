@@ -42,8 +42,7 @@ public:
     cout << "Total: " << canciones.obtenerTamaño() << " canciones" << endl;
 
     for (size_t i = 0; i < canciones.obtenerTamaño(); i++) {
-      cout << i+1 << ". " << canciones[i].getNombre()
-      << " - " << canciones[i].getAlbum() << endl;
+      cout << i+1 << ". " << canciones[i].getIdentificador() << " | " << canciones[i].getNombre() << " - " << canciones[i].getAlbum() << endl;
     }
     cout << "==========================" << endl;
   }
