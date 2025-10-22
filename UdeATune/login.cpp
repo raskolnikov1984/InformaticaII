@@ -11,7 +11,7 @@ string Login::getArchvio() const
 
 Login::Login() {}
 
-bool Login::esAutorizado(string usuario, string password, string& usuarioActual) {
+bool Login::esAutorizado(string usuario, string password, string& usuarioActual, string& tipoMembresia) {
   stringstream ss;
   string campo;
   string linea;
@@ -32,6 +32,8 @@ bool Login::esAutorizado(string usuario, string password, string& usuarioActual)
       getline(ss, campo, ',');
       if (password == campo) {
         usuarioActual = usuario;
+        getline(ss, campo, ',');
+        tipoMembresia = campo;
         return true;
       }
     };

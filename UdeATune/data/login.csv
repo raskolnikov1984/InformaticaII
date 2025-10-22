@@ -1,8 +1,8 @@
-usuario,password
-admin,123
-alejandro,alejandro123
-ana,ana123
-carlos,carlos123
-maria,maria123
-javier,javier123
-lucia,lucia123
+usuario,password,tipoMembresia
+admin,123,premium
+alejandro,alejandro123,premium
+ana,ana123,estandar,
+carlos,carlos123,estandar
+maria,maria123,estandar
+javier,javier123,premium
+lucia,lucia123,estandar

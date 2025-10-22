@@ -15,9 +15,11 @@ TEST(Login, LoginSuccess)
   string usuario = "admin";
   string password = "123";
   string usuarioActual;
+  string tipoMembresia;
 
-  EXPECT_TRUE(login.esAutorizado(usuario, password, usuarioActual));
+  EXPECT_TRUE(login.esAutorizado(usuario, password, usuarioActual, tipoMembresia));
   EXPECT_EQ(usuario, usuarioActual);
+  EXPECT_EQ(tipoMembresia, "premium");
 }
 
 TEST(Login, LoginFailed)
@@ -28,7 +30,8 @@ TEST(Login, LoginFailed)
   string usuario = "admin";
   string password = "1234";
   string usuarioActual;
+  string tipoMembresia;
 
-  EXPECT_FALSE(login.esAutorizado(usuario, password, usuarioActual));
+  EXPECT_FALSE(login.esAutorizado(usuario, password, usuarioActual, tipoMembresia));
   EXPECT_EQ(usuarioActual, "");
 }

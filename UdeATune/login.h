@@ -13,7 +13,7 @@ private:
 
 public:
   Login();
-  bool esAutorizado(string usuario, string password, string &usuarioActual);
+  bool esAutorizado(string usuario, string password, string &usuarioActual, string& tipoMembresia);
   string getArchvio() const;
 };
 
