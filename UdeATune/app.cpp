@@ -7,14 +7,27 @@ string menu_premium = "1. Reproducción Aleatoria\n2. Mi Lista de Favoritos\n3. 
 string menu_lista_favoritos = "1. Editar mi lista de favoritos\n2. Seguir otra lista de favoritos\n3. Ejecutar mi lista de favoritos\n4. Volver al menú principal\n";
 
 
-App::App() : almacenamiento("") {
-
+App::App() : almacenamiento(" "), usuarioActual(""), tipoMembresia(""),
+             enEjecusion(false), reproduccionAleatoria(false) {
+    this->storage = new Storage();
 };
 
-App::App(const string &ruta_almacenamiento) {
-  if (!setAlmacenamiento(ruta_almacenamiento)) {
+App::App(const string &ruta_almacenamiento)
+    : usuarioActual(""), tipoMembresia(""), enEjecusion(false),
+      reproduccionAleatoria(false) {
+
+    if (!setAlmacenamiento(ruta_almacenamiento)) {
         throw runtime_error("No se pudo inicializar con la ruta: " + ruta_almacenamiento);
     }
+    this->storage = new Storage();
+
+    string almacenamiento_canciones = ruta_almacenamiento + "/data/canciones.csv";
+    storage->cargarCanciones(almacenamiento_canciones, canciones);
+}
+
+
+App::~App() {
+  delete storage;
 }
 
 int App::imprimirMenu(const string &menu, int opcion_inicial, int opcion_final) {
@@ -90,11 +103,20 @@ void App::run() {
     cout << "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@" << endl;
     cout << endl;
 
+    cout << "Almacenamiento: " << this->almacenamiento << endl;
+    mostrarCancionesCargadas();
+
     while (this->enEjecusion) {
       imprimirBarra();
       cout << endl;
+
+      for (int i = 0; i < canciones.obtenerTamaño(); i++) {
+        cout << canciones[i].getDuracion();
+      }
+
       if (this->tipoMembresia == "estandar") {
         opcion = imprimirMenu(menu_standard, 1, 2);
+        setReproduccionAleatoria(true);
 
         switch (opcion) {
         case 1:
@@ -108,6 +130,9 @@ void App::run() {
         }
 
       } else if (this->tipoMembresia == "premium") {
+        setReproduccionAleatoria(false);
+
+        cout << getReproduccionAleatoria() << endl;
         imprimirMenu(menu_premium, 1, 3);
         switch (opcion) {
         case 1:
@@ -137,4 +162,19 @@ void App::run() {
     cout << endl;
   }
 
+}
+
+string App::getAlmacenamiento() const
+{
+    return almacenamiento;
+}
+
+bool App::getReproduccionAleatoria() const
+{
+    return this->reproduccionAleatoria;
+}
+
+void App::setReproduccionAleatoria(bool newReproduccionAleatoria)
+{
+    reproduccionAleatoria = newReproduccionAleatoria;
 }

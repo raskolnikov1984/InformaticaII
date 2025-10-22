@@ -6,11 +6,11 @@ using namespace std;
 // Clase de prueba para Usuario
 class Usuario {
 public:
-    std::string nombre;
+    string nombre;
     int id;
 
     Usuario() : nombre(""), id(0) {}
-    Usuario(const std::string& n, int i) : nombre(n), id(i) {}
+    Usuario(const string& n, int i) : nombre(n), id(i) {}
 
     bool operator==(const Usuario& other) const {
         return nombre == other.nombre && id == other.id;

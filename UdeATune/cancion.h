@@ -11,6 +11,8 @@ public:
     void setIdentificador(const string &newIdentificador);
     string getNombre() const;
     void setNombre(const string &newNombre);
+    string getAlbum() const;
+    void setAlbum(const string &newAlbum);
     string getDuracion() const;
     void setDuracion(const string &newDuracion);
     string getUbicacion() const;
@@ -23,6 +25,7 @@ public:
 private:
   string identificador;
   string nombre;
+  string album;
   string duracion;
   string ubicacion;
   string creditos;

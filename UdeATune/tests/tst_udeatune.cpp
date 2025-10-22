@@ -10,6 +10,10 @@ class UdeATune : public ::testing::Test {
 protected:
   void SetUp() override {
     app = new App("/home/aserrador/Desktop/04-UdeA/InformaticaII/UdeATune");
+    string usuario = "alejandro";
+    string password = "alejandro123";
+
+    app->iniciarSesion(usuario, password);
   }
 
   App* app;
@@ -25,16 +29,8 @@ TEST_F(UdeATune, VerificarAlmacenamientoNoExiste) {
   EXPECT_THROW(app->setAlmacenamiento(ruta_almacenamiento_fake), runtime_error);
 }
 
-TEST_F(UdeATune, DebeSerPosibleIngresarAlaApp) {
-
-}
-
-TEST_F(UdeATune, IngresarAlaApp) {
-  string usuario = "alejandro";
-  string password = "alejandro123";
-
-  app->iniciarSesion(usuario, password);
+TEST_F(UdeATune, IngresarAlaAppPremium) {
   EXPECT_TRUE(app->enEjecusion);
-  EXPECT_EQ(app->usuarioActual, usuario);
-
+  EXPECT_EQ(app->usuarioActual, "alejandro");
+  EXPECT_EQ(app->tipoMembresia, "premium");
 }

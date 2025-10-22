@@ -20,6 +20,15 @@ void Cancion::setNombre(const string &newNombre)
     nombre = newNombre;
 }
 
+string Cancion::getAlbum () const
+{
+    return album ;
+}
+
+void Cancion::setAlbum(const string &newAlbum )
+{
+    nombre = newAlbum ;
+}
 string Cancion::getDuracion() const
 {
     return duracion;

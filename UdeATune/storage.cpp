@@ -1,5 +1,7 @@
 #include "storage.h"
+#include "estructuras_datos/lista_dinamica.h"
 #include <iostream>
+#include <sstream>
 #include <fstream>
 
 using namespace std;
@@ -15,4 +17,61 @@ bool Storage::leerArchivo(string ruta_archivo, ifstream& archivo) {
     }
 
     return true;
+}
+
+// En storage.cpp - versión corregida
+void Storage::cargarCanciones(string &ruta_archivo, ListaDinamica<Cancion>& canciones) {
+    ifstream canciones_file;
+    string linea;
+    string campo;
+    stringstream ss;
+
+    if (!leerArchivo(ruta_archivo, canciones_file)) {
+        cerr << "No se pudo abrir el archivo: " << ruta_archivo << endl;
+        return;
+    }
+
+  cout << "CARGANDO CANCIONES....." << endl;
+    // Leer y descartar la cabecera
+    getline(canciones_file, linea);
+    while (getline(canciones_file, linea)) {
+        stringstream ss(linea);
+        Cancion nuevaCancion;
+
+        // Leer identificador
+        getline(ss, campo, ',');
+        nuevaCancion.setIdentificador(campo);
+
+        cout << ss.str() << endl;
+        // Leer nombre
+        getline(ss, campo, ',');
+        cout << campo << endl;
+        nuevaCancion.setNombre(campo);
+
+        // Leer album
+        getline(ss, campo, ',');
+        nuevaCancion.setAlbum(campo);
+
+        // Leer duración
+        getline(ss, campo, ',');
+        nuevaCancion.setDuracion(campo);
+
+        // Leer reproducciones
+        getline(ss, campo, ',');
+        try {
+            int reproducciones = stoi(campo);
+            nuevaCancion.setReproducciones(reproducciones);
+        } catch (const exception& e) {
+            cerr << "Error convirtiendo reproducciones: " << campo << endl;
+            nuevaCancion.setReproducciones(0);
+        }
+
+        // Leer ubicación
+        getline(ss, campo, ',');
+        nuevaCancion.setUbicacion(campo);
+
+        canciones.agregar(nuevaCancion);
+    }
+
+    canciones_file.close();
 }

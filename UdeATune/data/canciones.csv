@@ -1,8 +1,8 @@
-id,nombre,album,duracion,reproducciones,rutaBase
-100010101,Me Enamoré,1000101,03:45,15000000,/users/storage/udeatunes/artistas/shakira/audio/
-100010102,Chantaje,1000101,03:15,18000000,/users/storage/udeatunes/artistas/shakira/audio/
-100020101,Tití Me Preguntó,1000201,04:03,25000000,/users/storage/udeatunes/artistas/badbunny/audio/
-100020102,Moscow Mule,1000201,04:05,22000000,/users/storage/udeatunes/artistas/badbunny/audio/
-100030101,Shake It Off,1000301,03:39,30000000,/users/storage/udeatunes/artistas/taylorswift/audio/
-100040101,Master of Puppets,1000401,08:35,12000000,/users/storage/udeatunes/artistas/metallica/audio/
-100050101,Amarillo,1000501,02:37,15000000,/users/storage/udeatunes/artistas/jbalvin/audio/
+"id","nombre","album","duracion","reproducciones","rutaBase"
+100010101,"Me Enamoré",1000101,"03:45",15000000,"/users/storage/udeatunes/artistas/shakira/audio/"
+100010102,"Chantaje",1000101,"03:15",18000000,"/users/storage/udeatunes/artistas/shakira/audio/"
+100020101,"Tití Me Preguntó",1000201,"04:03",25000000,"/users/storage/udeatunes/artistas/badbunny/audio/"
+100020102,"Moscow Mule",1000201,"04:05",22000000,"/users/storage/udeatunes/artistas/badbunny/audio/"
+100030101,"Shake It Off",1000301,"03:39",30000000,"/users/storage/udeatunes/artistas/taylorswift/audio/"
+100040101,"Master of Puppets",1000401,"08:35",12000000,"/users/storage/udeatunes/artistas/metallica/audio/"
+100050101,"Amarillo",1000501,"02:37",15000000,"/users/storage/udeatunes/artistas/jbalvin/audio/"
