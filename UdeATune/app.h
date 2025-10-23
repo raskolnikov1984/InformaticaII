@@ -43,6 +43,8 @@ public:
   int imprimirMenu(const string &menu, int opcion_inicial, int opcion_final);
   void imprimirBarra();
 
+  void reproducirAleatoriamente();
+
   void run();
 
 private:

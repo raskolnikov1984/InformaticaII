@@ -70,3 +70,14 @@ void Cancion::setReproducciones(int newReproducciones)
 {
     reproducciones = newReproducciones;
 }
+
+void Cancion::imprimirInformacion() {
+  cout << "################################################"<< endl;
+  cout << "Cantante: " << endl;
+  cout << "Album: " << this->getAlbum() << endl;
+  cout << "Ruta a la portada del album: " << endl;
+  cout << "Titulo e la cancion: " << this->getNombre()<< endl;
+  cout << "Ruta al archivo de audio: " << endl;
+  cout << "Duracion: " << this->getDuracion() << endl;
+  cout << "################################################"<< endl;
+}

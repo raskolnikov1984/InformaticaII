@@ -110,6 +110,24 @@ bool App::iniciarSesion(const string &usuario, const string &password) {
   return true;
 };
 
+void App::reproducirAleatoriamente() {
+  bool seguirReproduciendo = true;
+  while (seguirReproduciendo && this->enEjecusion) {
+    aleatorioActual = generarPseudoAleatorio(canciones.obtenerTamaño());
+    this->canciones[aleatorioActual].imprimirInformacion();
+
+    cout << endl;
+    cout << "¿Desea reproducir otra canción? (1 = Sí, 0 = No): ";
+    int continuar;
+    cin >> continuar;
+
+    if (continuar != 1) {
+      seguirReproduciendo = false;
+    }
+    cout << endl;
+  };
+}
+
 void App::run() {
 
   //1. Iniciar Sesion
@@ -147,7 +165,7 @@ void App::run() {
 
         switch (opcion) {
         case 1:
-          cout << "Opcion 1" << endl;
+          reproducirAleatoriamente();
           break;
         case 2:
           enEjecusion = false;
@@ -163,7 +181,7 @@ void App::run() {
         imprimirMenu(menu_premium, 1, 3);
         switch (opcion) {
         case 1:
-          cout << "Opcion 1" << endl;
+          reproducirAleatoriamente();
           break;
         case 2:
           cout <<  "Opcion 2" << endl;
