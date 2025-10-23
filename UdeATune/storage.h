@@ -4,6 +4,7 @@
 #include <fstream>
 #include <string>
 #include "estructuras_datos/lista_dinamica.h"
+#include "anuncio.h"
 #include "cancion.h"
 
 using namespace std;
@@ -13,7 +14,8 @@ class Storage
 public:
   Storage();
   bool leerArchivo(string ruta_archivo, ifstream &archivo);
-  void cargarCanciones(string& ruta_archivo, ListaDinamica<Cancion>& canciones);
+  void cargarCanciones(string &ruta_archivo, ListaDinamica<Cancion> &canciones);
+  void cargarAnuncios(string& ruta_archivo, ListaDinamica<Anuncio>& anuncios);
 };
 
 #endif // STORAGE_H

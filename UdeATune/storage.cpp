@@ -72,3 +72,46 @@ void Storage::cargarCanciones(string &ruta_archivo, ListaDinamica<Cancion>& canc
 
     canciones_file.close();
 }
+
+void Storage::cargarAnuncios(string &ruta_archivo, ListaDinamica<Anuncio>& anuncios) {
+    ifstream anuncios_file;
+    string linea;
+    string campo;
+  char categoria;
+    stringstream ss;
+
+    if (!leerArchivo(ruta_archivo, anuncios_file)) {
+        cerr << "No se pudo abrir el archivo: " << ruta_archivo << endl;
+        return;
+    }
+
+    // Leer y descartar la cabecera
+    getline(anuncios_file, linea);
+    while (getline(anuncios_file, linea)) {
+        stringstream ss(linea);
+        Anuncio nuevoAnuncio;
+
+        // Leer identificador
+        getline(ss, campo, ',');
+        nuevoAnuncio.setMensaje(campo);
+
+        // Leer nombre
+        getline(ss, campo, ',');
+        categoria = campo[0];
+        nuevoAnuncio.setCategoria(categoria);
+
+        // Leer reproducciones
+        getline(ss, campo, ',');
+        try {
+            int prioridad = stoi(campo);
+            nuevoAnuncio.setPrioridad(prioridad);
+        } catch (const exception& e) {
+            cerr << "Error convirtiendo reproducciones: " << campo << endl;
+            nuevoAnuncio.setPrioridad(0);
+        }
+
+        anuncios.agregar(nuevoAnuncio);
+    }
+
+    anuncios_file.close();
+}

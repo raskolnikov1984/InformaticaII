@@ -21,8 +21,11 @@ App::App(const string &ruta_almacenamiento)
     }
     this->storage = new Storage();
 
-    string almacenamiento_canciones = ruta_almacenamiento + "/data/canciones.csv";
+    string almacenamiento_canciones =
+        ruta_almacenamiento + "/data/canciones.csv";
+    string almacenamiento_anuncios = ruta_almacenamiento + "/data/publicidad.csv";
     storage->cargarCanciones(almacenamiento_canciones, canciones);
+    storage->cargarAnuncios(almacenamiento_anuncios, anuncios);
 }
 
 

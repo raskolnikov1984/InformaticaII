@@ -8,6 +8,7 @@
 #include "estructuras_datos/lista_dinamica.h"
 #include "storage.h"
 #include "cancion.h"
+#include "anuncio.h"
 #include "login.h"
 
 using namespace std;
@@ -25,6 +26,7 @@ public:
   bool enEjecusion = false;
   Storage *storage;
   ListaDinamica<Cancion> canciones;
+  ListaDinamica<Anuncio> anuncios;
 
   bool iniciarSesion(const string& usuario, const string& password);
   bool verificarRuta(string& ruta);

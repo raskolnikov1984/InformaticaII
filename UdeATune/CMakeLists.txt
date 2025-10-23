@@ -19,6 +19,9 @@ add_executable(
     estructuras_datos/lista_dinamica.h
     artista.cpp artista.h
     app.cpp app.h
+    album.cpp album.h
+    anuncio.h
+    anuncio.cpp
 )
 
 include(GNUInstallDirs)

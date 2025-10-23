@@ -33,4 +33,6 @@ TEST_F(UdeATune, IngresarAlaAppPremium) {
   EXPECT_TRUE(app->enEjecusion);
   EXPECT_EQ(app->usuarioActual, "alejandro");
   EXPECT_EQ(app->tipoMembresia, "premium");
+  EXPECT_EQ(app->canciones.obtenerTamaño(), 7);
+  EXPECT_EQ(app->anuncios.obtenerTamaño(), 6);
 }
