@@ -2,6 +2,7 @@
 #define APP_H_
 
 #include <iostream>
+#include <random>
 #include <string>
 #include <unistd.h>
 
@@ -25,29 +26,24 @@ public:
   string tipoMembresia = "";
   bool enEjecusion = false;
   Storage *storage;
+  int aleatorioActual;
   ListaDinamica<Cancion> canciones;
   ListaDinamica<Anuncio> anuncios;
 
-  bool iniciarSesion(const string& usuario, const string& password);
-  bool verificarRuta(string& ruta);
-  bool setAlmacenamiento(string ruta_almacenamiento);
-  int imprimirMenu(const string &menu, int opcion_inicial, int opcion_final);
-  void imprimirBarra();
-  void run();
-
   string getAlmacenamiento() const;
+  bool setAlmacenamiento(string ruta_almacenamiento);
   bool getReproduccionAleatoria() const;
   void setReproduccionAleatoria(bool newReproduccionAleatoria);
 
-  void mostrarCancionesCargadas() const {
-    cout << "=== CANCIONES CARGADAS ===" << endl;
-    cout << "Total: " << canciones.obtenerTamaño() << " canciones" << endl;
+  bool iniciarSesion(const string& usuario, const string& password);
+  bool verificarRuta(string &ruta);
+  int generarPseudoAleatorio(int ultimoNumero);
 
-    for (size_t i = 0; i < canciones.obtenerTamaño(); i++) {
-      cout << i+1 << ". " << canciones[i].getIdentificador() << " | " << canciones[i].getNombre() << " - " << canciones[i].getAlbum() << endl;
-    }
-    cout << "==========================" << endl;
-  }
+  void mostrarCancionesCargadas() const;
+  int imprimirMenu(const string &menu, int opcion_inicial, int opcion_final);
+  void imprimirBarra();
+
+  void run();
 
 private:
   string almacenamiento;

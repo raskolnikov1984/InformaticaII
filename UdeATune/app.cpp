@@ -67,6 +67,32 @@ bool App::verificarRuta(string &ruta) {
     return access(ruta.c_str(), F_OK) == 0;
 };
 
+int App::generarPseudoAleatorio(int ultimoNumero) {
+  random_device r;
+
+  default_random_engine e1(r());
+  uniform_int_distribution<int> uniform_dist(0, ultimoNumero);
+
+  int mean = uniform_dist(e1);
+
+  return mean;
+};
+
+void App::mostrarCancionesCargadas() const {
+  cout << "=== CANCIONES CARGADAS ===" << endl;
+  cout << "###########################################################" << endl;
+  cout << "Total: " << canciones.obtenerTamaño() << " canciones" << endl;
+
+  for (size_t i = 0; i < canciones.obtenerTamaño(); i++) {
+    cout << "==========================================================" << endl;
+    cout << i + 1 << ". " << canciones[i].getIdentificador() << " | "
+    << canciones[i].getNombre() << " - " << canciones[i].getAlbum()
+    << endl;
+    cout << "==========================================================" << endl;
+  }
+  cout << "###########################################################" << endl;
+}
+
 bool App::setAlmacenamiento(string ruta_almacenamiento) {
   if (!verificarRuta(ruta_almacenamiento)) {
     throw runtime_error("No Se Encontro la Ruta del Almacenamiento");
@@ -107,9 +133,11 @@ void App::run() {
     cout << endl;
 
     cout << "Almacenamiento: " << this->almacenamiento << endl;
+    cout << endl;
     mostrarCancionesCargadas();
 
     while (this->enEjecusion) {
+      cout << endl;
       imprimirBarra();
       cout << endl;
 
