@@ -22,7 +22,7 @@ public:
     miSonsito.setNombre("Mi Sonsito");
     miSonsito.setAlbum("Album Magico");
     miSonsito.setDuracion("5:20");
-    miSonsito.setUbicacion("ubicacion");
+    miSonsito.setUbicacionAudio("ubicacion");
     miSonsito.setCreditos("Creditos");
     miSonsito.setReproducciones(10000);
   }
@@ -43,7 +43,7 @@ TEST_F(UdeATuneAlbum, Cancion) {
   EXPECT_EQ(miSonsito.getNombre(), "Mi Sonsito");
   EXPECT_EQ(miSonsito.getAlbum(), "Album Magico");
   EXPECT_EQ(miSonsito.getDuracion(), "5:20");
-  EXPECT_EQ(miSonsito.getUbicacion(), "ubicacion");
+  EXPECT_EQ(miSonsito.getUbicacionAudio(), "ubicacion");
   EXPECT_EQ(miSonsito.getCreditos(), "Creditos");
   EXPECT_EQ(miSonsito.getReproducciones(), 10000);
 }

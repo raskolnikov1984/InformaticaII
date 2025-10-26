@@ -37,6 +37,7 @@ add_library(UdeATune_lib
     ../cancion.cpp
     ../app.cpp
     ../anuncio.cpp
+    ../favorito.cpp
 )
 
 add_executable(UdeATuneTests main.cpp

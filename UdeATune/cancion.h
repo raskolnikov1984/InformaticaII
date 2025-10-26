@@ -17,8 +17,8 @@ public:
   void setAlbum(const string &newAlbum);
   string getDuracion() const;
   void setDuracion(const string &newDuracion);
-  string getUbicacion() const;
-  void setUbicacion(const string &newUbicacion);
+  string getUbicacionAudio() const;
+  void setUbicacionAudio(const string &newUbicacion);
   string getCreditos() const;
   void setCreditos(const string &newCreditos);
   int getReproducciones() const;
@@ -31,7 +31,7 @@ private:
   string nombre;
   string album;
   string duracion;
-  string ubicacion;
+  string ubicacionAudio;
   string creditos;
   int reproducciones;
 };

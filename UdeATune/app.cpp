@@ -5,6 +5,8 @@
 string menu_standard = "1. Reproducción Aleatoria\n2. Salir\n";
 string menu_premium = "1. Reproducción Aleatoria\n2. Mi Lista de Favoritos\n3. Salir";
 string menu_lista_favoritos = "1. Editar mi lista de favoritos\n2. Seguir otra lista de favoritos\n3. Ejecutar mi lista de favoritos\n4. Volver al menú principal\n";
+string submenu_lista_favoritos = "1. Editar mi lista de favoritos\n2. Seguir otra lista de favoritos\n3. Ejecutar mi lista de favoritos\n4. Volver al menú principal";
+string submenu_editar_favoritos = "1. Agregar canción a favoritos\n2. Eliminar canción de favoritos\n3. Mostrar mis favoritos\n4. Volver al menú anterior";
 
 
 App::App() : almacenamiento(" "), usuarioActual(""), tipoMembresia(""),
@@ -22,10 +24,15 @@ App::App(const string &ruta_almacenamiento)
     this->storage = new Storage();
 
     string almacenamiento_canciones =
-        ruta_almacenamiento + "/data/canciones.csv";
-    string almacenamiento_anuncios = ruta_almacenamiento + "/data/publicidad.csv";
+      ruta_almacenamiento + "/data/canciones.csv";
+    string almacenamiento_anuncios =
+      ruta_almacenamiento + "/data/publicidad.csv";
+    string almacenamiento_favoritos =
+      ruta_almacenamiento + "/data/favoritos.csv";
+
     storage->cargarCanciones(almacenamiento_canciones, canciones);
     storage->cargarAnuncios(almacenamiento_anuncios, anuncios);
+    storage->cargarFavoritos(almacenamiento_favoritos, favoritos);
 }
 
 
@@ -143,70 +150,70 @@ void App::run() {
 
   iniciarSesion(usuario, password);
 
-  if (this->enEjecusion) {
-    cout << endl;
-    cout << "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@" << endl;
-    cout << "@@         Bienvenido A UdeATune,    "<< usuario << "!     @@" << endl;
-    cout << "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@" << endl;
-    cout << endl;
+  if (!this->enEjecusion) {
+      cout << endl;
+      cout << "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@" << endl;
+      cout << "@@    Verifique Sus Credenciales!   @@" << endl;
+      cout << "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@" << endl;
+      cout << endl;
 
-    cout << "Almacenamiento: " << this->almacenamiento << endl;
-    cout << endl;
-    mostrarCancionesCargadas();
+      return;
+  }
 
-    while (this->enEjecusion) {
+  cout << endl;
+  cout << "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@" << endl;
+  cout << "@@         Bienvenido A UdeATune,    "<< usuario << "!     @@" << endl;
+  cout << "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@" << endl;
+  cout << endl;
+
+  mostrarCancionesCargadas();
+  while (this->enEjecusion) {
       cout << endl;
       imprimirBarra();
       cout << endl;
 
       if (this->tipoMembresia == "estandar") {
-        opcion = imprimirMenu(menu_standard, 1, 2);
-        setReproduccionAleatoria(true);
+          opcion = imprimirMenu(menu_standard, 1, 2);
+          setReproduccionAleatoria(true);
 
-        switch (opcion) {
-        case 1:
-          reproducirAleatoriamente();
-          break;
-        case 2:
-          enEjecusion = false;
-          break;
-        default:
-          cerr << "Opcion No Valida" << endl;
-        }
+          switch (opcion) {
+              case 1:
+                  reproducirAleatoriamente();
+                  break;
+              case 2:
+                enEjecusion = false;
+                cout << "¡Hasta pronto!" << endl;
+
+                break;
+              default:
+                  cerr << "Opcion No Valida" << endl;
+          }
 
       } else if (this->tipoMembresia == "premium") {
-        setReproduccionAleatoria(false);
+          setReproduccionAleatoria(false);
 
-        cout << getReproduccionAleatoria() << endl;
-        imprimirMenu(menu_premium, 1, 3);
-        switch (opcion) {
-        case 1:
-          reproducirAleatoriamente();
-          break;
-        case 2:
-          cout <<  "Opcion 2" << endl;
-          break;
-        case 3:
-          enEjecusion = false;
-          break;
-        default:
-          cerr << "Opcion No Valida" << endl;
-        }
+          cout << getReproduccionAleatoria() << endl;
+          opcion = imprimirMenu(menu_premium, 1, 3);
+          switch (opcion) {
+              case 1:
+                  reproducirAleatoriamente();
+                  break;
+              case 2:
+                  cout <<  "Opcion 2" << endl;
+                  break;
+              case 3:
+                enEjecusion = false;
+                cout << "¡Hasta pronto!" << endl;
+                break;
+              default:
+                  cerr << "Opcion No Valida" << endl;
+          }
 
       } else {
-        cerr << "No cuenta con un membresia" << endl;
-        enEjecusion = false;
+          cerr << "Tipo de membresía no reconocido" << endl;
+          enEjecusion = false;
       }
-    };
-
-  } else {
-    cout << endl;
-    cout << "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@" << endl;
-    cout << "@@    Verifique Sus Credenciales!   @@" << endl;
-    cout << "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@" << endl;
-    cout << endl;
-  }
-
+  };
 }
 
 string App::getAlmacenamiento() const

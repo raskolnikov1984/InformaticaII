@@ -41,14 +41,14 @@ void Cancion::setDuracion(const string &newDuracion)
     duracion = newDuracion;
 }
 
-string Cancion::getUbicacion() const
+string Cancion::getUbicacionAudio() const
 {
-    return ubicacion;
+    return ubicacionAudio;
 }
 
-void Cancion::setUbicacion(const string &newUbicacion)
+void Cancion::setUbicacionAudio(const string &newUbicacion)
 {
-    ubicacion = newUbicacion;
+    ubicacionAudio = newUbicacion;
 }
 
 string Cancion::getCreditos() const

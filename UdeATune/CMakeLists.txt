@@ -14,14 +14,14 @@ add_executable(
     usuario.cpp usuario.h
     cancion.cpp cancion.h
     estructuras.h
-    data/login.csv
-    data/test.csv
     estructuras_datos/lista_dinamica.h
     artista.cpp artista.h
     app.cpp app.h
     album.cpp album.h
-    anuncio.h
-    anuncio.cpp
+    anuncio.h anuncio.cpp
+    favorito.h favorito.cpp
+    data/login.csv
+    data/test.csv
 )
 
 include(GNUInstallDirs)

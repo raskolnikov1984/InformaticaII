@@ -7,6 +7,7 @@
 #include <unistd.h>
 
 #include "estructuras_datos/lista_dinamica.h"
+#include "favorito.h"
 #include "storage.h"
 #include "cancion.h"
 #include "anuncio.h"
@@ -15,7 +16,6 @@
 using namespace std;
 
 class App {
-
 public:
   App();
   explicit App(const string &ruta_almacenamiento);
@@ -27,8 +27,10 @@ public:
   bool enEjecusion = false;
   Storage *storage;
   int aleatorioActual;
+
   ListaDinamica<Cancion> canciones;
   ListaDinamica<Anuncio> anuncios;
+  ListaDinamica<Favorito> favoritos;
 
   string getAlmacenamiento() const;
   bool setAlmacenamiento(string ruta_almacenamiento);

@@ -79,3 +79,13 @@ void Album::setPuntuacion(const string &newPuntuacion)
 {
     puntuacion = newPuntuacion;
 }
+
+string Album::getUbicacionImagen() const
+{
+    return ubicacionImagen;
+}
+
+void Album::setUbicacionImagen(const string &newUbicacionImagen)
+{
+    ubicacionImagen = newUbicacionImagen;
+}

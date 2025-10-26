@@ -8,6 +8,7 @@ using namespace std;
 
 Storage::Storage() {}
 
+
 bool Storage::leerArchivo(string ruta_archivo, ifstream& archivo) {
     archivo.open(ruta_archivo);
 
@@ -18,6 +19,7 @@ bool Storage::leerArchivo(string ruta_archivo, ifstream& archivo) {
 
     return true;
 }
+
 
 // En storage.cpp - versión corregida
 void Storage::cargarCanciones(string &ruta_archivo, ListaDinamica<Cancion>& canciones) {
@@ -65,7 +67,7 @@ void Storage::cargarCanciones(string &ruta_archivo, ListaDinamica<Cancion>& canc
 
         // Leer ubicación
         getline(ss, campo, ',');
-        nuevaCancion.setUbicacion(campo);
+        nuevaCancion.setUbicacionAudio(campo);
 
         canciones.agregar(nuevaCancion);
     }
@@ -74,44 +76,72 @@ void Storage::cargarCanciones(string &ruta_archivo, ListaDinamica<Cancion>& canc
 }
 
 void Storage::cargarAnuncios(string &ruta_archivo, ListaDinamica<Anuncio>& anuncios) {
-    ifstream anuncios_file;
-    string linea;
-    string campo;
+  ifstream anuncios_file;
+  string linea;
+  string campo;
   char categoria;
-    stringstream ss;
+  stringstream ss;
 
-    if (!leerArchivo(ruta_archivo, anuncios_file)) {
-        cerr << "No se pudo abrir el archivo: " << ruta_archivo << endl;
-        return;
+  if (!leerArchivo(ruta_archivo, anuncios_file)) {
+    cerr << "No se pudo abrir el archivo: " << ruta_archivo << endl;
+    return;
+  }
+
+  // Leer y descartar la cabecera
+  getline(anuncios_file, linea);
+  while (getline(anuncios_file, linea)) {
+    stringstream ss(linea);
+    Anuncio nuevoAnuncio;
+
+    // Leer identificador
+    getline(ss, campo, ',');
+    nuevoAnuncio.setMensaje(campo);
+
+    // Leer nombre
+    getline(ss, campo, ',');
+    categoria = campo[0];
+    nuevoAnuncio.setCategoria(categoria);
+
+    // Leer reproducciones
+    getline(ss, campo, ',');
+    try {
+      int prioridad = stoi(campo);
+      nuevoAnuncio.setPrioridad(prioridad);
+    } catch (const exception& e) {
+      cerr << "Error convirtiendo reproducciones: " << campo << endl;
+      nuevoAnuncio.setPrioridad(0);
     }
 
-    // Leer y descartar la cabecera
-    getline(anuncios_file, linea);
-    while (getline(anuncios_file, linea)) {
-        stringstream ss(linea);
-        Anuncio nuevoAnuncio;
+    anuncios.agregar(nuevoAnuncio);
+  }
 
-        // Leer identificador
-        getline(ss, campo, ',');
-        nuevoAnuncio.setMensaje(campo);
+  anuncios_file.close();
+}
 
-        // Leer nombre
-        getline(ss, campo, ',');
-        categoria = campo[0];
-        nuevoAnuncio.setCategoria(categoria);
+void Storage::cargarFavoritos(string &ruta_archivo,
+                              ListaDinamica<Favorito> &favoritos) {
+  ifstream favoritos_file;
+  string linea;
+  string campo;
+  stringstream ss;
 
-        // Leer reproducciones
-        getline(ss, campo, ',');
-        try {
-            int prioridad = stoi(campo);
-            nuevoAnuncio.setPrioridad(prioridad);
-        } catch (const exception& e) {
-            cerr << "Error convirtiendo reproducciones: " << campo << endl;
-            nuevoAnuncio.setPrioridad(0);
-        }
+  if (!leerArchivo(ruta_archivo, favoritos_file)) {
+    cerr << "No se pudo abrir el archivo: " << ruta_archivo << endl;
+    return;
+  }
 
-        anuncios.agregar(nuevoAnuncio);
-    }
+  // Leer y descartar la cabecera
+  getline(favoritos_file, linea);
+  while (getline(favoritos_file, linea)) {
+    stringstream ss(linea);
+    getline(ss, campo, ',');
 
-    anuncios_file.close();
+    Favorito nuevoFavorito;
+    nuevoFavorito.setUsuario(campo);
+
+    getline(ss, campo, ',');
+    nuevoFavorito.setCancionId(campo);
+    favoritos.agregar(nuevoFavorito);
+  }
+  favoritos_file.close();
 }

@@ -1,6 +1,6 @@
-codigo,nombre,artista,fechaLanzamiento,duracionTotal,selloDisquero,puntuacion,genero
-1000101,El Dorado,10001,2017-05-26,45:30,SONY Music,8.5,Latina
-1000201,Un Verano Sin Ti,10002,2022-05-06,81:15,Universal,9.2,Reggae
-1000301,1989,10003,2014-10-27,48:41,Big Machine,9,Pop
-1000401,Master of Puppets,10004,1986-03-03,54:45,Elektra,9.8,Rock
-1000501,Colores,10005,2020-03-19,32:20,Universal,8.7,Latina
+codigo,nombre,artista,fechaLanzamiento,duracionTotal,selloDisquero,puntuacion,genero,ubicacionPortada
+1000101,El Dorado,10001,2017-05-26,45:30,SONY Music,8.5,Latina,/users/storage/udeatunes/artistas/shakira/imagen/
+1000201,Un Verano Sin Ti,10002,2022-05-06,81:15,Universal,9.2,Reggae,/users/storage/udeatunes/artistas/Bad Bunny/imagen/
+1000301,1989,10003,2014-10-27,48:41,Big Machine,9,Pop,/users/storage/udeatunes/artistas/Taylor Swift/imagen/
+1000401,Master of Puppets,10004,1986-03-03,54:45,Elektra,9.8,Rock,/users/storage/udeatunes/artistas/Metallica/imagen/
+1000501,Colores,10005,2020-03-19,32:20,Universal,8.7,Latina,/users/storage/udeatunes/artistas/J Balvin/imagen/

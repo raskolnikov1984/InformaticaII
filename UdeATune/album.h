@@ -28,6 +28,9 @@ public:
 
   ListaDinamica<Cancion> canciones;
 
+    string getUbicacionImagen() const;
+    void setUbicacionImagen(const string &newUbicacionImagen);
+
 private:
   string identificador;
   string artista;
@@ -37,6 +40,6 @@ private:
   string nombre;
   string sello;
   string puntuacion;
-
+  string ubicacionImagen;
 };
 #endif // USUARIO_H
