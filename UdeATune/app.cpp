@@ -1,4 +1,5 @@
 #include "app.h"
+#include "estructuras_datos/lista_dinamica.h"
 #include <limits>
 #include <stdexcept>
 
@@ -117,14 +118,15 @@ bool App::iniciarSesion(const string &usuario, const string &password) {
   return true;
 };
 
-void App::reproducirAleatoriamente() {
+void App::reproducirAleatoriamente(ListaDinamica<Cancion>& canciones) {
   bool seguirReproduciendo = true;
   while (seguirReproduciendo && this->enEjecusion) {
     aleatorioActual = generarPseudoAleatorio(canciones.obtenerTamaño());
-    this->canciones[aleatorioActual].imprimirInformacion();
+    canciones[aleatorioActual].imprimirInformacion();
 
     cout << endl;
     cout << "¿Desea reproducir otra canción? (1 = Sí, 0 = No): ";
+
     int continuar;
     cin >> continuar;
 
@@ -135,9 +137,39 @@ void App::reproducirAleatoriamente() {
   };
 }
 
+Cancion* App::buscarCancion(const string& cancionId) {
+    for (size_t i = 0; i < canciones.obtenerTamaño(); i++) {
+        if (canciones[i].getIdentificador() == cancionId) {
+            return &canciones[i];
+        }
+    }
+    return nullptr;
+}
+
+void App::reproducirFavoritos(ListaDinamica<Favorito>& favoritos) {
+  bool seguirReproduciendo = true;
+  Cancion* cancion;
+  while (seguirReproduciendo && this->enEjecusion) {
+    for (size_t i = 0; i < favoritos.obtenerTamaño(); i++) {
+      cancion = buscarCancion(favoritos[i].getCancionId());
+      cancion->imprimirInformacion();
+
+      cout << endl;
+      cout << "¿Desea reproducir otra canción? (1 = Sí, 0 = No): ";
+
+      int continuar;
+      cin >> continuar;
+
+      if (continuar != 1) {
+        seguirReproduciendo = false;
+      }
+      cout << endl;
+    };
+  }
+}
+
 void App::run() {
 
-  //1. Iniciar Sesion
   string usuario;
   string password;
 
@@ -178,7 +210,7 @@ void App::run() {
 
           switch (opcion) {
               case 1:
-                  reproducirAleatoriamente();
+                  reproducirAleatoriamente(canciones);
                   break;
               case 2:
                 enEjecusion = false;
@@ -190,24 +222,27 @@ void App::run() {
           }
 
       } else if (this->tipoMembresia == "premium") {
-          setReproduccionAleatoria(false);
+        setReproduccionAleatoria(false);
 
-          cout << getReproduccionAleatoria() << endl;
-          opcion = imprimirMenu(menu_premium, 1, 3);
-          switch (opcion) {
-              case 1:
-                  reproducirAleatoriamente();
-                  break;
-              case 2:
-                  cout <<  "Opcion 2" << endl;
-                  break;
-              case 3:
-                enEjecusion = false;
-                cout << "¡Hasta pronto!" << endl;
-                break;
-              default:
-                  cerr << "Opcion No Valida" << endl;
-          }
+        opcion = imprimirMenu(menu_premium, 1, 3);
+        storage->cargarFavoritosUsuario(this->almacenamiento +
+                                            "/data/favoritos.csv",
+                                        this->misFavoritos, usuarioActual);
+
+        switch (opcion) {
+        case 1:
+          reproducirAleatoriamente(canciones);
+          break;
+        case 2:
+          reproducirFavoritos(this->misFavoritos);
+          break;
+        case 3:
+          enEjecusion = false;
+          cout << "¡Hasta pronto!" << endl;
+          break;
+        default:
+          cerr << "Opcion No Valida" << endl;
+        }
 
       } else {
           cerr << "Tipo de membresía no reconocido" << endl;

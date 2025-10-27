@@ -17,7 +17,9 @@ public:
   bool leerArchivo(string ruta_archivo, ifstream &archivo);
   void cargarCanciones(string &ruta_archivo, ListaDinamica<Cancion> &canciones);
   void cargarAnuncios(string &ruta_archivo, ListaDinamica<Anuncio> &anuncios);
-  void cargarFavoritos(string &ruta_archivo, ListaDinamica<Favorito> &favoritos);
+  void cargarFavoritos(string &ruta_archivo,
+                       ListaDinamica<Favorito> &favoritos);
+  bool cargarFavoritosUsuario(const string& ruta_archivo, ListaDinamica<Favorito>& resultado, const string& usuario);
 };
 
 #endif // STORAGE_H

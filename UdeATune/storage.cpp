@@ -145,3 +145,37 @@ void Storage::cargarFavoritos(string &ruta_archivo,
   }
   favoritos_file.close();
 }
+
+bool Storage::cargarFavoritosUsuario(const string& ruta_archivo,
+                                   ListaDinamica<Favorito>& resultado,
+                                   const string& usuario) {
+    ifstream archivo(ruta_archivo);
+    if (!archivo.is_open()) {
+        cerr << "Error: No se pudo abrir " << ruta_archivo << endl;
+        return false;
+    }
+
+    string linea;
+    getline(archivo, linea);
+
+    while (getline(archivo, linea)) {
+        if (linea.empty()) continue;
+
+        size_t pos = 0;
+        string token;
+
+        pos = linea.find(',');
+        if (pos == string::npos) continue;
+
+        string usuarioArchivo = linea.substr(0, pos);
+        string cancionId = linea.substr(pos + 1);
+
+        if (usuarioArchivo == usuario) {
+            Favorito fav(usuarioArchivo, cancionId);
+            resultado.agregar(fav);
+        }
+    }
+
+    archivo.close();
+    return true;
+}

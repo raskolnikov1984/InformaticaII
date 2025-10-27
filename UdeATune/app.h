@@ -31,6 +31,7 @@ public:
   ListaDinamica<Cancion> canciones;
   ListaDinamica<Anuncio> anuncios;
   ListaDinamica<Favorito> favoritos;
+  ListaDinamica<Favorito> misFavoritos;
 
   string getAlmacenamiento() const;
   bool setAlmacenamiento(string ruta_almacenamiento);
@@ -45,7 +46,10 @@ public:
   int imprimirMenu(const string &menu, int opcion_inicial, int opcion_final);
   void imprimirBarra();
 
-  void reproducirAleatoriamente();
+  void reproducirAleatoriamente(ListaDinamica<Cancion> &canciones);
+  void reproducirFavoritos(ListaDinamica<Favorito> &favoritos);
+
+  Cancion* buscarCancion(const string& cancionId);
 
   void run();
 
