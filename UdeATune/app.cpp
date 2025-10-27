@@ -5,7 +5,6 @@
 
 string menu_standard = "1. Reproducción Aleatoria\n2. Salir\n";
 string menu_premium = "1. Reproducción Aleatoria\n2. Mi Lista de Favoritos\n3. Salir";
-string menu_lista_favoritos = "1. Editar mi lista de favoritos\n2. Seguir otra lista de favoritos\n3. Ejecutar mi lista de favoritos\n4. Volver al menú principal\n";
 string submenu_lista_favoritos = "1. Editar mi lista de favoritos\n2. Seguir otra lista de favoritos\n3. Ejecutar mi lista de favoritos\n4. Volver al menú principal";
 string submenu_editar_favoritos = "1. Agregar canción a favoritos\n2. Eliminar canción de favoritos\n3. Mostrar mis favoritos\n4. Volver al menú anterior";
 
@@ -37,9 +36,29 @@ App::App(const string &ruta_almacenamiento)
 }
 
 
-App::~App() {
-  delete storage;
+App::~App() { delete storage; }
+
+string App::getAlmacenamiento() const { return almacenamiento; }
+
+bool App::setAlmacenamiento(string ruta_almacenamiento) {
+  if (!verificarRuta(ruta_almacenamiento)) {
+    throw runtime_error("No Se Encontro la Ruta del Almacenamiento");
+    return false;
+  }
+  this->almacenamiento = ruta_almacenamiento;
+  return true;
+};
+
+bool App::getReproduccionAleatoria() const
+{
+    return this->reproduccionAleatoria;
 }
+
+void App::setReproduccionAleatoria(bool newReproduccionAleatoria)
+{
+    reproduccionAleatoria = newReproduccionAleatoria;
+}
+
 
 int App::imprimirMenu(const string &menu, int opcion_inicial, int opcion_final) {
     int opcion = 0;
@@ -66,25 +85,12 @@ int App::imprimirMenu(const string &menu, int opcion_inicial, int opcion_final) 
     return opcion;
 }
 
+
 void App::imprimirBarra() {
   cout << "| Usuario: " << this->usuarioActual << " | Tipo Membresia: " << this->tipoMembresia << " |"<< endl;
 
 };
 
-bool App::verificarRuta(string &ruta) {
-    return access(ruta.c_str(), F_OK) == 0;
-};
-
-int App::generarPseudoAleatorio(int ultimoNumero) {
-  random_device r;
-
-  default_random_engine e1(r());
-  uniform_int_distribution<int> uniform_dist(0, ultimoNumero);
-
-  int mean = uniform_dist(e1);
-
-  return mean;
-};
 
 void App::mostrarCancionesCargadas() const {
   cout << "=== CANCIONES CARGADAS ===" << endl;
@@ -101,14 +107,22 @@ void App::mostrarCancionesCargadas() const {
   cout << "###########################################################" << endl;
 }
 
-bool App::setAlmacenamiento(string ruta_almacenamiento) {
-  if (!verificarRuta(ruta_almacenamiento)) {
-    throw runtime_error("No Se Encontro la Ruta del Almacenamiento");
-    return false;
-  }
-  this->almacenamiento = ruta_almacenamiento;
-  return true;
+
+bool App::verificarRuta(string &ruta) {
+    return access(ruta.c_str(), F_OK) == 0;
 };
+
+int App::generarPseudoAleatorio(int ultimoNumero) {
+  random_device r;
+
+  default_random_engine e1(r());
+  uniform_int_distribution<int> uniform_dist(0, ultimoNumero);
+
+  int mean = uniform_dist(e1);
+
+  return mean;
+};
+
 
 bool App::iniciarSesion(const string &usuario, const string &password) {
   if (!Login().esAutorizado(usuario, password, this->usuarioActual, this->tipoMembresia)) {
@@ -140,7 +154,7 @@ void App::reproducirAleatoriamente(ListaDinamica<Cancion>& canciones) {
 Cancion* App::buscarCancion(const string& cancionId) {
     for (size_t i = 0; i < canciones.obtenerTamaño(); i++) {
         if (canciones[i].getIdentificador() == cancionId) {
-            return &canciones[i];
+            return &canciones[i]; 
         }
     }
     return nullptr;
@@ -234,6 +248,35 @@ void App::run() {
           reproducirAleatoriamente(canciones);
           break;
         case 2:
+          switch (opcion) {
+          case 1:
+            switch (opcion) {
+            case 1:
+                cout << "Esta funcion No esta Implementada" << endl;
+                break;
+            case 2:
+                cout << "Esta funcion No esta Implementada" << endl;
+                break;
+            case 3:
+                cout << "Esta funcion No esta Implementada" << endl;
+                break;
+            case 4:
+                break;
+            default:
+                cerr << "Opcion No Valida" << endl;
+            }
+            break;
+          case 2:
+              cout << "Esta funcion No esta Implementada" << endl;
+            break;
+          case 3:
+              cout << "Esta funcion No esta Implementada" << endl;
+            break;
+          case 4:
+            break;
+          default:
+              cerr << "Opcion No Valida" << endl;
+            }
           reproducirFavoritos(this->misFavoritos);
           break;
         case 3:
@@ -249,19 +292,4 @@ void App::run() {
           enEjecusion = false;
       }
   };
-}
-
-string App::getAlmacenamiento() const
-{
-    return almacenamiento;
-}
-
-bool App::getReproduccionAleatoria() const
-{
-    return this->reproduccionAleatoria;
-}
-
-void App::setReproduccionAleatoria(bool newReproduccionAleatoria)
-{
-    reproduccionAleatoria = newReproduccionAleatoria;
 }
