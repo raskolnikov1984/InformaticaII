@@ -5,7 +5,7 @@
 
 string menu_standard = "1. Reproducción Aleatoria\n2. Salir\n";
 string menu_premium = "1. Reproducción Aleatoria\n2. Mi Lista de Favoritos\n3. Salir";
-string submenu_lista_favoritos = "1. Editar mi lista de favoritos\n2. Seguir otra lista de favoritos\n3. Ejecutar mi lista de favoritos\n4. Volver al menú principal";
+string submenu_lista_favoritos = "1. Reproducir Lista Favoritos\n2. Editar mi lista de favoritos.\n3. Seguir otra lista de favoritos\n4. Ejecutar mi lista de favoritos\n5. Volver al menú principal";
 string submenu_editar_favoritos = "1. Agregar canción a favoritos\n2. Eliminar canción de favoritos\n3. Mostrar mis favoritos\n4. Volver al menú anterior";
 
 
@@ -132,8 +132,18 @@ bool App::iniciarSesion(const string &usuario, const string &password) {
   return true;
 };
 
+void App::imprimirAnuncio() {
+    Anuncio anuncioAleatorio;
+    int anuncioAleatorioNum = generarPseudoAleatorio(anuncios.obtenerTamaño());
+
+    anuncioAleatorio = anuncios[anuncioAleatorioNum];
+    anuncioAleatorio.imprimirInfo();
+}
+
+
 void App::reproducirAleatoriamente(ListaDinamica<Cancion>& canciones) {
   bool seguirReproduciendo = true;
+  int cancionesSiguienteAnuncio = 0;
   while (seguirReproduciendo && this->enEjecusion) {
     aleatorioActual = generarPseudoAleatorio(canciones.obtenerTamaño());
     canciones[aleatorioActual].imprimirInformacion();
@@ -148,6 +158,15 @@ void App::reproducirAleatoriamente(ListaDinamica<Cancion>& canciones) {
       seguirReproduciendo = false;
     }
     cout << endl;
+
+    if (this->tipoMembresia == "estandar") {
+        cancionesSiguienteAnuncio++;
+
+        if (cancionesSiguienteAnuncio == 2) {
+            imprimirAnuncio();
+            cancionesSiguienteAnuncio = 0;
+        }
+    }
   };
 }
 
@@ -174,8 +193,9 @@ void App::reproducirFavoritos(ListaDinamica<Favorito>& favoritos) {
       int continuar;
       cin >> continuar;
 
-      if (continuar != 1) {
+      if (continuar == 0) {
         seguirReproduciendo = false;
+        break;
       }
       cout << endl;
     };
@@ -184,112 +204,115 @@ void App::reproducirFavoritos(ListaDinamica<Favorito>& favoritos) {
 
 void App::run() {
 
-  string usuario;
-  string password;
+    string usuario;
+    string password;
 
-  int opcion = 0;
+    int opcion = 0;
 
-  cout << "Por Favor ingresa tu usuario: " << endl;
-  cin >> usuario;
-  cout << "Por Favor ingresa tu password: " << endl;
-  cin >> password;
+    cout << "Por Favor ingresa tu usuario: " << endl;
+    cin >> usuario;
+    cout << "Por Favor ingresa tu password: " << endl;
+    cin >> password;
 
-  iniciarSesion(usuario, password);
+    iniciarSesion(usuario, password);
 
-  if (!this->enEjecusion) {
-      cout << endl;
-      cout << "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@" << endl;
-      cout << "@@    Verifique Sus Credenciales!   @@" << endl;
-      cout << "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@" << endl;
-      cout << endl;
+    if (!this->enEjecusion) {
+        cout << endl;
+        cout << "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@" << endl;
+        cout << "@@    Verifique Sus Credenciales!   @@" << endl;
+        cout << "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@" << endl;
+        cout << endl;
 
-      return;
-  }
+        return;
+    }
 
-  cout << endl;
-  cout << "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@" << endl;
-  cout << "@@         Bienvenido A UdeATune,    "<< usuario << "!     @@" << endl;
-  cout << "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@" << endl;
-  cout << endl;
+    cout << endl;
+    cout << "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@" << endl;
+    cout << "@@         Bienvenido A UdeATune,    "<< usuario << "!     @@" << endl;
+    cout << "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@" << endl;
+    cout << endl;
 
-  mostrarCancionesCargadas();
-  while (this->enEjecusion) {
-      cout << endl;
-      imprimirBarra();
-      cout << endl;
+    mostrarCancionesCargadas();
+    while (this->enEjecusion) {
+        cout << endl;
+        imprimirBarra();
+        cout << endl;
 
-      if (this->tipoMembresia == "estandar") {
-          opcion = imprimirMenu(menu_standard, 1, 2);
-          setReproduccionAleatoria(true);
+        if (this->tipoMembresia == "estandar") {
+            opcion = imprimirMenu(menu_standard, 1, 2);
+            setReproduccionAleatoria(true);
 
-          switch (opcion) {
-              case 1:
-                  reproducirAleatoriamente(canciones);
-                  break;
-              case 2:
-                enEjecusion = false;
-                cout << "¡Hasta pronto!" << endl;
-
-                break;
-              default:
-                  cerr << "Opcion No Valida" << endl;
-          }
-
-      } else if (this->tipoMembresia == "premium") {
-        setReproduccionAleatoria(false);
-
-        opcion = imprimirMenu(menu_premium, 1, 3);
-        storage->cargarFavoritosUsuario(this->almacenamiento +
-                                            "/data/favoritos.csv",
-                                        this->misFavoritos, usuarioActual);
-
-        switch (opcion) {
-        case 1:
-          reproducirAleatoriamente(canciones);
-          break;
-        case 2:
-          switch (opcion) {
-          case 1:
             switch (opcion) {
-            case 1:
-                cout << "Esta funcion No esta Implementada" << endl;
-                break;
-            case 2:
-                cout << "Esta funcion No esta Implementada" << endl;
-                break;
-            case 3:
-                cout << "Esta funcion No esta Implementada" << endl;
-                break;
-            case 4:
-                break;
-            default:
-                cerr << "Opcion No Valida" << endl;
-            }
-            break;
-          case 2:
-              cout << "Esta funcion No esta Implementada" << endl;
-            break;
-          case 3:
-              cout << "Esta funcion No esta Implementada" << endl;
-            break;
-          case 4:
-            break;
-          default:
-              cerr << "Opcion No Valida" << endl;
-            }
-          reproducirFavoritos(this->misFavoritos);
-          break;
-        case 3:
-          enEjecusion = false;
-          cout << "¡Hasta pronto!" << endl;
-          break;
-        default:
-          cerr << "Opcion No Valida" << endl;
-        }
+                case 1:
+                    reproducirAleatoriamente(canciones);
+                    break;
+                case 2:
+                    enEjecusion = false;
+                    cout << "¡Hasta pronto!" << endl;
 
-      } else {
-          cerr << "Tipo de membresía no reconocido" << endl;
-          enEjecusion = false;
-      }
-  };
+                    break;
+                default:
+                    cerr << "Opcion No Valida" << endl;
+            }
+
+        } else if (this->tipoMembresia == "premium") {
+            storage->cargarFavoritosUsuario(
+                this->almacenamiento +
+                "/data/favoritos.csv",
+                this->misFavoritos, usuarioActual);
+            setReproduccionAleatoria(false);
+
+            opcion = imprimirMenu(menu_premium, 1, 3);
+
+            switch (opcion) {
+                case 1:
+                    reproducirAleatoriamente(canciones);
+                    break;
+                case 2:
+                    opcion = imprimirMenu(submenu_lista_favoritos, 1, 4);
+                    switch (opcion) {
+                        case 1:
+                            reproducirFavoritos(favoritos);
+                            break;
+                        case 2:
+                            opcion = imprimirMenu(submenu_editar_favoritos, 1, 4);
+                            switch (opcion) {
+                                case 1:
+                                    cout << "Esta funcion No esta Implementada" << endl;
+                                    break;
+                                case 2:
+                                    cout << "Esta funcion No esta Implementada" << endl;
+                                    break;
+                                case 3:
+                                    cout << "Esta funcion No esta Implementada" << endl;
+                                    break;
+                                case 4:
+                                    break;
+                                default:
+                                    cerr << "Opcion No Valida" << endl;
+                            }
+
+                            break;
+                        case 3:
+                            cout << "Esta funcion No esta Implementada" << endl;
+                            break;
+                        case 4:
+                            break;
+                        default:
+                            cerr << "Opcion No Valida" << endl;
+                    }
+                    break;
+                case 3:
+                    enEjecusion = false;
+                    cout << "¡Hasta pronto!" << endl;
+                    break;
+                default:
+                    cerr << "Opcion No Valida" << endl;
+            }
+
+        } else {
+            cerr << "Tipo de membresía no reconocido" << endl;
+            enEjecusion = false;
+        }
+    };
 }

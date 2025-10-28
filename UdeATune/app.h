@@ -44,6 +44,7 @@ public:
 
   void mostrarCancionesCargadas() const;
   int imprimirMenu(const string &menu, int opcion_inicial, int opcion_final);
+  void imprimirAnuncio();
   void imprimirBarra();
 
   void reproducirAleatoriamente(ListaDinamica<Cancion> &canciones);

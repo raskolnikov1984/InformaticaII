@@ -34,7 +34,12 @@ int Anuncio::getPrioridad() const
     return prioridad;
 }
 
-void Anuncio::setPrioridad(int newPrioridad)
-{
-    prioridad = newPrioridad;
+void Anuncio::setPrioridad(int newPrioridad) { prioridad = newPrioridad; }
+
+void Anuncio::imprimirInfo() {
+  cout << "################################################" << endl;
+  cout << "Mensaje: " << this->mensaje << endl;
+  cout << "Categoria: " << this->categoria << endl;
+  cout << "Prioridad: " << this->prioridad << endl;
+  cout << "################################################" << endl;
 }

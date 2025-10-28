@@ -2,19 +2,21 @@
 #define ANUNCIO_H_
 
 #include <string>
+#include <iostream>
 
 using namespace std;
 
 class Anuncio {
 public:
-    Anuncio();
-    Anuncio(const string &mensaje, char categoria, int priorida);
-    string getMensaje() const;
-    void setMensaje(const string &newMensaje);
-    char getCategoria() const;
-    void setCategoria(char newCategoria);
-    int getPrioridad() const;
-    void setPrioridad(int newPriorida);
+  Anuncio();
+  Anuncio(const string &mensaje, char categoria, int priorida);
+  string getMensaje() const;
+  void setMensaje(const string &newMensaje);
+  char getCategoria() const;
+  void setCategoria(char newCategoria);
+  int getPrioridad() const;
+  void setPrioridad(int newPriorida);
+  void imprimirInfo();
 
 private:
   string mensaje;
