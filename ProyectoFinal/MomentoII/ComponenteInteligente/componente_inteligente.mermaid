@@ -1,0 +1,8 @@
+graph TD
+    A[Estado Actual] --> B{Análisis de Riesgo}
+    A --> C[Evaluador de Objetivos]
+    B --> D[Calculador de Trayectoria]
+    C --> D
+    D --> E[Generador de Acciones]
+    E --> F[Selector Óptimo]
+    F --> G[Ejecución]

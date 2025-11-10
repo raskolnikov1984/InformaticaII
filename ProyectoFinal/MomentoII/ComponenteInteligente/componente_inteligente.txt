@@ -1,0 +1,6 @@
+Sensores → [Procesamiento] → Estado del Juego
+- Posición/orientación naves
+- Combustible disponible
+- Distancia a objetivos
+- Presencia de obstáculos
+- Parámetros físicos (velocidad, aceleración)

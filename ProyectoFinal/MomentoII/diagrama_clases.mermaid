@@ -1,0 +1,190 @@
+classDiagram
+    %% CLASE BASE PRINCIPAL
+    class ObjetoEspacial {
+        <<abstract>>
+        #Vector2D posicion
+        #Vector2D velocidad
+        #Vector2D aceleracion
+        #double masa
+        #double angulo
+        +actualizar(double dt)*
+        +aplicarFuerza(Vector2D fuerza)
+        +dibujar()
+    }
+
+    %% JERARQUÍA DE NAVES
+    class Nave {
+        <<abstract>>
+        #double combustible
+        #double temperatura
+        #double salud
+        #vector~Propulsor~ propulsores
+        +controlar(vector~bool~ inputs)*
+        +consumirCombustible(double cantidad)
+        +getCombustible() double
+    }
+
+    class SaturnoV {
+        -vector~Etapa~ etapas
+        -double alturaMaxima
+        -bool enOrbita
+        +separarEtapa() bool
+        +calcularTrayectoria() Vector2D
+    }
+
+    class ModuloMando {
+        -bool acoplado
+        -ModuloLunar* objetivoAcoplamiento
+        -double precisionAcoplamiento
+        +intentarAcoplamiento() bool
+        +calcularDistanciaRelativa() double
+    }
+
+    class ModuloLunar {
+        -bool patasExtendidas
+        -double torque
+        -bool alunizado
+        +extenderPatas() void
+        +verificarAlunizaje() bool
+        +calcularVelocidadDescenso() double
+    }
+
+    %% SISTEMAS DE PROPULSIÓN
+    class Propulsor {
+        <<abstract>>
+        #double empuje
+        #double consumoCombustible
+        #bool activo
+        +activar() void
+        +desactivar() void
+        +getEmpujeActual() double
+    }
+
+    class PropulsorPrincipal {
+        -double temperatura
+        -double maxTemperatura
+        +enfriar() void
+        +verificarSobrecalentamiento() bool
+    }
+
+    class PropulsorRCS {
+        -Vector2D direccion
+        -double empujeLateral
+        +ajustarDireccion(Vector2D dir) void
+    }
+
+    %% FÍSICAS Y COLISIONES
+    class SistemaFisicas {
+        -vector~ObjetoEspacial*~ objetos
+        -double gravedad
+        -double resistenciaAire
+        +agregarObjeto(ObjetoEspacial* obj) void
+        +actualizarFisicas(double dt) void
+        +verificarColisiones() void
+        +calcularGravedad(double altura) double
+    }
+
+    class Colisionador {
+        -vector~ObjetoEspacial*~ objetosColisionables
+        +detectarColision(ObjetoEspacial* obj1, ObjetoEspacial* obj2) bool
+        +resolverColision(ObjetoEspacial* obj1, ObjetoEspacial* obj2) void
+        +calcularTransferenciaMomentum() Vector2D
+    }
+
+    %% GESTIÓN DE NIVELES
+    class GestorNivel {
+        -Nave* naveJugador
+        -vector~Obstaculo~ obstaculos
+        -vector~Objetivo~ objetivos
+        -SistemaFisicas* sistemaFisicas
+        -int nivelActual
+        +cargarNivel(int numeroNivel) void
+        +verificarVictoria() bool
+        +verificarDerrota() bool
+        +actualizarNivel(double dt) void
+    }
+
+    class Nivel {
+        <<abstract>>
+        #string nombre
+        #int año
+        #string eventoHistorico
+        +inicializar()*
+        +verificarCompletado() bool*
+        +getProgreso() double
+    }
+
+    class Nivel1 {
+        -double alturaObjetivo
+        -double tiempoLimite
+        -bool orbitaAlcanzada
+        +verificarOrbita() bool
+        +calcularAlturaActual() double
+    }
+
+    class Nivel2 {
+        -double precisionRequerida
+        -vector~EscombroOrbital~ escombros
+        -bool acoplamientoExitoso
+        +generarEscombros() void
+        +verificarPrecision() double
+    }
+
+    class Nivel3 {
+        -Vector2D zonaAlunizaje
+        -double velocidadMaxima
+        -vector~ObstaculoLunar~ obstaculos
+        +verificarZonaSegura() bool
+        +calcularPeligros() vector~ObstaculoLunar~
+    }
+
+    %% OBJETOS DEL ENTORNO
+    class Obstaculo {
+        -Vector2D posicion
+        -double radio
+        -bool destructible
+        +dibujar() void
+        +verificarColision(Nave* nave) bool
+    }
+
+    class EscombroOrbital {
+        -double masa
+        -Vector2D velocidadAngular
+        +actualizarPosicion(double dt) void
+    }
+
+    class ObstaculoLunar {
+        -string tipo
+        -double altura
+        -bool peligroso
+        +getPeligrosidad() double
+    }
+
+    %% RELACIONES DE HERENCIA
+    ObjetoEspacial <|-- Nave
+    Nave <|-- SaturnoV
+    Nave <|-- ModuloMando
+    Nave <|-- ModuloLunar
+    
+    Propulsor <|-- PropulsorPrincipal
+    Propulsor <|-- PropulsorRCS
+    
+    Nivel <|-- Nivel1
+    Nivel <|-- Nivel2
+    Nivel <|-- Nivel3
+
+    %% RELACIONES DE COMPOSICIÓN Y AGREGACIÓN
+    Nave "1" *-- "1..*" Propulsor
+    SaturnoV "1" *-- "2..3" Etapa
+    ModuloMando "1" --> "0..1" ModuloLunar : objetivoAcoplamiento
+    GestorNivel "1" *-- "1" SistemaFisicas
+    GestorNivel "1" *-- "1" Nave : naveJugador
+    GestorNivel "1" *-- "1..*" Nivel
+    SistemaFisicas "1" *-- "1" Colisionador
+    Nivel2 "1" *-- "0..*" EscombroOrbital
+    Nivel3 "1" *-- "0..*" ObstaculoLunar
+
+    %% DEPENDENCIAS
+    GestorNivel ..> Nivel : usa
+    SistemaFisicas ..> ObjetoEspacial : actualiza
+    Colisionador ..> Obstaculo : detecta

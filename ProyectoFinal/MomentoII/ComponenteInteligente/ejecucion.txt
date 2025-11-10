@@ -1,0 +1,5 @@
+Decisión → [Conversión] → Comandos de juego
+- Secuencias de propulsión
+- Ajustes de orientación
+- Activación de sistemas
+- Gestión de recursos
